@@ -1,0 +1,116 @@
+/**
+ * This is the beginning of my little minimal art project, to create cool looking shapes and stuff.
+ * Part of ™P
+ */
+const D3Node = require('d3-node'),
+    fs = require('fs')
+require('d3-selection-multi');
+// const d = new D3Node()      // initializes D3 with container element
+
+const screenSize = 640
+
+const w = 640, h = 640
+let label = "_shape #"
+
+
+
+let dr;
+
+let steps = 16;
+let step = 256 / steps;
+let colors = Array.apply(null, { length: steps }).map(Number.call, Number)
+colors = colors.map((c) => {
+    let c16 = (step * c).toString(16)
+    return '#' + c16 + c16 + c16;
+})
+
+let output = []
+if (process.argv.length > 2) {
+    require('./desc/' + process.argv[2])(init(process.argv[2]))
+} else {
+    let files = fs.readdirSync('./desc')
+    for (let i = 0; i < files.length; i++) {
+        let no = files[i].substr(0, files[i].length-3)
+        try{
+            require('./desc/' + no)(init(no))
+            output.push(no)
+        }
+        catch(e){            
+            console.error(e)
+        }
+    }
+}
+fs.writeFileSync('shapes.json', JSON.stringify(output));
+
+function init(no, _label) {      
+    d = new D3Node()
+    dr = d.createSVG(w, h)
+    dr.save = save.bind(this, no, d);
+    dr.w = w
+    dr.h = h
+    dr.cx = w / 2
+    dr.cy = h / 2
+    dr.poly = poly
+    dr.lineD = lineD
+    dr.d3 = D3Node.d3
+    dr.c = colors
+    dr.m = m
+    dr.bg = colors[1]
+    dr.label = label
+    dr.attr('viewport-fill', '#000')
+
+    dr.append('defs')
+        .append('style')
+        .attr('type', 'text/css')
+        .text('text{ font-family: Freemono, Sans, Arial; fill: #555}');
+
+    dr.append('rect')
+        .attrs({ x: 0, y: 0, width: w, height: h, fill: dr.bg, stroke: colors[7] })
+    
+    return dr
+}
+
+
+
+function poly(n, r, offset) {
+    let da = Math.PI * 2 / n
+    let ret = []
+    if (!offset) offset = { x: 0, y: 0 }
+    for (let i = 0; i < n; i++) ret.push({
+        x: (Math.sin(da * i) * r) + offset.x,
+        y: (Math.cos(da * i) * r) + offset.y
+    })
+    return ret
+}
+
+function save(imageIndex, d, _label) {
+    
+    dr.append('text')
+        .attrs({ x: dr.cx, y: h - 8, 'text-anchor': "middle", fill: colors[6] })
+        .text(_label?_label: label + imageIndex)
+
+    fs.writeFileSync('out/' + imageIndex + '.svg', d.svgString())
+}
+
+function m(offset) {
+    return `translate(${offset.x},${offset.y})`
+}
+
+function svg() {
+    return d = d3.select('body')
+        .append("svg")
+        .attr("width", window.innerWidth)
+        .attr("height", window.innerHeight)
+}
+
+function reset() {
+    d3.select("svg").remove();
+    return svg()
+}
+
+function lineD(c) {
+    return D3Node.d3.line()
+        .x(function (d) { return d.x; })
+        .y(function (d) { return d.y; })
+        .curve(c || D3Node.d3.curveCardinalClosed);
+}

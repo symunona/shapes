@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <title>_ shapes</title>
+    <style>
+        body {
+            background: black;
+            color: white;
+        }
+
+        div {
+            margin-bottom: 40px
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <div id="images" style="text-align: center">
+
+    </div>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $.ajax('shapes.json').then((shapes) => {
+                return $.when.apply(this, shapes.map((e) => {
+                    let el = $('<div>');
+                    $('#images').append(el)
+                    return $.ajax({
+                        url: `out/${e}.svg?v=` + Math.random(),
+                        dataType: 'text'
+                    })
+                        .then(function (svg) {
+                            el.append(svg)
+                        })
+                }))
+            })
+        })        
+    </script>
+
+</body>
+
+</html>
