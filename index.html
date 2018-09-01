@@ -8,8 +8,10 @@
             color: white;
         }
 
-        div {
-            margin-bottom: 40px
+        a {
+            margin-bottom: 40px;
+            display: block;
+            border: 0 !important;
         }
     </style>
 
@@ -25,8 +27,8 @@
     <script>
         $(function () {
             $.ajax('shapes.json').then((shapes) => {
-                return $.when.apply(this, shapes.map((e) => {
-                    let el = $('<div>');
+                return $.when.apply(this, shapes.map((e, i) => {
+                    let el = $('<a>', {href: `out/${i}.svg`});
                     $('#images').append(el)
                     return $.ajax({
                         url: `out/${e}.svg?v=` + Math.random(),

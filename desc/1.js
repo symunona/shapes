@@ -14,7 +14,7 @@ module.exports = function (d) {
     g.append('path')
         .attr('d',
             d.lineD(d.d3.curveLinearClosed)(triangle) +
-            ` M ${cx - r}, ${cy} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 -${r * 2},0`)
+            d.circlePath(cx, cy, r))
         .attr('fill', d.c[3])
 
     d.save()

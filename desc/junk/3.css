@@ -1,0 +1,11 @@
+.spin3{ 
+    animation: spin3 2s cubic-bezier(0.49, 0.18, 0, 0.99) infinite; 
+}
+
+@keyframes spin3 {
+    0% { transform:rotate(0deg); }     
+    20% { transform:rotate(120deg); }     
+    30% { transform:rotate(120deg); }     
+    50% { transform:rotate(240deg); }     
+    100% { transform:rotate(240deg); } 
+}

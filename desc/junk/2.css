@@ -1,0 +1,6 @@
+.spin2{ 
+    animation: spin2 2s cubic-bezier(0.49, 0.18, 0, 0.99) infinite; 
+}
+@keyframes spin2 { 
+    100% { transform:rotate(120deg); } 
+}

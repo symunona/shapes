@@ -1,0 +1,9 @@
+.tri-rotate-8{ 
+    animation: spin8 2s cubic-bezier(0.05, 1.23, 0.99, 0.04) infinite
+}
+
+@keyframes spin8 {
+    0% { transform:rotate(10deg) scale(1);  }         
+    50% { transform:rotate(110deg) scale(1.1); }             
+    100% { transform:rotate(10deg) scale(1);  }     
+}

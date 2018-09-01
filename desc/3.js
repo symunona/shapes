@@ -1,5 +1,5 @@
 /**
- * #2
+ * #3
  */
 
 module.exports = function (d) {
@@ -12,11 +12,11 @@ module.exports = function (d) {
         .attr('transform', d.m({ x: d.cx, y: d.cy }))
 
     let p = g.append('path')
-        .attr('class', 'spin2')
+        .attr('class', 'spin3')
         .attr('d',
             d.lineD(d.d3.curveLinearClosed)(triangle) +
             d.circlePath(0, 0, d.h / 3))
         .attr('fill', d.c[3])
 
-    d.save('_shape #1 anim #1')
+    d.save('_shape #1 anim #2')
 }

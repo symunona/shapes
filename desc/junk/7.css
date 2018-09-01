@@ -1,0 +1,9 @@
+.tri-rotate-7{ 
+    animation: spin7 2s cubic-bezier(0.05, 1.23, 0.99, 0.04) infinite
+}
+
+@keyframes spin7 {
+    0% { transform:rotate(10deg) scale(1);  }         
+    50% { transform:rotate(110deg) scale(1.2); }             
+    100% { transform:rotate(10deg) scale(1);  }     
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewport-fill="#000"><defs><style type="text/css">text{ font-family: Freemono, Sans, Arial; fill: #555} 
+.tri-rotate-8{ 
+    animation: spin8 2s cubic-bezier(0.05, 1.23, 0.99, 0.04) infinite
+}
+
+@keyframes spin8 {
+    0% { transform:rotate(10deg) scale(1);  }         
+    50% { transform:rotate(110deg) scale(1.1); }             
+    100% { transform:rotate(10deg) scale(1);  }     
+}</style></defs><rect x="0" y="0" width="640" height="640" fill="#101010" stroke="#707070"></rect><g fill-rule="evenodd" transform="translate(320,320)"><path d="M184.75208614068023,106.6666666666667L158.53756276851084,-142.7478626898897L-86.77048385617063,-194.88969763042158L-212.16467101189832,22.299405497099304L-44.35449404112211,208.6714881565452Z" fill="#303030"></path><path class="tri-rotate-8" d="M184.75208614068023,106.6666666666667L158.53756276851084,-142.7478626898897L-86.77048385617063,-194.88969763042158L-212.16467101189832,22.299405497099304L-44.35449404112211,208.6714881565452Z" fill="#101010"></path></g><text x="320" y="632" text-anchor="middle" fill="#606060">_shape #3 anim #1</text></svg>

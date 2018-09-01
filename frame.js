@@ -28,21 +28,22 @@ let output = []
 if (process.argv.length > 2) {
     require('./desc/' + process.argv[2])(init(process.argv[2]))
 } else {
-    let files = fs.readdirSync('./desc')
+    let files = fs.readdirSync('./desc/')
     for (let i = 0; i < files.length; i++) {
-        let no = files[i].substr(0, files[i].length-3)
-        try{
+        if (files[i].substr(-3) !== '.js') continue
+        let no = files[i].substr(0, files[i].length - 3)
+        try {
             require('./desc/' + no)(init(no))
             output.push(no)
         }
-        catch(e){            
+        catch (e) {
             console.error(e)
         }
     }
 }
 fs.writeFileSync('shapes.json', JSON.stringify(output));
 
-function init(no, _label) {      
+function init(no, _label) {
     d = new D3Node()
     dr = d.createSVG(w, h)
     dr.save = save.bind(this, no, d);
@@ -57,37 +58,37 @@ function init(no, _label) {
     dr.m = m
     dr.bg = colors[1]
     dr.label = label
+    dr.circlePath = circlePath
+
     dr.attr('viewport-fill', '#000')
 
-    dr.append('defs')
-        .append('style')
-        .attr('type', 'text/css')
-        .text('text{ font-family: Freemono, Sans, Arial; fill: #555}');
+    loadCss(no, dr)
 
     dr.append('rect')
         .attrs({ x: 0, y: 0, width: w, height: h, fill: dr.bg, stroke: colors[7] })
-    
+
     return dr
 }
 
 
 
-function poly(n, r, offset) {
+function poly(n, r, offset, angleOffset) {
     let da = Math.PI * 2 / n
     let ret = []
+    angleOffset = angleOffset || 0
     if (!offset) offset = { x: 0, y: 0 }
     for (let i = 0; i < n; i++) ret.push({
-        x: (Math.sin(da * i) * r) + offset.x,
-        y: (Math.cos(da * i) * r) + offset.y
+        x: (Math.sin(da * i + angleOffset) * r) + offset.x,
+        y: (Math.cos(da * i + angleOffset) * r) + offset.y
     })
     return ret
 }
 
 function save(imageIndex, d, _label) {
-    
+
     dr.append('text')
         .attrs({ x: dr.cx, y: h - 8, 'text-anchor': "middle", fill: colors[6] })
-        .text(_label?_label: label + imageIndex)
+        .text(_label ? _label : label + imageIndex)
 
     fs.writeFileSync('out/' + imageIndex + '.svg', d.svgString())
 }
@@ -106,6 +107,21 @@ function svg() {
 function reset() {
     d3.select("svg").remove();
     return svg()
+}
+
+function circlePath(cx, cy, r){
+    return ` M ${cx - r}, ${cy} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 -${r * 2},0`
+}
+
+function loadCss(no, d) {
+    let css = ''
+    try {
+        css = fs.readFileSync(`desc/junk/${no}.css`, 'utf8')
+    } catch (e) { }
+    dr.append('defs')
+        .append('style')
+        .attr('type', 'text/css')
+        .text('text{ font-family: Freemono, Sans, Arial; fill: #555} \n' + css)
 }
 
 function lineD(c) {
