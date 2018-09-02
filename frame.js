@@ -3,8 +3,10 @@
  * Part of ™P
  */
 const D3Node = require('d3-node'),
-    fs = require('fs')
-require('d3-selection-multi');
+    fs = require('fs'),
+    _ = require('underscore')
+require('d3-selection-multi')
+
 // const d = new D3Node()      // initializes D3 with container element
 
 const screenSize = 640
@@ -29,8 +31,13 @@ if (process.argv.length > 2) {
     require('./desc/' + process.argv[2])(init(process.argv[2]))
 } else {
     let files = fs.readdirSync('./desc/')
+    // Hahh!
+    files = files.filter((fn) => fn.substr(-3) === '.js')
+    files = files.map((fn) => Number(fn.substr(0, fn.length - 3)))
+    files = files.sort((a,b)=>a>b?1:a<b?-1:0)
+    files = files.map((fn) => String(fn)+'.js')
+
     for (let i = 0; i < files.length; i++) {
-        if (files[i].substr(-3) !== '.js') continue
         let no = files[i].substr(0, files[i].length - 3)
         try {
             require('./desc/' + no)(init(no))
@@ -109,7 +116,7 @@ function reset() {
     return svg()
 }
 
-function circlePath(cx, cy, r){
+function circlePath(cx, cy, r) {
     return ` M ${cx - r}, ${cy} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 -${r * 2},0`
 }
 
