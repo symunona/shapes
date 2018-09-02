@@ -26,7 +26,7 @@
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script>
         $(function () {
-            $.ajax('shapes.json').then((shapes) => {
+            $.ajax('shapes.json?v=' + Math.random()).then((shapes) => {
                 return $.when.apply(this, shapes.map((e, i) => {
                     let el = $('<a>', {href: `out/${i}.svg`});
                     $('#images').append(el)
