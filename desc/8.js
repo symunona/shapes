@@ -21,5 +21,5 @@ module.exports = function (d) {
             d.lineD(d.d3.curveLinearClosed)(penta))
         .attr('fill', d.bg)                
 
-    d.save('_shape #3 anim #1')
+    d.save('anim #1')
 }

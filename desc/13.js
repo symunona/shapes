@@ -1,0 +1,27 @@
+/**
+ * #13
+ */
+
+module.exports = function (d) {
+
+    let levels = 50
+    let poly = frac(d, d.h / 3, 3, {}, levels)
+
+    let g = d.append('g')
+        .attr('fill-rule', 'evenodd')
+        .attr('transform', d.m({ x: d.cx, y: d.cy }))
+
+    g.append('path')
+        .attr('d', poly)
+        .attr('fill', d.c[3])
+
+    d.save('fractal #6')
+}
+
+function frac(d, size, sides, offset, levelsToGo) {
+    let poly = d.lineD(d.d3.curveLinearClosed)(d.poly(sides, size, null, levelsToGo % 2 ? 0 : Math.PI / 3)) + 'Z '
+    if (levelsToGo > 0) {
+        poly += frac(d, size / sides * (sides - 1), sides, offset, levelsToGo - 1) + ' '
+    }
+    return poly
+}

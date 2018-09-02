@@ -18,5 +18,5 @@ module.exports = function (d) {
             d.circlePath(0, 0, d.h / 3))
         .attr('fill', d.c[3])
 
-    d.save('_shape #1 anim #1')
+    d.save('anim #1')
 }

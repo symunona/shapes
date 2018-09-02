@@ -16,7 +16,7 @@ module.exports = function (d) {
             d.lineD(d.d3.curveLinearClosed)(poly))
         .attr('fill', d.c[3])
 
-    d.save('_shape #5 fractal #2')
+    d.save('fractal #2')
 }
 
 function frac(d, size, sides, offset, levelsToGo){

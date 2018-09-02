@@ -22,5 +22,5 @@ module.exports = function (d) {
             d.lineD(d.d3.curveLinearClosed)(triangle))
         .attr('fill', d.bg)                
 
-    d.save('_shape #2 anim #3')
+    d.save('anim #3')
 }

@@ -24,5 +24,5 @@ module.exports = function (d) {
         // .attr('transform', 'rotate(60, 0 0)')
         
 
-    d.save('_shape #2 anim #1')
+    d.save('anim #1')
 }

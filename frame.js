@@ -95,7 +95,7 @@ function save(imageIndex, d, _label) {
 
     dr.append('text')
         .attrs({ x: dr.cx, y: h - 8, 'text-anchor': "middle", fill: colors[6] })
-        .text(_label ? _label : label + imageIndex)
+        .text(_label ? label + imageIndex + ' ' + _label : label + imageIndex)
 
     fs.writeFileSync('out/' + imageIndex + '.svg', d.svgString())
 }
