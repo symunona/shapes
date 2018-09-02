@@ -4,7 +4,6 @@
 
 module.exports = function (d) {
     
-
     d.append('circle')
         .attrs({
             cx: d.cx,
@@ -29,6 +28,10 @@ module.exports = function (d) {
         'Courier New'
     ]
 
+    let intro = 'This is for dealing with time.'
+    d.append('text').attrs({x: d.w - 1, y: 11, 'text-anchor': 'end'}).text(intro)
+    
+
     d.selectAll('text.style')
         .data(fonts)
         .enter()
@@ -40,9 +43,10 @@ module.exports = function (d) {
             },
             style: function (e) {
                 return 'font-family: ' + e;
-            }
+            },
+            'class': 'style'
         }).text(function (t) {
-            return d.label + '546 - ' + t;
+            return d.label + Math.floor(Math.random()*1000) + ' - ' + t;
         })
         .attr('fill', d.c[4])
 
