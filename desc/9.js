@@ -4,7 +4,7 @@
 
 module.exports = function (d) {
 
-    let levels = 10
+    let levels = 16
     let poly = frac(d, d.h/3, 3, {}, levels)
 
     let g = d.append('g')
