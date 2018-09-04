@@ -4,8 +4,8 @@
 
 module.exports = function (d) {
 
-    let levels = 8
-    let poly = frac(d, d.h / 3, 3, { x: 0, y: 0 }, Math.PI, levels)
+    let levels = 8    
+    let poly = frac(d, d.h / 3, { x: 0, y: 0 }, Math.PI/2, levels)
 
     let g = d.append('g')
         .attr('fill-rule', 'evenodd')
@@ -15,20 +15,19 @@ module.exports = function (d) {
         .attr('d', poly)
         .attr('fill', d.c[3])
 
-    d.save('fractal #9')
+    d.save('fractal #10')
 }
 
-function frac(d, size, sides, offset, angle, levelsToGo) {
-    let poly = d.lineD(d.d3.curveLinearClosed)(d.poly(sides, size, offset, angle)) + 'Z '
+function frac(d, size, offset, angle, levelsToGo) {
+    let poly = d.circlePath(offset.x, offset.y, size) + 'Z '
     if (levelsToGo > 0) {
         let r = size / 2
-        for (let i = 0; i < sides; i++) {
-            let a = (Math.PI * 2 / sides) * i + angle
-            poly += frac(d, r, sides, {
-                x: offset.x + Math.sin(a) * r,
-                y: offset.y + Math.cos(a) * r,
-            }, a, levelsToGo - 1) + ' '
-        }
+        
+        poly += frac(d, r, {
+            x: offset.x + Math.sin(angle) * r,
+            y: offset.y + Math.cos(angle) * r,
+        }, angle, levelsToGo - 1) + ' '
+    
 
     }
     return poly

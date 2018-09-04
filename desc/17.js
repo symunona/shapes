@@ -23,7 +23,7 @@ module.exports = function (d) {
         g.append('script')
     }
 
-    d.save('fractal #10 anim #1')
+    d.save('fractal #11 anim #1')
 }
 
 function frac(d, size, sides, offset, angle, levelsToGo) {
