@@ -69,7 +69,10 @@ function init(no, _label) {
 
     dr.attr('viewport-fill', '#000')
 
-    loadCss(no, dr)
+    let defs = dr.append('defs')
+
+    loadCss(no, defs)
+    loadJs(no, defs)
 
     dr.append('rect')
         .attrs({ x: 0, y: 0, width: w, height: h, fill: dr.bg, stroke: colors[7] })
@@ -120,15 +123,28 @@ function circlePath(cx, cy, r) {
     return ` M ${cx - r}, ${cy} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 -${r * 2},0`
 }
 
-function loadCss(no, d) {
+function loadCss(no, defs) {
     let css = ''
     try {
         css = fs.readFileSync(`desc/junk/${no}.css`, 'utf8')
     } catch (e) { }
-    dr.append('defs')
-        .append('style')
+    defs.append('style')
         .attr('type', 'text/css')
         .text('text{ font-family: Freemono, Sans, Arial; fill: #555} \n' + css)
+}
+
+function loadJs(no, defs) {
+    let js = ''
+    try {
+        js = fs.readFileSync(`desc/junk/${no}.js`, 'utf8')
+    } catch (e) { }
+    if (js){
+        defs.append('script')
+            .attr('type', 'text/javascript')
+            // .attr('xlink:href', `desc/junk/${no}.js`)
+            .text(`<![CDATA[\n${js}\n]]>`)
+    }
+    
 }
 
 function lineD(c) {

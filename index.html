@@ -25,11 +25,28 @@
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
+        // $(function () {
+        //     $.ajax('shapes.json?v=' + Math.random()).then((shapes) => {
+        //         return $.when.apply(this, shapes.map((e, i) => {
+        //             let el = $('<a>', { href: `out/${i}.svg` });
+        //             $('#images').append(el)
+        //             return $.ajax({
+        //                 url: `out/${e}.svg?v=` + Math.random(),
+        //                 dataType: 'text'
+        //             })
+        //                 .then(function (svg) {
+        //                     el.append(svg)
+        //                 })
+        //         }))
+        //     })
+        // })
+
         $(function () {
             $.ajax('shapes.json?v=' + Math.random()).then((shapes) => {
                 return $.when.apply(this, shapes.map((e, i) => {
-                    let el = $('<a>', {href: `out/${i}.svg`});
-                    $('#images').append(el)
+                    let el = $('<a>', { href: `out/${i}.svg` });
+                    // el.append($('<img>', { src: `out/${i}.svg` }))
+                    $('#images').append(el);
                     return $.ajax({
                         url: `out/${e}.svg?v=` + Math.random(),
                         dataType: 'text'
@@ -39,7 +56,7 @@
                         })
                 }))
             })
-        })        
+        })   
     </script>
 
 </body>
