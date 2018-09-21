@@ -16,7 +16,7 @@ module.exports = function (d) {
     let n = 17
 
     // pick one point
-    let a = -1 / 3 * Math.PI // -120deg
+    let a = 2 / 3 * Math.PI // -120deg
     let da = 2 / 3 * Math.PI
     let ref = { x: cx + (Math.sin(a) * r), y: cy + (Math.cos(a) * r) }
 
