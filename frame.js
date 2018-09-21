@@ -47,8 +47,9 @@ if (process.argv.length > 2) {
             console.error(e)
         }
     }
+    fs.writeFileSync('shapes.json', JSON.stringify(output));
 }
-fs.writeFileSync('shapes.json', JSON.stringify(output));
+
 
 function init(no, _label) {
     d = new D3Node()
