@@ -152,4 +152,5 @@ function lineD(c) {
         .x(function (d) { return d.x; })
         .y(function (d) { return d.y; })
         .curve(c || D3Node.d3.curveCardinalClosed);
+        
 }
