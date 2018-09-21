@@ -1,5 +1,5 @@
 /**
- * #23
+ * #24
  */
 
 module.exports = function (d) {
@@ -13,7 +13,7 @@ module.exports = function (d) {
 
     let cx = d.cx, cy = d.cy
 
-    let n = 13
+    let n = 17
 
     // pick one point
     let a = -1 / 3 * Math.PI // -120deg
@@ -29,7 +29,18 @@ module.exports = function (d) {
         points.push(d.linear(from, to, i / n))
         points.push(d.linear(from, to, (i + 1) / n))
         points.push(ref)
+    }
 
+    // rotate
+    let t = from
+    from = to
+    to = ref
+    ref = t
+
+    for (let i = 0; i < n; i += 2) {
+        points.push(d.linear(from, to, i / n))
+        points.push(d.linear(from, to, (i + 1) / n))
+        points.push(ref)
     }
 
     g.append('path')

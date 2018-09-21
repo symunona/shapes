@@ -1,5 +1,5 @@
 /**
- * #23
+ * #24
  */
 
 module.exports = function (d) {
@@ -22,14 +22,38 @@ module.exports = function (d) {
 
     let from = { x: cx + (Math.sin(a + da) * r), y: cy + (Math.cos(a + da) * r) }
     let to = { x: cx + (Math.sin(a - da) * r), y: cy + (Math.cos(a - da) * r) }
-
+    
     let points = [ref]
 
     for (let i = 0; i < n; i += 2) {
         points.push(d.linear(from, to, i / n))
         points.push(d.linear(from, to, (i + 1) / n))
         points.push(ref)
+    }
 
+    // rotate
+    let t = from
+    from = to
+    to = ref
+    ref = t
+
+    for (let i = 0; i < n; i += 2) {
+        points.push(d.linear(from, to, i / n))
+        points.push(d.linear(from, to, (i + 1) / n))
+        points.push(ref)
+    }
+
+
+    // rotate
+    t = from
+    from = to
+    to = ref
+    ref = t
+
+    for (let i = 0; i < n; i += 2) {
+        points.push(d.linear(from, to, i / n))
+        points.push(d.linear(from, to, (i + 1) / n))
+        points.push(ref)
     }
 
     g.append('path')
