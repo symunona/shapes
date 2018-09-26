@@ -70,6 +70,7 @@ function init(no, _label) {
     dr.linear = linear
     dr.distance = distance
     dr.mark = mark.bind(this, dr)
+    dr.add = add
     dr.attr('viewport-fill', '#000')
 
     let defs = dr.append('defs')
@@ -81,6 +82,10 @@ function init(no, _label) {
         .attrs({ x: 0, y: 0, width: w, height: h, fill: dr.bg, stroke: colors[7] })
 
     return dr
+}
+
+function add(p, o){
+    return {x: p.x + o.x, y: p.y + o.y}
 }
 
 function distance(a, b) {
