@@ -59,6 +59,7 @@ function init(no, _label) {
     dr.h = h
     dr.cx = w / 2
     dr.cy = h / 2
+    dr.center = {x: dr.cx, y: dr.cy}
     dr.poly = poly
     dr.lineD = lineD
     dr.d3 = D3Node.d3
@@ -69,23 +70,25 @@ function init(no, _label) {
     dr.circlePath = circlePath
     dr.linear = linear
     dr.distance = distance
+    dr.radOffset = radOffset
     dr.mark = mark.bind(this, dr)
     dr.add = add
     dr.attr('viewport-fill', '#000')
 
     let defs = dr.append('defs')
+    dr.defs = defs
 
     loadCss(no, defs)
     loadJs(no, defs)
 
-    dr.append('rect')
+    dr.base = dr.append('rect')
         .attrs({ x: 0, y: 0, width: w, height: h, fill: dr.bg, stroke: colors[7] })
 
     return dr
 }
 
-function add(p, o){
-    return {x: p.x + o.x, y: p.y + o.y}
+function add(p, o) {
+    return { x: p.x + o.x, y: p.y + o.y }
 }
 
 function distance(a, b) {
@@ -98,6 +101,13 @@ function linear(from, to, n) {
     return {
         x: from.x + ((to.x - from.x) * n),
         y: from.y + ((to.y - from.y) * n)
+    }
+}
+
+function radOffset(a, r) {
+    return {
+        x: Math.sin(a) * r,
+        y: Math.cos(a) * r
     }
 }
 
