@@ -1,5 +1,5 @@
 /**
- * #27
+ * #38 - #27
  */
 
 module.exports = function (d) {
@@ -23,7 +23,7 @@ function frac(d, size, sides, offset, levelsToGo, angleOffset) {
     let da = Math.PI * 2 / sides
     let ret = []
     let dr = size / levelsToGo / sides*2
-    let n = levelsToGo * sides
+    let n = levelsToGo * sides / 2
 
     angleOffset = angleOffset || 0
     if (!offset) offset = { x: 0, y: 0 }
