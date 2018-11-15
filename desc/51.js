@@ -1,17 +1,16 @@
 /**
- * #48
+ * #51
  */
 
 module.exports = function (d) {
 
     let r = d.h / 3
-    let o = r * Math.sqrt(3)
+    let o = 2 * r
     let square = d.poly(3, r, { x: d.cx, y: d.cy }, Math.PI / 3)
     let ref = { x: square[1].x - o / 2, y: square[1].y }
     square.reverse()
 
     let g = d.append('g').attr('fill-rule', 'evenodd')
-
 
     let steps = 23
     let n = 3
@@ -20,7 +19,7 @@ module.exports = function (d) {
 
     let h = 1.05
 
-    let ny = Math.pow(steps, n) * normalizer - (3 / 2 * r)
+    let ny = Math.pow(steps, n) * normalizer - (2 * r)
 
     for (let i = 0; i < steps; i++) {
         let y = Math.pow(i, n) * normalizer
@@ -33,7 +32,7 @@ module.exports = function (d) {
 
     g.append('path')
         .attr('d',
-            d.lineD(d.d3.curveLinearClosed)(square)
+            d.circlePath(d.cx, d.cy, r)
         )
         .attr('fill', d.c[3])
 

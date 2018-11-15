@@ -1,11 +1,11 @@
 /**
- * #48
+ * #50
  */
 
 module.exports = function (d) {
 
     let r = d.h / 3
-    let o = r * Math.sqrt(3)
+    let o = r
     let square = d.poly(3, r, { x: d.cx, y: d.cy }, Math.PI / 3)
     let ref = { x: square[1].x - o / 2, y: square[1].y }
     square.reverse()
@@ -33,7 +33,7 @@ module.exports = function (d) {
 
     g.append('path')
         .attr('d',
-            d.lineD(d.d3.curveLinearClosed)(square)
+            d.circlePath(d.cx, d.cy, r)
         )
         .attr('fill', d.c[3])
 
