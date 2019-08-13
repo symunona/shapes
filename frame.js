@@ -59,7 +59,7 @@ function init(no, _label) {
     dr.h = h
     dr.cx = w / 2
     dr.cy = h / 2
-    dr.center = {x: dr.cx, y: dr.cy}
+    dr.center = { x: dr.cx, y: dr.cy }
     dr.poly = poly
     dr.lineD = lineD
     dr.d3 = D3Node.d3
@@ -97,6 +97,12 @@ function distance(a, b) {
         ((a.y - b.y) * (a.y - b.y)))
 }
 
+/**
+ * Get an actual position from a normalized one.
+ * @param {Point} from
+ * @param {Point} to
+ * @param {Number} n
+ */
 function linear(from, to, n) {
     return {
         x: from.x + ((to.x - from.x) * n),
@@ -193,3 +199,5 @@ function lineD(c) {
         .curve(c || D3Node.d3.curveCardinalClosed);
 
 }
+
+
