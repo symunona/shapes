@@ -1,30 +1,29 @@
 /**
- * #66
+ * #67
  *
- * Multiple Scratches 6
+ * DA Scratch
  *
  */
 const random = require('random')
 const seedrandom = require('seedrandom')
-random.use(seedrandom('shapes'))
+random.use(seedrandom('shapes1'))
 
 module.exports = function (d) {
 
     let g = d.append('g')
         .attr('fill-rule', 'evenodd')
 
-
     let chaos = []
 
-    gridSize = 5;
+    gridSize = 1;
 
     for (var i = 0; i < gridSize; i++) {
         chaos[i] = []
         for (var j = 0; j < gridSize; j++) {
-            chaos[i][j] = linkEm4(i + 2);
-
+            chaos[i][j] = linkEm4(i + 6);
         }
     }
+    var o = 70
 
     for (var i = 0; i < gridSize; i++) {
         for (var j = 0; j < gridSize; j++) {
@@ -34,12 +33,12 @@ module.exports = function (d) {
                 .attr('fill', d.c[4])
                 .attr('d', d.lineD(d.d3.curveLinearClosed)(chaos[i][j]))
                 .attr('transform', d.m(
-                    grid(j, i, d.w, d.h, gridSize, gridSize, { x: 10, y: 10 })
+                    grid(j, i, d.w, d.h, gridSize, gridSize, { x: o, y: o })
                 ))
         }
     }
 
-    d.save('seed #6')
+    d.save('seed #7')
 }
 
 function grid(x, y, w, h, wc, hc, o) {
@@ -91,7 +90,7 @@ function linkEm2(dotCount) {
 function linkEm4(dotCount) {
     let vertical = linkEm2(dotCount);
     let horizontal = linkEm2(dotCount).map((p) => { return { x: p.y, y: p.x } });
-    return scaleLine(vertical.concat(horizontal), 100)
+    return scaleLine(vertical.concat(horizontal), 500)
 
 }
 
