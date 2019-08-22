@@ -1,0 +1,64 @@
+<html>
+
+<head>
+    <title>_ shapes</title>
+    <style>
+        body {
+            background: black;
+            color: white;
+        }
+
+        a {
+            margin-bottom: 40px;
+            display: block;
+            border: 0 !important;
+        }
+    </style>
+
+    <link rel="shortcut icon" type="image/png" href="shapes.png" />
+</head>
+
+<body>
+    <div id="images" style="text-align: center">
+
+    </div>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        // $(function () {
+        //     $.ajax('shapes.json?v=' + Math.random()).then((shapes) => {
+        //         return $.when.apply(this, shapes.map((e, i) => {
+        //             let el = $('<a>', { href: `out/${i}.svg` });
+        //             $('#images').append(el)
+        //             return $.ajax({
+        //                 url: `out/${e}.svg?v=` + Math.random(),
+        //                 dataType: 'text'
+        //             })
+        //                 .then(function (svg) {
+        //                     el.append(svg)
+        //                 })
+        //         }))
+        //     })
+        // })
+
+        $(function () {
+            $.ajax('shapes.json?v=' + Math.random()).then((shapes) => {
+                return $.when.apply(this, shapes.map((e, i) => {
+                    let el = $('<a>', { href: `out/${i}.svg` });
+                    // el.append($('<img>', { src: `out/${i}.svg` }))
+                    $('#images').append(el);
+                    return $.ajax({
+                        url: `out/colors/${e}.svg?v=` + Math.random(),
+                        dataType: 'text'
+                    })
+                        .then(function (svg) {
+                            el.append(svg)
+                        })
+                }))
+            })
+        })   
+    </script>
+
+</body>
+
+</html>

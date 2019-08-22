@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewport-fill="#000"><defs><style type="text/css">text{ font-family: Freemono, Sans, Arial; fill: #555} 
+.spin2{ 
+    animation: spin2 2s cubic-bezier(0.49, 0.18, 0, 0.99) infinite; 
+}
+@keyframes spin2 { 
+    100% { transform:rotate(120deg); } 
+}</style></defs><rect x="0" y="0" width="640" height="640" fill="#fff" stroke="#708070"></rect><g fill-rule="evenodd" transform="translate(320,320)"><path class="spin2" d="M-184.7520861406802,-106.66666666666677L184.75208614068026,-106.66666666666663L0,213.33333333333334Z M -213.33333333333334, 0 a 213.33333333333334,213.33333333333334 0 1,0 426.6666666666667,0 a 213.33333333333334,213.33333333333334 0 1,0 -426.6666666666667,0" fill="#5cc"></path></g><text x="320" y="632" text-anchor="middle" fill="#606060">_shape #2 anim #1</text></svg>

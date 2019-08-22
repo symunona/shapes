@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewport-fill="#000"><defs><style type="text/css">text{ font-family: Freemono, Sans, Arial; fill: #555} 
+.spin29{ 
+    animation: spin29 4s cubic-bezier(0.49, 0.18, 0, 0.99) infinite; 
+}
+@keyframes spin29 { 
+    0% { transform:rotate(0deg); }
+    33% { transform:rotate(60deg); }
+    66% { transform:rotate(60deg); }
+    100% { transform:rotate(120deg); } 
+}</style></defs><rect x="0" y="0" width="640" height="640" fill="#fff" stroke="#708070"></rect><g transform="translate(320,405.3333333333333)"><path class="spin29" d="M-110.85125168440813,-64.00000000000006L110.85125168440815,-63.99999999999997L0,128Z" fill="rgba(255, 0, 0, 0.6)"></path></g><g transform="translate(393.9008344562721,277.33333333333337)"><path class="spin29" d="M-3.135095805817224e-14,128L-110.85125168440813,-64.00000000000006L110.85125168440815,-63.99999999999997Z" fill="rgba(0, 255, 0, 0.6)"></path></g><g transform="translate(246.0991655437279,277.3333333333333)"><path class="spin29" d="M110.85125168440821,-63.9999999999999L-3.135095805817224e-14,128L-110.85125168440813,-64.00000000000006Z" fill="rgba(0, 0, 255, 0.6)"></path></g><text x="320" y="632" text-anchor="middle" fill="#606060">_shape #29</text></svg>
