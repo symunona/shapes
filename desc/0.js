@@ -3,7 +3,7 @@
  */
 
 module.exports = function (d) {
-    
+
     d.append('circle')
         .attrs({
             cx: d.cx,
@@ -30,7 +30,7 @@ module.exports = function (d) {
 
     let intro = 'This is for dealing with time.'
     d.append('text').attrs({x: d.w - 1, y: 11, 'text-anchor': 'end'}).text(intro)
-    
+
 
     d.selectAll('text.style')
         .data(fonts)
@@ -55,15 +55,77 @@ module.exports = function (d) {
         .attr("d", d.lineD(d.d3.curveLinearClosed)(d.poly(3, d.h / 4, { x: d.cx, y: d.cy })))
         .attr('fill', d.bg)
 
+
+    gradient1(d)
+    gradient2(d)
+
     d.save()
 
 }
 
-// try{
-// const d = require('./frame')(0)
-// module.exports(d);
-// }
-// catch(e){
-//     console.error(e)
-//     debugger;
-// }
+function gradient1(d){
+    let gridX = 1; gridY = 16;
+    let sizeX = d.w / (gridX + 2), sizeY = d.h / (gridY + 2)
+    let offset = {
+        x: d.w / 10 * 4,
+        y: 0
+    }
+
+    let size = gridX/gridY*5.5;
+
+    let g = d.append('g')
+        .attr('fill-rule', 'evenodd')
+
+    for (let xs = 0; xs < gridX; xs++) {
+        for (let ys = 0; ys < gridY; ys++) {
+
+            g
+                .append('path')
+                .attr('d', unit({x: sizeX * size/4, y: sizeY * size, r: size*10}, d))
+                .attr('transform', d.m({
+                    x: offset.x + (sizeX * (xs + 1.5)),
+                    y: offset.y + (sizeY * (ys + 1.5)) }))
+                .attr('fill', d.c[xs + ys])
+
+        }
+    }
+
+}
+
+
+function gradient2(d){
+    let gridX = 1; gridY = 16;
+    let sizeX = d.w / (gridX + 2), sizeY = d.h / (gridY + 2)
+    let offset = {
+        x: d.w / 20 * 5,
+        y: 0
+    }
+
+    let size = gridX/gridY*4;
+
+    let g = d.append('g')
+        .attr('fill-rule', 'evenodd')
+
+    for (let xs = 0; xs < gridX; xs++) {
+        for (let ys = 0; ys < gridY; ys++) {
+
+            g
+                .append('path')
+                .attr('d', unit({x: sizeX * size/3, y: sizeY * size, r: size*10}, d))
+                .attr('transform', d.m({
+                    x: offset.x + (sizeX * (xs + 1.5)),
+                    y: offset.y + (sizeY * (ys + 1.5)) }))
+                .attr('fill', d.c[xs + ys])
+
+        }
+    }
+
+}
+
+
+
+function unit(size, d) {
+
+    let rectangle = d.lineD(d.d3.curveLinearClosed)(d.  rect(size.x * size.r / 2, size.y * size.r / 2))
+    return rectangle
+}

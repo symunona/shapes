@@ -85,6 +85,7 @@ function init(no, variant) {
     dr.d3 = D3Node.d3
     dr.c = colors
     dr.m = m
+    dr.rect = rect
 
     dr.label = label
     dr.circlePath = circlePath
@@ -226,4 +227,11 @@ function lineD(c) {
 
 }
 
-
+function rect(x, y) {
+    return [
+        { x: -x, y: -y },
+        { x: x, y: -y },
+        { x: x, y: y },
+        { x: -x, y: y }
+    ]
+}

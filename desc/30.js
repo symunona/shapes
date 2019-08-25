@@ -21,7 +21,7 @@ module.exports = function (d) {
             numOctaves: '8'
         })
 
-    d.base.attr('fill', 'none')
+    d.base.attr('fill', 'black')
 
     d.append('circle')
         .attrs({
@@ -32,28 +32,6 @@ module.exports = function (d) {
             height: d.w / 3,
             filter: 'url(#fractal)'
         })
-
-    // let n = 3    
-    // let r = d.h / 5
-    // for (let i = 0; i < n; i++) {
-    //     let a = (Math.PI * 2 / 3 * i)
-    //     let triangle = d.poly(3, r, null, a)
-    //     let offset = d.radOffset(a, r/3*2)
-    //     offset = d.add(offset, d.center)
-    //     triangle.reverse()
-
-    //     let g = d.append('g')
-    //         // .attr('fill-rule', 'evenodd')
-    //         .attr('transform', d.m({ x: offset.x, y: offset.y }))
-
-    //     g.append('path')
-    //         .attr('class', 'spin29')
-    //         .attr('d',
-    //             d.lineD(d.d3.curveLinearClosed)(triangle))
-    //         // .attr('fill', rgbat(i))
-    //         .attr('filter', 'url(#fractal)')
-
-    // }
 
     d.save('filter #1')
 }

@@ -38,10 +38,6 @@ function unit(cs, r, size, d) {
 
 }
 
-function fillRect1(percentage, size){
-    
-}
-
 function rect(x, y) {
     return [
         { x: -x, y: -y },
