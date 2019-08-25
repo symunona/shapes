@@ -64,6 +64,7 @@ if (process.argv.length > 2) {
             output.push(no)
         }
         catch (e) {
+            console.error('Error compuling ', i)
             console.error(e)
         }
     }
@@ -235,3 +236,4 @@ function rect(x, y) {
         { x: -x, y: y }
     ]
 }
+

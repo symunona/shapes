@@ -1,0 +1,14 @@
+body { background: black; color: white; }
+
+/* NAV */
+nav.main{ height: 30px; transition-duration: 0.3s; transition-property: width; overflow: hidden; width: 30px; }
+nav.main > .logo > img{ height: 30px; transition-duration: 0.3s; transition-property: transform; cursor: pointer;}
+nav.main:hover { width: 300px }
+nav.main:hover > .logo > img{ transform: rotateZ(180deg); }
+nav.main a {color: #777; cursor: pointer; display: inline-block;}
+nav.main a:hover { text-decoration: underline;}
+nav.main .logo {display: inline-block}
+nav.main .menu{ display: inline-block; height: 20px; line-height: 30px; vertical-align: top}
+
+/* Image wrapper */
+a.shape { margin-bottom: 40px; display: block; border: 0 !important;}

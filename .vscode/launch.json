@@ -66,6 +66,13 @@
             "name": "71",
             "program": "${workspaceFolder}/frame.js",
             "args": ["71"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "72",
+            "program": "${workspaceFolder}/frame.js",
+            "args": ["72"]
         }
     ]
 }
