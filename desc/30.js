@@ -21,7 +21,7 @@ module.exports = function (d) {
             numOctaves: '8'
         })
 
-    d.base.attr('fill', 'black')
+    // d.base.attr('fill', 'black')
 
     d.append('circle')
         .attrs({

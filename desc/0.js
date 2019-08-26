@@ -13,7 +13,7 @@ module.exports = function (d) {
         })
         .attr('cy', d.cy)
         .attr('r', d.h / 6)
-        .attr('fill', d.c[4])
+        .attr('class', d.mainc)
 
     let fonts = [
         'Freemono',
@@ -48,12 +48,12 @@ module.exports = function (d) {
         }).text(function (t) {
             return d.label + Math.floor(Math.random()*1000) + ' - ' + t;
         })
-        .attr('fill', d.c[4])
+        .attr('class', d.mainc)
 
 
     d.append('path')
-        .attr("d", d.lineD(d.d3.curveLinearClosed)(d.poly(3, d.h / 4, { x: d.cx, y: d.cy })))
-        .attr('fill', d.bg)
+        .attr('d', d.lineD(d.d3.curveLinearClosed)(d.poly(3, d.h / 4, { x: d.cx, y: d.cy })))
+        .attr('class', d.bgc)
 
 
     gradient1(d)
@@ -85,7 +85,7 @@ function gradient1(d){
                 .attr('transform', d.m({
                     x: offset.x + (sizeX * (xs + 1.5)),
                     y: offset.y + (sizeY * (ys + 1.5)) }))
-                .attr('fill', d.c[xs + ys])
+                .attr('class', 'f-'+ (xs + ys))
 
         }
     }
@@ -115,7 +115,7 @@ function gradient2(d){
                 .attr('transform', d.m({
                     x: offset.x + (sizeX * (xs + 1.5)),
                     y: offset.y + (sizeY * (ys + 1.5)) }))
-                .attr('fill', d.c[xs + ys])
+                .attr('class', 'f-'+ (xs + ys))
 
         }
     }

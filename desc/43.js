@@ -51,19 +51,19 @@ module.exports = function (d) {
         .attr('d',
             // d.lineD(d.d3.curveLinearClosed)(triangle) + 
             d.lineD(d.d3.curveLinearClosed)(points))
-        .attr('fill', d.c[3])
+        .attr('class', d.mainc)
 
     g.append('path')
         .attr('d',
             // d.lineD(d.d3.curveLinearClosed)(triangle) + 
             d.lineD(d.d3.curveLinearClosed)(overlay))
-        .attr('fill', d.bg)
+        .attr('class', d.bgc)
 
     g.append('path')
         .attr('d',
             // d.lineD(d.d3.curveLinearClosed)(triangle) + 
             d.lineD(d.d3.curveLinearClosed)(small))
-        .attr('fill', d.c[3])
+        .attr('class', d.mainc)
 
 
     d.save()

@@ -32,7 +32,7 @@ module.exports = function (d) {
         d.lineD(d.d3.curveLinearClosed)(square) + 
         d.lineD(d.d3.curveLinear)(simpleCubicCurve)
         ) 
-    .attr('fill', d.c[3])
+    .attr('class', d.mainc)
 
     d.save()
 }

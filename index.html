@@ -4,23 +4,27 @@
     <title>_ shapes</title>
     <link rel="shortcut icon" type="image/png" href="shapes.png" />
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/colors.default.css">
 </head>
 
 <body>
     <nav class="main">
-        <div class="logo" onclick="loadAll()">
-            <img src="shapes.png">
-        </div>
-        <div class="menu">
-            <a>_ colors</a>
-            <a>_ textures</a>
-            <a>_ presets</a>
+        <div class="wrapper">
+            <div class="logo" onclick="loadAll()">
+                <img src="shapes.png">
+            </div>
+            <div class="menu">
+                <a onclick="setColors(1)">_ colors_red</a>
+                <a onclick="setColors(2)">_ colors_scale</a>
+                <a>_ textures</a>
+                <a>_ presets</a>
+            </div>
         </div>
     </nav>
     <div id="images" style="text-align: center"></div>
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="variants/colors.js"></script>
     <script src="js/site.js"></script>
 </body>
 

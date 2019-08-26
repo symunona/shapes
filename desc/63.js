@@ -33,7 +33,7 @@ module.exports = function (d) {
 
             g
                 .append('path')
-                .attr('fill', d.c[4])
+                .attr('class', d.mainc)
                 .attr('d', d.lineD(d.d3.curveLinearClosed)(chaos[i][j]))
                 .attr('transform', d.m(
                     grid(j, i, d.w, d.h, gridSize, gridSize, { x: 10, y: 10 })

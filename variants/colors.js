@@ -1,4 +1,9 @@
-module.exports = function(dr){
+if (typeof module !== 'undefined') {
+    module.exports.generateColors1 = generateColors1
+    module.exports.generateCssFromColors = generateCssFromColors
+}
+
+function generateColors1() {
 
     let steps = 16;
     let step = 256 / steps;
@@ -6,7 +11,7 @@ module.exports = function(dr){
     colors = colors.map((c) => {
         let c16 = (step * c).toString(16)
         let c8r = (step * c).toString(16)
-        let c8g = (step * (colors.length - c -1)).toString(16)
+        let c8g = (step * (colors.length - c - 1)).toString(16)
         let c8b = (step * c).toString(16)
         return '#' + c8r + c8g + c8b;
     })
@@ -15,7 +20,17 @@ module.exports = function(dr){
     colors[2] = '#55c'
     colors[3] = '#5cc'
     colors[4] = '#5c5'
-    dr.colors = colors;
-    dr.c = colors;
-    return dr
+    return colors;
+}
+
+function generateCssFromColors(colors) {
+    // f for fill
+    let colorFillClasses = colors.map((color, level) => `.f-${level} { fill: ${color} }`).join('\n')
+    let defaultBackgroundColorIndex = 1,
+        defaultForeColorIndex = 4
+
+    colorFillClasses += `\n.bgc { fill: ${colors[defaultBackgroundColorIndex]}, bacgkround-color: ${colors[defaultBackgroundColorIndex]} }`
+    colorFillClasses += `\n.fore { fill: ${colors[defaultForeColorIndex]} }`
+
+    return colorFillClasses;
 }

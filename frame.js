@@ -7,15 +7,14 @@ const D3Node = require('d3-node'),
     _ = require('underscore')
 require('d3-selection-multi')
 
-// const d = new D3Node()      // initializes D3 with container element
-
-const screenSize = 640
+const colorUtil = require('variant/colors')
 
 const w = 640, h = 640
-let label = "_shape #"
+let labelRoot = "_shape #"
 
 let dr;
 
+// Default style: create monochrome scale of 16 steps.
 let steps = 16;
 let step = 256 / steps;
 let colors = Array.apply(null, { length: steps }).map(Number.call, Number)
@@ -24,20 +23,22 @@ colors = colors.map((c) => {
     return '#' + c16 + c16 + c16;
 })
 
-let variants = fs.readdirSync('./variants/')
-variants = variants.filter((fn) => fn.substr(-3) === '.js')
-variants = variants.map((variant) => {
-    let ret = require('./variants/' + variant)
-    ret._name = variant.substr(0, variant.length -3)
-    // Create output variant dirs in out.
-    let dir = './out/' + ret._name
-    if (!fs.existsSync(dir)){
-        fs.mkdirSync(dir);
-    }
-    return ret;
-})
+fs.writeFileSync('./css/colors.default.css', colorUtil.generateCssFromColors(colors))
 
-let output = []
+// let variants = fs.readdirSync('./variants/')
+// variants = variants.filter((fn) => fn.substr(-3) === '.js')
+// variants = variants.map((variant) => {
+//     let ret = require('./variants/' + variant)
+//     ret._name = variant.substr(0, variant.length -3)
+//     // Create output variant dirs in out.
+//     let dir = './out/' + ret._name
+//     if (!fs.existsSync(dir)){
+//         fs.mkdirSync(dir);
+//     }
+//     return ret;
+// })
+
+let output = {}
 if (process.argv.length > 2) {
     require('./desc/' + process.argv[2])(init(process.argv[2]))
 } else {
@@ -53,15 +54,16 @@ if (process.argv.length > 2) {
         try {
             let drawingFunction = require('./desc/' + no);
             // Default
-            drawingFunction(init(no))
+            let d = init(no)
+            drawingFunction(d)
             // Render different variants of all.
-            if (variants.length) {
-                for (let variantIndex = 0; variantIndex < variants.length; variantIndex++) {
-                    let variation = variants[variantIndex]
-                    drawingFunction(init(no, variation))
-                }
-            }
-            output.push(no)
+            // if (variants.length) {
+            //     for (let variantIndex = 0; variantIndex < variants.length; variantIndex++) {
+            //         let variation = variants[variantIndex]
+            //         drawingFunction(init(no, variation))
+            //     }
+            // }
+            output[no] = {label: d.label}
         }
         catch (e) {
             console.error('Error compuling ', i)
@@ -88,7 +90,7 @@ function init(no, variant) {
     dr.m = m
     dr.rect = rect
 
-    dr.label = label
+    dr.label = labelRoot
     dr.circlePath = circlePath
     dr.linear = linear
     dr.distance = distance
@@ -103,13 +105,16 @@ function init(no, variant) {
     loadCss(no, defs)
     loadJs(no, defs)
 
-    if (variant){
-        dr = variant(dr, defs)
-    }
+    // if (variant){
+    //     dr = variant(dr, defs)
+    // }
 
-    dr.bg = dr.c[1]
-    dr.base = dr.append('rect')
-        .attrs({ x: 0, y: 0, width: w, height: h, fill: dr.bg, stroke: dr.c[7] })
+    dr.bg = 'red'; // dr.c[1]
+    dr.bgc = 'bgc';
+    dr.mainc = 'fore'
+
+    // dr.base = dr.append('rect')
+    //     .attrs({ x: 0, y: 0, width: w, height: h, fill: dr.bg, stroke: dr.c[7] })
 
     return dr
 }
@@ -168,9 +173,14 @@ function mark(d, p, color) {
 
 function save(imageIndex, d, variant, _label) {
 
-    dr.append('text')
-        .attrs({ x: dr.cx, y: h - 8, 'text-anchor': "middle", fill: colors[6] })
-        .text(_label ? label + imageIndex + ' ' + _label : label + imageIndex)
+    label = dr.label = _label ? labelRoot + imageIndex + ' ' + _label : labelRoot + imageIndex
+
+    // Naah, not here.
+    // dr.append('text')
+    //     .attrs({ x: dr.cx, y: h - 8, 'text-anchor': "middle", fill: colors[6] })
+    //     .text()
+
+    dr.attr('label', label)
 
     let filename = 'out/'+variant+'/' + imageIndex + '.svg';
     fs.writeFileSync(filename, d.svgString())
@@ -199,8 +209,12 @@ function circlePath(cx, cy, r) {
 function loadCss(no, defs) {
     let css = ''
     try {
-        css = fs.readFileSync(`desc/junk/${no}.css`, 'utf8')
+        css = fs.readFileSync(`desc/junk/${no}.css`, 'utf8')        
     } catch (e) { }
+
+    // Populate scale classesb
+    css += '\n' + colorFillClasses;
+
     defs.append('style')
         .attr('type', 'text/css')
         .text('text{ font-family: Freemono, Sans, Arial; fill: #555} \n' + css)

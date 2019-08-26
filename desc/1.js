@@ -8,14 +8,14 @@ module.exports = function (d) {
     triangle.reverse()
 
     let g = d.append('g').attr('fill-rule', 'evenodd')
-    
+
     var cx = d.cx, cy = d.cy, r = d.h / 3
 
     g.append('path')
         .attr('d',
             d.lineD(d.d3.curveLinearClosed)(triangle) +
             d.circlePath(cx, cy, r))
-        .attr('fill', d.c[3])
+        .attr('class', d.mainc)
 
     d.save()
 }

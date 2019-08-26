@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewport-fill="#000"><defs><style type="text/css">text{ font-family: Freemono, Sans, Arial; fill: #555} 
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewport-fill="#000" label="_shape #29"><defs><style type="text/css">text{ font-family: Freemono, Sans, Arial; fill: #555} 
 .spin29{ 
     animation: spin29 4s cubic-bezier(0.49, 0.18, 0, 0.99) infinite; 
 }
@@ -7,4 +7,22 @@
     33% { transform:rotate(60deg); }
     66% { transform:rotate(60deg); }
     100% { transform:rotate(120deg); } 
-}</style></defs><rect x="0" y="0" width="640" height="640" fill="#101010" stroke="#707070"></rect><g transform="translate(320,405.3333333333333)"><path class="spin29" d="M-110.85125168440813,-64.00000000000006L110.85125168440815,-63.99999999999997L0,128Z" fill="rgba(255, 0, 0, 0.6)"></path></g><g transform="translate(393.9008344562721,277.33333333333337)"><path class="spin29" d="M-3.135095805817224e-14,128L-110.85125168440813,-64.00000000000006L110.85125168440815,-63.99999999999997Z" fill="rgba(0, 255, 0, 0.6)"></path></g><g transform="translate(246.0991655437279,277.3333333333333)"><path class="spin29" d="M110.85125168440821,-63.9999999999999L-3.135095805817224e-14,128L-110.85125168440813,-64.00000000000006Z" fill="rgba(0, 0, 255, 0.6)"></path></g><text x="320" y="632" text-anchor="middle" fill="#606060">_shape #29</text></svg>
+}
+.f-0 { fill: #000 }
+.f-1 { fill: #101010 }
+.f-2 { fill: #202020 }
+.f-3 { fill: #303030 }
+.f-4 { fill: #404040 }
+.f-5 { fill: #505050 }
+.f-6 { fill: #606060 }
+.f-7 { fill: #707070 }
+.f-8 { fill: #808080 }
+.f-9 { fill: #909090 }
+.f-10 { fill: #a0a0a0 }
+.f-11 { fill: #b0b0b0 }
+.f-12 { fill: #c0c0c0 }
+.f-13 { fill: #d0d0d0 }
+.f-14 { fill: #e0e0e0 }
+.f-15 { fill: #f0f0f0 }
+.bgc { fill: #101010, bacgkround-color: #101010 }
+.fore { fill: #404040 }</style></defs><g transform="translate(320,405.3333333333333)"><path class="spin29" d="M-110.85125168440813,-64.00000000000006L110.85125168440815,-63.99999999999997L0,128Z" fill="rgba(255, 0, 0, 0.6)"></path></g><g transform="translate(393.9008344562721,277.33333333333337)"><path class="spin29" d="M-3.135095805817224e-14,128L-110.85125168440813,-64.00000000000006L110.85125168440815,-63.99999999999997Z" fill="rgba(0, 255, 0, 0.6)"></path></g><g transform="translate(246.0991655437279,277.3333333333333)"><path class="spin29" d="M110.85125168440821,-63.9999999999999L-3.135095805817224e-14,128L-110.85125168440813,-64.00000000000006Z" fill="rgba(0, 0, 255, 0.6)"></path></g></svg>

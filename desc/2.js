@@ -12,11 +12,10 @@ module.exports = function (d) {
         .attr('transform', d.m({ x: d.cx, y: d.cy }))
 
     let p = g.append('path')
-        .attr('class', 'spin2')
+        .attr('class', 'spin2 ' + d.mainc)
         .attr('d',
             d.lineD(d.d3.curveLinearClosed)(triangle) +
             d.circlePath(0, 0, d.h / 3))
-        .attr('fill', d.c[3])
 
     d.save('anim #1')
 }

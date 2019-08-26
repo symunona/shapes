@@ -12,11 +12,11 @@ module.exports = function (d) {
 
     for (let i = 0; i < levels; i++) {
         let poly = frac(d, d.h / 9, 5, { x: 0, y: 0 }, Math.PI, i)
+        let fillLevel = (levels*2) + 2 - (i*2)
         g.append('path')
             .attr('d', poly)
-            .attr('fill', d.c[(levels*2) + 2 - (i*2)])
             .attr('stroke', 0)
-            .attr('class', 'jsanim-17 step step-' + i)
+            .attr('class', 'jsanim-17 step step-' + i + ' f-' + fillLevel)
             .attr('style', 'display: none;')
         g.select('.jsanim-17.step-3')
             .attr('style', 'display: block;')

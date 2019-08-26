@@ -11,18 +11,15 @@ module.exports = function (d) {
         .attr('fill-rule', 'evenodd')
         .attr('transform', d.m({ x: d.cx, y: d.cy }))
 
-    let p = g.append('path')        
+    let p = g.append('path')
         .attr('d',
             d.lineD(d.d3.curveLinearClosed)(triangle))
-        .attr('fill', d.c[3])
+        .attr('class', d.mainc)
 
     g.append('path')
-        .attr('class', 'tri-rotate')        
+        .attr('class', 'tri-rotate ' + d.bgc)
         .attr('d',
             d.lineD(d.d3.curveLinearClosed)(triangle))
-        .attr('fill', d.bg)
-        // .attr('transform', 'rotate(60, 0 0)')
-        
 
     d.save('anim #1')
 }

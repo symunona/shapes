@@ -34,7 +34,7 @@ function unit({ x, y }, size, grid, d, g) {
     g2
         .append('path')
         .attr('d', rects)
-        .attr('fill', d.c[4])
+        .attr('class', d.mainc)
 
     circles = 2;
 

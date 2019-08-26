@@ -13,7 +13,7 @@ module.exports = function (d) {
 
     g.append('path')
         .attr('d', poly)
-        .attr('fill', d.c[3])
+        .attr('class', d.mainc)
 
     d.save('fractal #6')
 }

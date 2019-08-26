@@ -54,7 +54,7 @@ module.exports = function (d) {
         // d.lineD(d.d3.curveLinearClosed)(triangle) + 
         d.lineD(d.d3.curveLinearClosed)(points) + ' Z ' +
         d.lineD(d.d3.curveLinearClosed)(points2))
-    .attr('fill', d.c[3])
+    .attr('class', d.mainc)
 
     d.save()
 }

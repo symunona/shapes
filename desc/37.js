@@ -50,7 +50,7 @@ module.exports = function (d) {
     g.selectAll('path.chevron').data(groups).enter().append('path')
         .attr('d', (g) => d.lineD()(g))
         .attr('class', 'chevron')
-        .attr('fill', d.c[3])
+        .attr('class', d.mainc)
 
     d.save()
 }

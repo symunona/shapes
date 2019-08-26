@@ -14,7 +14,7 @@ module.exports = function (d) {
     g.append('path')
         .attr('d',
             d.lineD(d.d3.curveBasisClosed)(poly))
-        .attr('fill', d.c[3])
+        .attr('class', d.mainc)
 
     d.save('')
 }

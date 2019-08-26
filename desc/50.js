@@ -35,11 +35,11 @@ module.exports = function (d) {
         .attr('d',
             d.circlePath(d.cx, d.cy, r)
         )
-        .attr('fill', d.c[3])
+        .attr('class', d.mainc)
 
     g.append('path')
         .attr('d', d.lineD(d.d3.curveLinear)(simpleCubicCurve))
-        .attr('fill', d.bg)
+        .attr('class', d.bgc)
 
     d.save()
 }

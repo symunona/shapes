@@ -19,15 +19,9 @@ module.exports = function (d) {
 
     let chaos = linkEm2();
 
-    // g
-    //     .append('path')
-    //     .attr('fill', d.c[5])
-    //     // .attr('d', unit([], 0, { x: 1, y: 1, r: size }, d))
-    //     .attr('transform', d.m({ x: d.cx, y: d.cy }))
-
     g
         .append('path')
-        .attr('fill', d.c[4])
+        .attr('class', d.mainc)
         .attr('d', d.lineD(d.d3.curveLinearClosed)(chaos))
         .attr('transform', d.m({ x: d.cx - (size / 2), y: d.cy - (size / 2) }))
 
