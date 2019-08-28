@@ -19,7 +19,7 @@ module.exports = function (d) {
                 .append('path')
                 .attr('d', unit([], 0, {x: sizeX * size, y: sizeY * size, r: size*10}, d))
                 .attr('transform', d.m({ x: sizeX * (xs + 1.5), y: sizeY * (ys + 1.5) }))
-                .attr('fill', d.c[xs + 2 + ys])
+                .attr('class', 'f-'+(xs + 2 + ys))
 
         }
     }

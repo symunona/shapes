@@ -26,5 +26,5 @@
 .f-13 { fill: #d0d0d0 }
 .f-14 { fill: #e0e0e0 }
 .f-15 { fill: #f0f0f0 }
-.bgc { fill: #101010, bacgkround-color: #101010 }
+.bgc { fill: #101010 }
 .fore { fill: #404040 }</style></defs><g fill-rule="evenodd" transform="translate(320,320)"><path d="M-184.75208614068035,106.66666666666653L2.6125798381810203e-14,-213.33333333333334L184.75208614068023,106.6666666666667Z" class="fore"></path><path class="tri-rotate bgc" d="M-184.75208614068035,106.66666666666653L2.6125798381810203e-14,-213.33333333333334L184.75208614068023,106.6666666666667Z"></path></g></svg>

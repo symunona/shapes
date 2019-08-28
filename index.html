@@ -4,26 +4,30 @@
     <title>_ shapes</title>
     <link rel="shortcut icon" type="image/png" href="shapes.png" />
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/colors.default.css">
 </head>
 
-<body>
+<body class="bgc">
     <nav class="main">
         <div class="wrapper">
             <div class="logo" onclick="loadAll()">
-                <img src="shapes.png">
+                <img src="out/1.svg" id="site-id">
             </div>
             <div class="menu">
-                <a onclick="setColors(1)">_ colors_red</a>
-                <a onclick="setColors(2)">_ colors_scale</a>
-                <a>_ textures</a>
-                <a>_ presets</a>
+                <a onclick="setColors(0)">_ colors_def</a>
+                <a onclick="setColors(1)">_ colors_inv</a>
+                <a onclick="setColors(2)">_ colors_1</a>
+                <a onclick="showTextures()">_ tex</a>
+                <!-- <a>_ textures</a>
+                <a>_ presets</a> -->
             </div>
         </div>
+        <nav class="textures"></nav>
     </nav>
-    <div id="images" style="text-align: center"></div>
+
+    <div id="images" class="bgc"></div>
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/snapsvg/dist/snap.svg.js"></script>
     <script src="variants/colors.js"></script>
     <script src="js/site.js"></script>
 </body>

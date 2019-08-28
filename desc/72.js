@@ -47,8 +47,7 @@ module.exports = function (d) {
                     x: offset.x + (sizeX * (xs + 1.5) + (xs % 2 ? 0 : sizeX / 8)),
                     y: offset.y + (sizeY * (ys + 1.5))
                 }))
-                .attr('fill', d.c[Math.floor(xs/2) + 2 + ys])
-                .attr('class', 'window window-' + ys + '-' + Math.floor(xs / 2))
+                .attr('class', 'window window-' + ys + '-' + Math.floor(xs / 2) + ' f-' + (Math.floor(xs / 2) + 2 + ys))
         }
     }
     xs = 0

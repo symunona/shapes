@@ -1,18 +1,21 @@
 const LS_COLOR_KEY = 'ls_color_key'
-let colorDefs = ''
+const KNOBS = [1, 1, 1, 11, 18, 19, 34, 42, 44, 69];
+const SIZE = 640;
+
+const TEXTURES = 20
+
+let colors = generateDefaultColorGradient()
+let colorDefs
+let siteColorStyles
 
 $(function () {
 
     var presetColors = localStorage.getItem(LS_COLOR_KEY);
     if (presetColors) {
-        if (presetColors == '1'){
-            colorDefs = '\n.fore{ fill: red}';
-        }
-        else{
-            colorDefs = generateCssFromColors(generateColors1())
-        }
 
     }
+
+    generateDefaultStylesheets()
 
     loadNecessary();
 
@@ -33,16 +36,89 @@ $(function () {
             })
         }
     }
+
+    let knob = KNOBS[Math.floor(Math.random() * KNOBS.length)]
+    $('#site-id').attr('src')
+    $.ajax({ url: 'out/' + knob + '.svg', dataType: 'text' }).then(function (data) {
+        $('.logo').html('')
+        $('.logo').append(data)
+        $('.logo svg').attr('viewBox', '0 0 640 640')
+    })
+
     // Restore position, since we are lazy loading.
     $(window).on('scroll', () => {
         localStorage.setItem('scrll', $(window).scrollTop())
     });
-
 })
 
+function showTextures() {
+    // Load if has not loaded yet
+    if (!$('.textures').html()) {
+        for (let i = 0; i < TEXTURES; i++) {
+            let tex = $('<img>', { 'class': 'texture', src: `img/${i}.jpg`, onclick: `addTexture('img/${i}.jpg')` })
+            $('.textures').append(tex)
+        }
+    }
+    $('.textures').show()
+}
+
+
+function generateDefaultStylesheets() {
+    let css = cssFromObject(generateDefaultSiteColors(colors))
+    let svgCss = cssFromObject(generateDefaultSvgStyle(colors))
+    $('body').append($('<style>', { 'id': 'site-styles' }).text(css + '\n' + svgCss))
+}
+
+function addTex1() {
+    addTexture('img/5.jpg')
+}
+
+function addTexture(url) {
+
+    $('.textures').hide()
+
+    let css = cssFromObject(generateDefaultSiteColors(colors))
+    let svgCssObject = generateDefaultSvgStyle(colors);
+    svgCssObject['.fore'] = { fill: `url(#tex1)` }
+    let svgCss = cssFromObject(svgCssObject)
+    $('#site-styles').remove()
+    $('#tex1').remove()
+
+    let svg = $('svg').get(1)
+
+    applyTextureToOneSvg(svg, url)
+
+    $('body').append($('<style>', { 'id': 'site-styles' }).text(css + '\n' + svgCss))
+}
+
+function applyTextureToOneSvg(node, url) {
+    let s = Snap(node);
+    let imgtex = s.image(url, 0, 0, SIZE, SIZE)
+    let ptrn = s.ptrn(0, 0, SIZE, SIZE, 0, 0, SIZE, SIZE).attr({
+        'id': 'tex1',
+        'patternContentUnits': 'objectBoundingBox'
+    }
+    )
+    ptrn.append(imgtex).toDefs()
+}
 
 function setColors(n) {
-    localStorage.setItem(LS_COLOR_KEY, n)
+    // localStorage.setItem(LS_COLOR_KEY, n)
+    if (n === 0) {
+        colors = generateDefaultColorGradient()
+    } else if (n === 1) {
+        colors = generateColorsInv()
+    }else if (n === 2) {
+        colors = generateColors1()
+    }
+
+    let css = cssFromObject(generateDefaultSiteColors(colors))
+    let svgCssObject = generateDefaultSvgStyle(colors);
+    let svgCss = cssFromObject(svgCssObject)
+    $('#site-styles').remove()
+
+    $('body').append($('<style>', { 'id': 'site-styles' }).text(css + '\n' + svgCss))
+
 }
 
 function loadAll() {

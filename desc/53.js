@@ -12,7 +12,6 @@ module.exports = function (d) {
 
     let g = d.append('g')
         .attr('fill-rule', 'evenodd')
-    // .attr('transform', d.m({ x: d.cx, y: d.cy }))
 
     for (let xs = 0; xs < gridX; xs++) {
         for (let ys = 0; ys < gridY; ys++) {
@@ -21,7 +20,7 @@ module.exports = function (d) {
                 .append('path')
                 .attr('d', unit([], sizeX * size, sizeY * size, d))
                 .attr('transform', d.m({ x: sizeX * (xs + 1.5), y: sizeY * (ys + 1.5) }))
-                .attr('fill', d.c[xs + 2 + ys])
+                .attr('class', 'f-'+(xs + 2 + ys))
 
         }
     }

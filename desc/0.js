@@ -116,10 +116,10 @@ function gradient2(d){
                     x: offset.x + (sizeX * (xs + 1.5)),
                     y: offset.y + (sizeY * (ys + 1.5)) }))
                 .attr('class', 'f-'+ (xs + ys))
+            g.append('text').text(xs+ys)
 
         }
     }
-
 }
 
 

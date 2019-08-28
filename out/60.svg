@@ -16,5 +16,5 @@
 .f-13 { fill: #d0d0d0 }
 .f-14 { fill: #e0e0e0 }
 .f-15 { fill: #f0f0f0 }
-.bgc { fill: #101010, bacgkround-color: #101010 }
+.bgc { fill: #101010 }
 .fore { fill: #404040 }</style></defs><g fill-rule="evenodd"><text fill="#505050" font-size="150" text-anchor="middle" transform="translate(320,320)">█▓▒░</text></g></svg>

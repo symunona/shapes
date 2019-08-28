@@ -7,23 +7,18 @@ const D3Node = require('d3-node'),
     _ = require('underscore')
 require('d3-selection-multi')
 
-const colorUtil = require('variant/colors')
+const colorUtil = require('./variants/colors.js')
 
 const w = 640, h = 640
 let labelRoot = "_shape #"
 
-let dr;
+let dr
+let colors = colorUtil.generateDefaultColorGradient()
 
-// Default style: create monochrome scale of 16 steps.
-let steps = 16;
-let step = 256 / steps;
-let colors = Array.apply(null, { length: steps }).map(Number.call, Number)
-colors = colors.map((c) => {
-    let c16 = (step * c).toString(16)
-    return '#' + c16 + c16 + c16;
-})
+let colorFillClasses = colorUtil.generateDefaultSvgStyle(colors)
 
-fs.writeFileSync('./css/colors.default.css', colorUtil.generateCssFromColors(colors))
+
+// fs.writeFileSync('./css/colors.default.css', colorUtil.cssFromObject(siteBackgroundCssObject))
 
 // let variants = fs.readdirSync('./variants/')
 // variants = variants.filter((fn) => fn.substr(-3) === '.js')
@@ -33,7 +28,7 @@ fs.writeFileSync('./css/colors.default.css', colorUtil.generateCssFromColors(col
 //     // Create output variant dirs in out.
 //     let dir = './out/' + ret._name
 //     if (!fs.existsSync(dir)){
-//         fs.mkdirSync(dir);
+//         fs.mkdirSync(dir);colorFill
 //     }
 //     return ret;
 // })
@@ -63,7 +58,7 @@ if (process.argv.length > 2) {
             //         drawingFunction(init(no, variation))
             //     }
             // }
-            output[no] = {label: d.label}
+            output[no] = { label: d.label }
         }
         catch (e) {
             console.error('Error compuling ', i)
@@ -77,7 +72,7 @@ if (process.argv.length > 2) {
 function init(no, variant) {
     d = new D3Node()
     dr = d.createSVG(w, h)
-    dr.save = save.bind(this, no, d, variant? variant._name: '');
+    dr.save = save.bind(this, no, d, variant ? variant._name : '');
     dr.w = w
     dr.h = h
     dr.cx = w / 2
@@ -182,7 +177,7 @@ function save(imageIndex, d, variant, _label) {
 
     dr.attr('label', label)
 
-    let filename = 'out/'+variant+'/' + imageIndex + '.svg';
+    let filename = 'out/' + variant + '/' + imageIndex + '.svg';
     fs.writeFileSync(filename, d.svgString())
 }
 
@@ -209,11 +204,11 @@ function circlePath(cx, cy, r) {
 function loadCss(no, defs) {
     let css = ''
     try {
-        css = fs.readFileSync(`desc/junk/${no}.css`, 'utf8')        
+        css = fs.readFileSync(`desc/junk/${no}.css`, 'utf8')
     } catch (e) { }
 
     // Populate scale classesb
-    css += '\n' + colorFillClasses;
+    css += '\n' + colorUtil.cssFromObject(colorFillClasses);
 
     defs.append('style')
         .attr('type', 'text/css')
