@@ -1,7 +1,22 @@
+/**
+ * A collection of helper functions to generate different color gradients for the images.
+ *
+ * "Style object" specification:
+ * {
+ *      'selector1' : {
+ *          'attribute-1': value,
+ *          'fill': value2,
+ *          'background-color': value3,
+ *          ...
+ *      }
+ *      '.selector2 div': { ... }
+ * }
+ */
+
+// Support module loading.
 if (typeof module !== 'undefined') {
     module.exports.generateDefaultColorGradient = generateDefaultColorGradient
     module.exports.generateColors1 = generateColors1
-    module.exports.generateCssFromColors = generateCssFromColors
     module.exports.cssFromObject = cssFromObject
     module.exports.createStylePropertyObjectFromColors = createStylePropertyObjectFromColors
     module.exports.generateDefaultSvgStyle = generateDefaultSvgStyle
@@ -9,6 +24,7 @@ if (typeof module !== 'undefined') {
 
 /**
  * Default style: create monochrome scale of 16 steps.
+ * @returns {Array} of coors.
  **/
 function generateDefaultColorGradient() {
     let steps = 16
@@ -22,14 +38,15 @@ function generateDefaultColorGradient() {
 }
 
 /**
- * Creates a style object from a color array that with and adjustable property.
- * @param {Array} colors 
- * @param {String} property 
+ * Creates a style object from a color array.
+ * @param {Array} colors
+ * @param {String} property
  * @param {String} selector
+ * @returns {Object} style object
  */
-function createStylePropertyObjectFromColors(colors, property, selector){
+function createStylePropertyObjectFromColors(colors, property, selector) {
     let style = {}
-    for (let i = 0; i<colors.length; i++){
+    for (let i = 0; i < colors.length; i++) {
         let propObject = {}
         propObject[property] = colors[i]
         style[`${selector}-${i}`] = propObject;
@@ -37,9 +54,11 @@ function createStylePropertyObjectFromColors(colors, property, selector){
     return style;
 }
 
-
+/**
+ * Generates inverse color gradient to default.
+ * @returns {Array} of colors.
+ */
 function generateColorsInv() {
-
     let steps = 16;
     let step = 256 / steps;
     let colors = Array.apply(null, { length: steps }).map(Number.call, Number)
@@ -53,8 +72,12 @@ function generateColorsInv() {
     return colors;
 }
 
-function generateColors1() {
 
+/**
+ * Custom color mapping 1.
+ * @returns {Array} of colors.
+ */
+function generateColors1() {
     let steps = 16;
     let step = 256 / steps;
     let colors = Array.apply(null, { length: steps }).map(Number.call, Number)
@@ -72,18 +95,13 @@ function generateColors1() {
     return colors;
 }
 
-function generateCssFromColors(colors) {
-    // f for fill
-    let colorFillClasses = colors.map((color, level) => `.f-${level} { fill: ${color} }`).join('\n')
-    let defaultBackgroundColorIndex = 1,
-        defaultForeColorIndex = 4
 
-    colorFillClasses += `\n.bgc { fill: ${colors[defaultBackgroundColorIndex]}; background-color: ${colors[defaultBackgroundColorIndex]} }`
-    colorFillClasses += `\n.fore { fill: ${colors[defaultForeColorIndex]} }`
-
-    return colorFillClasses;
-}
-
+/**
+ * Creates the default style object extending it with .fore and .bgc selectors.
+ * svg uses the fill attribute to give the paths color.
+ * @param {Array} colors
+ * @returns {Object} style object
+ */
 function generateDefaultSvgStyle(colors) {
     let colorFillClassesObject = createStylePropertyObjectFromColors(colors, 'fill', '.f')
     colorFillClassesObject['.bgc'] = { 'fill': colors[1] }
@@ -91,13 +109,24 @@ function generateDefaultSvgStyle(colors) {
     return colorFillClassesObject
 }
 
-function generateDefaultSiteColors(colors){
+/**
+ * Creates the default site classes .fore and .bgc selectors.
+ * Html uses the background-color property for filling areas.
+ * @param {Array} colors
+ * @returns {Object} style object
+ */
+function generateDefaultSiteColors(colors) {
     let siteBackgroundCssObject = createStylePropertyObjectFromColors(colors, 'background-color', '.f')
     siteBackgroundCssObject['.bgc'] = { 'background-color': colors[1] }
     siteBackgroundCssObject['.fore'] = { 'background-color': colors[4] }
     return siteBackgroundCssObject
 }
 
+/**
+ * Converts the style object to a CSS string.
+ * @param {Object} styleObject
+ * @returns {String} css string
+ */
 function cssFromObject(styleObject) {
     return Object.keys(styleObject).map((selector) => {
         let propertiesObject = styleObject[selector]

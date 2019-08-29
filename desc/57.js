@@ -1,6 +1,6 @@
 /**
  * #57
- * 
+ *
  * FILTZ
  */
 module.exports = function (d) {
@@ -36,8 +36,6 @@ function unit({ x, y }, size, grid, d, g) {
         .attr('d', rects)
         .attr('class', d.mainc)
 
-    circles = 2;
-
     let step = {
         x: (size.x / (grid.x + 2)),
         y: (size.y / (grid.y + 2))
@@ -56,7 +54,7 @@ function unit({ x, y }, size, grid, d, g) {
         .attr('cx', partX)
         .attr('cy', partY)
         .attr('r', size.x / 12)
-        .attr('fill', d.c[1])
+        .attr('class', d.bgc)
 
     let partY2 = -offset.y - ((step.y * (y + 1)) / 2)
     let partX2 = -offset.x - (step.x * (x + 1))
@@ -67,8 +65,6 @@ function unit({ x, y }, size, grid, d, g) {
         .attr('cy', partY2)
         .attr('r', size.x / 20)
         .attr('class', d.mainc)
-
-
 
     return rects
 
