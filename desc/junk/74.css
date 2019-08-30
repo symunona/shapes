@@ -1,0 +1,12 @@
+.wave-container{
+    animation-name: mv;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+
+@keyframes mv {
+    from { transform: translate(-162px, 0); }
+    to   { transform: translate(0, 0); }
+ }

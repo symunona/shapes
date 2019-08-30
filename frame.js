@@ -258,7 +258,7 @@ function loadCss(no, defs) {
     css += '\n' + colorUtil.cssFromObject(colorFillClasses)
 
     // Add default font face
-    css += 'text{ font-family: Freemono, Sans, Arial; } \n'
+    css += '\ntext{ font-family: Freemono, Sans, Arial; } \n'
 
     defs.append('style')
         .attr('type', 'text/css')
@@ -294,6 +294,7 @@ function loadJs(no, defs) {
  *      - d.d3.curveCardinalClosed
  *      - d.d3.curveBasis
  *      - d.d3.curveBasisClosed
+ *      - d.d3.curveMonotone
  * etc, @see d3 specs
  * i.e.: [{x: 0, y:1}, {x: 0, y:1}]
  * @param {String} [c] the type of the curve. an be.

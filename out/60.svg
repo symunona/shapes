@@ -1,5 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewport-fill="#000" label="_shape #60 ascii #1"><defs><style type="text/css">text{ font-family: Freemono, Sans, Arial; fill: #555} 
-
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewport-fill="#000" label="_shape #60 ascii #1"><defs><style type="text/css">
 .f-0 { fill: #000 }
 .f-1 { fill: #101010 }
 .f-2 { fill: #202020 }
@@ -17,4 +16,6 @@
 .f-14 { fill: #e0e0e0 }
 .f-15 { fill: #f0f0f0 }
 .bgc { fill: #101010 }
-.fore { fill: #404040 }</style></defs><g fill-rule="evenodd"><text fill="#505050" font-size="150" text-anchor="middle" transform="translate(320,320)">█▓▒░</text></g></svg>
+.fore { fill: #404040 }
+text{ font-family: Freemono, Sans, Arial; } 
+</style></defs><g fill-rule="evenodd"><text class="fore" font-size="150" text-anchor="middle" transform="translate(320,320)">█▓▒░</text></g></svg>

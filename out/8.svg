@@ -1,5 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewport-fill="#000" label="_shape #8 anim #1"><defs><style type="text/css">text{ font-family: Freemono, Sans, Arial; fill: #555} 
-.tri-rotate-8{ 
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewport-fill="#000" label="_shape #8 anim #1"><defs><style type="text/css">.tri-rotate-8{ 
     animation: spin8 2s cubic-bezier(0.05, 1.23, 0.99, 0.04) infinite
 }
 
@@ -25,4 +24,6 @@
 .f-14 { fill: #e0e0e0 }
 .f-15 { fill: #f0f0f0 }
 .bgc { fill: #101010 }
-.fore { fill: #404040 }</style></defs><g fill-rule="evenodd" transform="translate(320,320)"><path d="M184.75208614068023,106.6666666666667L158.53756276851084,-142.7478626898897L-86.77048385617063,-194.88969763042158L-212.16467101189832,22.299405497099304L-44.35449404112211,208.6714881565452Z" class="fore"></path><path class="tri-rotate-8 bgc" d="M184.75208614068023,106.6666666666667L158.53756276851084,-142.7478626898897L-86.77048385617063,-194.88969763042158L-212.16467101189832,22.299405497099304L-44.35449404112211,208.6714881565452Z"></path></g></svg>
+.fore { fill: #404040 }
+text{ font-family: Freemono, Sans, Arial; } 
+</style></defs><g fill-rule="evenodd" transform="translate(320,320)"><path d="M184.75208614068023,106.6666666666667L158.53756276851084,-142.7478626898897L-86.77048385617063,-194.88969763042158L-212.16467101189832,22.299405497099304L-44.35449404112211,208.6714881565452Z" class="fore"></path><path class="tri-rotate-8 bgc" d="M184.75208614068023,106.6666666666667L158.53756276851084,-142.7478626898897L-86.77048385617063,-194.88969763042158L-212.16467101189832,22.299405497099304L-44.35449404112211,208.6714881565452Z"></path></g></svg>
