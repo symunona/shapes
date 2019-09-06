@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "ALL",
             "program": "${workspaceFolder}/frame.js"
 
         },
@@ -87,6 +87,27 @@
             "name": "74",
             "program": "${workspaceFolder}/frame.js",
             "args": ["74"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "75",
+            "program": "${workspaceFolder}/frame.js",
+            "args": ["75"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "76",
+            "program": "${workspaceFolder}/frame.js",
+            "args": ["76"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "77",
+            "program": "${workspaceFolder}/frame.js",
+            "args": ["77"]
         }
     ]
 }

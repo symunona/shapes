@@ -14,6 +14,7 @@ module.exports = function (d) {
 
     let g = d.append('g')
         .attr('mask', 'url(#circlemask)')
+        .attr('class', 'wave-wrapper')
 
     let g2 = g.append('g')
         .attr('class', 'wave-container')

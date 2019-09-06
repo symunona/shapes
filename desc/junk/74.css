@@ -3,6 +3,12 @@
     animation-duration: 1s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+    transform: rotateY(30deg)
+}
+
+.wave-wrapper{
+    transform: rotateZ(-30deg);
+    transform-origin: 320px
 }
 
 

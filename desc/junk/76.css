@@ -1,0 +1,13 @@
+.rott{
+    animation-name: rot;
+    animation-duration: 15s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform-origin: center
+}
+
+
+@keyframes rot {
+    from { transform: rotateZ(0); }
+    to   { transform: rotateZ(360deg); }
+ }
