@@ -4,23 +4,23 @@
 @keyframes spin2 { 
     100% { transform:rotate(120deg); } 
 }
-.f-0 { fill: #000 }
-.f-1 { fill: #101010 }
-.f-2 { fill: #202020 }
-.f-3 { fill: #303030 }
-.f-4 { fill: #404040 }
-.f-5 { fill: #505050 }
-.f-6 { fill: #606060 }
-.f-7 { fill: #707070 }
-.f-8 { fill: #808080 }
-.f-9 { fill: #909090 }
-.f-10 { fill: #a0a0a0 }
-.f-11 { fill: #b0b0b0 }
-.f-12 { fill: #c0c0c0 }
-.f-13 { fill: #d0d0d0 }
-.f-14 { fill: #e0e0e0 }
-.f-15 { fill: #f0f0f0 }
-.bgc { fill: #101010 }
-.fore { fill: #404040 }
+.f-0 { fill: #000;  }
+.f-1 { fill: #101010;  }
+.f-2 { fill: #202020;  }
+.f-3 { fill: #303030;  }
+.f-4 { fill: #404040;  }
+.f-5 { fill: #505050;  }
+.f-6 { fill: #606060;  }
+.f-7 { fill: #707070;  }
+.f-8 { fill: #808080;  }
+.f-9 { fill: #909090;  }
+.f-10 { fill: #a0a0a0;  }
+.f-11 { fill: #b0b0b0;  }
+.f-12 { fill: #c0c0c0;  }
+.f-13 { fill: #d0d0d0;  }
+.f-14 { fill: #e0e0e0;  }
+.f-15 { fill: #f0f0f0;  }
+.bgc { fill: #101010;  }
+.fore { fill: #404040; stroke: #404040;  }
 text{ font-family: Freemono, Sans, Arial; } 
 </style></defs><g fill-rule="evenodd" transform="translate(320,320)"><path class="spin2 fore" d="M-184.7520861406802,-106.66666666666677L184.75208614068026,-106.66666666666663L0,213.33333333333334Z M -213.33333333333334, 0 a 213.33333333333334,213.33333333333334 0 1,0 426.6666666666667,0 a 213.33333333333334,213.33333333333334 0 1,0 -426.6666666666667,0"></path></g></svg>

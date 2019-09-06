@@ -108,6 +108,34 @@
             "name": "77",
             "program": "${workspaceFolder}/frame.js",
             "args": ["77"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "78",
+            "program": "${workspaceFolder}/frame.js",
+            "args": ["78"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "79",
+            "program": "${workspaceFolder}/frame.js",
+            "args": ["79"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "80",
+            "program": "${workspaceFolder}/frame.js",
+            "args": ["80"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "81",
+            "program": "${workspaceFolder}/frame.js",
+            "args": ["81"]
         }
     ]
 }

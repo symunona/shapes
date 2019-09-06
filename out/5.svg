@@ -9,23 +9,23 @@
     50% { transform:rotate(240deg); }     
     100% { transform:rotate(240deg); } 
 }
-.f-0 { fill: #000 }
-.f-1 { fill: #101010 }
-.f-2 { fill: #202020 }
-.f-3 { fill: #303030 }
-.f-4 { fill: #404040 }
-.f-5 { fill: #505050 }
-.f-6 { fill: #606060 }
-.f-7 { fill: #707070 }
-.f-8 { fill: #808080 }
-.f-9 { fill: #909090 }
-.f-10 { fill: #a0a0a0 }
-.f-11 { fill: #b0b0b0 }
-.f-12 { fill: #c0c0c0 }
-.f-13 { fill: #d0d0d0 }
-.f-14 { fill: #e0e0e0 }
-.f-15 { fill: #f0f0f0 }
-.bgc { fill: #101010 }
-.fore { fill: #404040 }
+.f-0 { fill: #000;  }
+.f-1 { fill: #101010;  }
+.f-2 { fill: #202020;  }
+.f-3 { fill: #303030;  }
+.f-4 { fill: #404040;  }
+.f-5 { fill: #505050;  }
+.f-6 { fill: #606060;  }
+.f-7 { fill: #707070;  }
+.f-8 { fill: #808080;  }
+.f-9 { fill: #909090;  }
+.f-10 { fill: #a0a0a0;  }
+.f-11 { fill: #b0b0b0;  }
+.f-12 { fill: #c0c0c0;  }
+.f-13 { fill: #d0d0d0;  }
+.f-14 { fill: #e0e0e0;  }
+.f-15 { fill: #f0f0f0;  }
+.bgc { fill: #101010;  }
+.fore { fill: #404040; stroke: #404040;  }
 text{ font-family: Freemono, Sans, Arial; } 
 </style></defs><g fill-rule="evenodd" transform="translate(320,320)"><path d="M-184.75208614068035,106.66666666666653L2.6125798381810203e-14,-213.33333333333334L184.75208614068023,106.6666666666667Z" class="fore"></path><path class="tri-rotate bgc" d="M-184.75208614068035,106.66666666666653L2.6125798381810203e-14,-213.33333333333334L184.75208614068023,106.6666666666667Z"></path></g></svg>
