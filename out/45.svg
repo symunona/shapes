@@ -16,6 +16,6 @@
 .f-14 { fill: #e0e0e0;  }
 .f-15 { fill: #f0f0f0;  }
 .bgc { fill: #101010;  }
-.fore { fill: #404040; stroke: #404040;  }
+.fore { fill: #404040; stroke-color: #404040; sroke-width: 0;  }
 text{ font-family: Freemono, Sans, Arial; } 
 </style></defs><g fill-rule="evenodd"><path d="M169.15055334686983,470.84944665313014L169.15055334686986,169.15055334686983L470.84944665313014,169.15055334686986L470.84944665313014,470.84944665313014Z" class="fore"></path></g></svg>

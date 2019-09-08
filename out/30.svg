@@ -16,6 +16,6 @@
 .f-14 { fill: #e0e0e0;  }
 .f-15 { fill: #f0f0f0;  }
 .bgc { fill: #101010;  }
-.fore { fill: #404040; stroke: #404040;  }
+.fore { fill: #404040; stroke-color: #404040; sroke-width: 0;  }
 text{ font-family: Freemono, Sans, Arial; } 
 </style><filter id="fractal" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%"><feturbulence type="turbulence" baseFrequency="0.05" numOctaves="8"></feturbulence></filter></defs><circle cx="320" cy="320" r="213.33333333333334" width="213.33333333333334" height="213.33333333333334" filter="url(#fractal)"></circle></svg>

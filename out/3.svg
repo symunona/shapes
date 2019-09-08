@@ -26,6 +26,6 @@
 .f-14 { fill: #e0e0e0;  }
 .f-15 { fill: #f0f0f0;  }
 .bgc { fill: #101010;  }
-.fore { fill: #404040; stroke: #404040;  }
+.fore { fill: #404040; stroke-color: #404040; sroke-width: 0;  }
 text{ font-family: Freemono, Sans, Arial; } 
 </style></defs><g fill-rule="evenodd" transform="translate(320,320)"><path class="spin3 fore" d="M-184.7520861406802,-106.66666666666677L184.75208614068026,-106.66666666666663L0,213.33333333333334Z M -213.33333333333334, 0 a 213.33333333333334,213.33333333333334 0 1,0 426.6666666666667,0 a 213.33333333333334,213.33333333333334 0 1,0 -426.6666666666667,0"></path></g></svg>

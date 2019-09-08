@@ -16,7 +16,7 @@
 .f-14 { fill: #e0e0e0;  }
 .f-15 { fill: #f0f0f0;  }
 .bgc { fill: #101010;  }
-.fore { fill: #404040; stroke: #404040;  }
+.fore { fill: #404040; stroke-color: #404040; sroke-width: 0;  }
 text{ font-family: Freemono, Sans, Arial; } 
 </style><script type="text/javascript"><![CDATA[
 window.onload = function(){

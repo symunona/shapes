@@ -105,7 +105,7 @@ function generateColors1() {
 function generateDefaultSvgStyle(colors) {
     let colorFillClassesObject = createStylePropertyObjectFromColors(colors, 'fill', '.f')
     colorFillClassesObject['.bgc'] = { 'fill': colors[1] }
-    colorFillClassesObject['.fore'] = { 'fill': colors[4], 'stroke': colors[4] }
+    colorFillClassesObject['.fore'] = { 'fill': colors[4], 'stroke-color': colors[4], 'sroke-width': 0 }
     return colorFillClassesObject
 }
 
@@ -118,7 +118,7 @@ function generateDefaultSvgStyle(colors) {
 function generateDefaultSiteColors(colors) {
     let siteBackgroundCssObject = createStylePropertyObjectFromColors(colors, 'background-color', '.f')
     siteBackgroundCssObject['.bgc'] = { 'background-color': colors[1] }
-    siteBackgroundCssObject['.fore'] = { 'background-color': colors[4], 'stroke': colors[4] }
+    siteBackgroundCssObject['.fore'] = { 'background-color': colors[4], 'stroke-color': colors[4], 'sroke-width': 0  }
     return siteBackgroundCssObject
 }
 
