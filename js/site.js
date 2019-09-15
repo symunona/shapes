@@ -110,15 +110,29 @@ function setColors(n) {
         colors = generateColorsInv()
     }else if (n === 2) {
         colors = generateColors1()
+    }else if (n === 3) {
+        colors = generateDefaultColorGradient()
+
+        let css = cssFromObject(generateDefaultSiteColors(colors))
+        let svgCssObject = generateDefaultSvgStyle(colors);
+        for(let selector in svgCssObject){
+            svgCssObject[selector]['fill-opacity'] = 0.3;
+            svgCssObject[selector]['stroke'] = 'green';
+        }
+        let svgCss = cssFromObject(svgCssObject)
+        applyStyle(css + '\n' + svgCss)
+        return
     }
 
     let css = cssFromObject(generateDefaultSiteColors(colors))
     let svgCssObject = generateDefaultSvgStyle(colors);
     let svgCss = cssFromObject(svgCssObject)
+    applyStyle(css + '\n' + svgCss)
+}
+
+function applyStyle(css){
     $('#site-styles').remove()
-
-    $('body').append($('<style>', { 'id': 'site-styles' }).text(css + '\n' + svgCss))
-
+    $('body').append($('<style>', { 'id': 'site-styles' }).text(css))
 }
 
 function loadAll() {
