@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title>_ shapes</title>
+    <link rel="shortcut icon" type="image/png" href="shapes.png" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bgc">
+    <nav class="main">
+        <div class="wrapper">
+            <div class="logo" onclick="loadAll()">
+                <img src="out/1.svg" id="site-id">
+            </div>
+            <div class="menu">
+                <a onclick="setColors(0)">_ colors_def</a>
+                <a onclick="setColors(1)">_ colors_inv</a>
+                <a onclick="setColors(2)">_ colors_1</a>
+                <a onclick="setColors(3)">_ wireframe</a>
+                <a onclick="showTextures()">_ tex</a>
+            </div>
+        </div>
+        <nav class="textures"></nav>
+    </nav>
+
+    <div id="images" class="bgc"></div>
+
+    <!-- DEBUG -->
+    <!-- <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/snapsvg/dist/snap.svg.js"></script> -->
+    <!-- PROD -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
+    <script src="variants/colors.js"></script>
+    <script src="js/site.js"></script>
+</body>
+
+</html>

@@ -1,9 +1,9 @@
-body { background: black; color: white; }
+body { background: black; color: #888; }
 
 /* NAV */
 nav.main{ display: block; height: 40px; position: fixed; background: rgba(1,1,1,0.01) }
 
-nav.main .logo > svg{ height: 30px; width: 30px; transition-duration: 0.3s; transition-property: transform; cursor: pointer;}
+nav.main .logo > svg, nav.main .logo img{ height: 30px; width: 30px; transition-duration: 0.3s; transition-property: transform; cursor: pointer;}
 nav.main:hover .wrapper{ width: 500px }
 nav.main:hover .logo > svg{ transform: rotateZ(180deg); }
 nav.main a {color: #777; cursor: pointer; display: inline-block; padding-left: 15px}
