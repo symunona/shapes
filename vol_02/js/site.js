@@ -5,7 +5,7 @@ requirejs.config({
     baseUrl: 'js',
     paths: {
         jquery: 'vendor/jquery.min',
-        colors: '../../_vol_01/variants/colors'
+        colors: '../../vol_01/variants/colors'
     }
 });
 requirejs(['require', 'jquery', 'vendor/p5'], (require, $, P5)=>{
