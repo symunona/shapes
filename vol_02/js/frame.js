@@ -24,11 +24,26 @@ define(['colors'], (colors)=>{
             f: palette[DEFAULT_COLOR_INDEX],
             b: palette[DEFAULT_BACKGROUND_COLOR_INDEX]
         },
-        info: info
+        info: info,
+        poly: polygon
     }
 
     function info (n, title) {
         document.getElementById('shape-info').textContent = '_shape #' + n + ' ' + title
     }
+
+    function polygon (p, x, y, radius, n) {
+        let angle = p.TWO_PI / n;
+        p.beginShape()
+        // Always draw a dot.
+        p.vertex(x + radius, y);
+        for (let a = angle; a < p.TWO_PI; a += angle) {
+            let sx = x + p.cos(a) * radius
+            let sy = y + p.sin(a) * radius
+            p.vertex(sx, sy);
+        }
+        p.endShape(p.CLOSE);
+    }
+
     return c
 })

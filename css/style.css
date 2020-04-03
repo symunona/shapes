@@ -52,4 +52,21 @@ a.active { color: #111; background: #999}
 #shape-info{ margin: 10px; margin-top: 0px }
 
 .sidebar{ position: absolute; top: 40px; left: 0px; width: 60px;}
-.sidebar #list{ list-style: none;}
+.sidebar #list, ul{ list-style: none; padding-left: 0px}
+
+#ctrl{position: fixed; right: 0px; width: 250px; top: 40px}
+#ctrl ul li{ margin-top: 10px; }
+
+input {background: 0; color: #777; border: 1px solid #333}
+input.num{ width: 50px }
+input[type=range]{
+    width: 150px; height: 10px;
+    opacity: 0.7; background: #333; outline: none;
+    vertical-align: middle; -webkit-appearance: none;
+ }
+ input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance: none; appearance: none;
+    width: 10px; height: 10px;
+    background: #777; cursor: pointer;
+ }
+ .presets a{ display: block; line-height: 25px;}
