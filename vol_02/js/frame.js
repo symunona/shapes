@@ -1,7 +1,7 @@
 /**
  * Every shape needs a frame, unify for the blame.
  */
-define(['colors'], (colors)=>{
+define(['colors'], (colors) => {
     'use strict'
     const format = {
         h: 640,
@@ -25,7 +25,15 @@ define(['colors'], (colors)=>{
             b: palette[DEFAULT_BACKGROUND_COLOR_INDEX]
         },
         info: info,
-        poly: polygon
+        poly: polygon,
+        radPos: radPos
+    }
+
+    function radPos (angle, r) {
+        return {
+            x: Math.cos(angle) * r,
+            y: Math.sin(angle) * r
+        }
     }
 
     function info (n, title) {

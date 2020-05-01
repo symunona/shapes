@@ -12,10 +12,21 @@ requirejs.config({
 });
 requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
     'use strict'
-    const FROM = 82
-    const TO = 84
-    const STARTUP = 84
-    loadShape(STARTUP)
+    const FROM = 1
+    const TO = 4
+    const STARTUP = 2
+
+    if (location.hash) {
+        var startup = parseInt(location.hash.substr(1));
+        if (startup >= FROM && startup <= TO) {
+            loadShape(startup);
+        } else {
+            loadShape(STARTUP)
+        }
+    } else {
+        loadShape(STARTUP)
+    }
+
 
     for (let i = FROM; i <= TO; i++) {
         $('#list').append($('<li>').append($('<a>', {onclick: 'loadShape(' + i + ')', 'data-no': i}).append('_' + i)))
@@ -91,15 +102,18 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
 
         $('#ctrl').append(renderPresets(drawing))
 
-        navigator.clipboard.writeText(JSON.stringify(data, null, 2))
         console.log(JSON.stringify(data))
-
+        try {
+            navigator.clipboard.writeText(JSON.stringify(data, null, 2))
+        } catch (me) { /* if you can */ }
         return data;
     }
 
     function loadPreset (drawing, p) {
         Object.keys(p.values).map((key)=>{
-            drawing.properties.inputs[key].value = p.values[key]
+            if (drawing.properties.inputs[key]) {
+                drawing.properties.inputs[key].value = p.values[key]
+            }
         })
     }
 

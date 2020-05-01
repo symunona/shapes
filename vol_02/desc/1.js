@@ -17,7 +17,7 @@ define(['frame'], (c)=>{
         p.setup = function () {
             p.createCanvas(c.x, c.y)
             p.frameRate(30)
-            c.info(82, 'poly clock')
+            c.info('b1', 'poly clock')
         }
 
         p.draw = function draw () {

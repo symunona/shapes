@@ -51,7 +51,7 @@ define(['frame', 'underscore', 'p5'], (c, _, p5)=>{
     };
 
     PolyMovements.prototype.properties = {
-        id: 84,
+        id: 'b3',
         name: 'panels',
         inputs: {
             gridX: {

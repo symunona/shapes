@@ -15,7 +15,7 @@ define(['frame'], (c)=>{
         p.setup = function () {
             p.createCanvas(c.x, c.y)
             p.frameRate(30)
-            c.info(83, 'panels')
+            c.info('b2', 'panels')
         }
 
         p.draw = function draw () {
