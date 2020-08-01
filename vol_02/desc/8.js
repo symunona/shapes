@@ -11,7 +11,7 @@ define(['frame', 'underscore'], (c, _)=>{
         p.setup = function () {
             p.createCanvas(c.x, c.y)
             p.frameRate(30)
-            c.info('c2', 'pal ci ka')
+            c.info('c4', 'poly angle')
         }
 
         p.draw = function draw () {
@@ -21,7 +21,9 @@ define(['frame', 'underscore'], (c, _)=>{
                 length = p.properties.inputs.length.value,
                 angle = p.properties.inputs.angle.value,
                 asymmetry = p.properties.inputs.asymmetry.value,
-                brush = p.properties.inputs.brush.value
+                brush = p.properties.inputs.brush.value,
+                poly = p.properties.inputs.poly.value,
+                dr = p.properties.inputs.dr.value
 
             // Computeds
             let sizeX = c.w / (gridX + 2), sizeY = c.h / (gridY + 2)
@@ -35,12 +37,12 @@ define(['frame', 'underscore'], (c, _)=>{
                     p.push()
                     let x = sizeX * (xs + 1.5), y = sizeY * (ys + 1.5),
                         dy = Math.abs((y - p.mouseY) / 2) / asymmetry, dx = Math.abs((x - p.mouseX) / 2) * asymmetry,
-                        n = Math.sqrt((dx * dx) + (dy * dy))/ c.w / brush
+                        d = Math.sqrt((dx * dx) + (dy * dy))/ c.w / brush
 
                     p.translate(x, y)
-                    p.rotate(angle)
+                    p.rotate(angle + dy * dx * dr)
 
-                    p.line(-length * n, -length * n, length * n , length* n)
+                    c.p = c.poly(p, 0, 0, length * d, poly)
 
                     p.pop()
                 }
@@ -57,15 +59,23 @@ define(['frame', 'underscore'], (c, _)=>{
                 desc: 'horizontal items',
                 type: 'integer',
                 min: 1,
-                max: 1000,
-                value: 40
+                max: 200,
+                value: 20
             },
             gridY: {
                 desc: 'vertical items',
                 type: 'integer',
                 min: 1,
-                max: 1000,
-                value: 40
+                max: 200,
+                value: 20
+            },
+            dr: {
+                desc: 'rotate scale',
+                type: 'float',
+                step: 0.00003,
+                min: 0,
+                max: 1,
+                value: 0.0001
             },
             angle: {
                 desc: 'angle',
@@ -99,12 +109,17 @@ define(['frame', 'underscore'], (c, _)=>{
                 max: 10,
                 value: 2.7
             },
+            poly: {
+                desc: 'polygons',
+                type: 'integer',
+                min: 2,
+                max: 9,
+                value: 3
+            }
         },
         presets: [
-            {"name":"ver #000","values":{"gridX":10,"gridY":10,"angle":0,"length":27}},
-            {"name":"ver #001 - more lines","values":{"gridX":40,"gridY":40,"angle":0,"length":7}},
-            {"name":"ver #002 - many lines","values":{"gridX":40,"gridY":40,"angle":0,"length":25,"asymmetry":0.94}},
-            {"name":"ver #003","values":{"gridX":40,"gridY":40,"angle":0,"length":50,"asymmetry":1.1201,"brush":2.762}},
+            {"name":"ver #001 - cloth","values":{"gridX":88,"gridY":64,"dr":0.0001,"angle":0,"length":50,"asymmetry":1.2,"brush":2.7,"poly":3}},
+            {"name":"ver #004","values":{"gridX":20,"gridY":20,"sizeMultiplier":2,"angle":2.33375,"length":50,"asymmetry":0.7901,"brush":1.357,"poly":4}}
         ]
 
     }

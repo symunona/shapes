@@ -1,7 +1,7 @@
 /**
  * Circles and ripples
  */
-define(['frame', 'underscore', 'p5'], (c, _, p5)=>{
+define(['frame', 'underscore'], (c, _)=>{
     'use strict'
     let PolyMovements = function (p) {
         // Defaults

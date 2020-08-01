@@ -11,7 +11,7 @@ define(['frame', 'underscore'], (c, _)=>{
         p.setup = function () {
             p.createCanvas(c.x, c.y)
             p.frameRate(30)
-            c.info('c2', 'pal ci ka')
+            c.info('c3', 'poly rules')
         }
 
         p.draw = function draw () {
@@ -21,7 +21,8 @@ define(['frame', 'underscore'], (c, _)=>{
                 length = p.properties.inputs.length.value,
                 angle = p.properties.inputs.angle.value,
                 asymmetry = p.properties.inputs.asymmetry.value,
-                brush = p.properties.inputs.brush.value
+                brush = p.properties.inputs.brush.value,
+                poly = p.properties.inputs.poly.value
 
             // Computeds
             let sizeX = c.w / (gridX + 2), sizeY = c.h / (gridY + 2)
@@ -40,7 +41,8 @@ define(['frame', 'underscore'], (c, _)=>{
                     p.translate(x, y)
                     p.rotate(angle)
 
-                    p.line(-length * n, -length * n, length * n , length* n)
+                    // p.line(-length * n, -length * n, length * n , length* n)
+                    c.p = c.poly(p, 0, 0, length * n, poly)
 
                     p.pop()
                 }
@@ -99,12 +101,16 @@ define(['frame', 'underscore'], (c, _)=>{
                 max: 10,
                 value: 2.7
             },
+            poly: {
+                desc: 'polygons',
+                type: 'integer',
+                min: 2,
+                max: 9,
+                value: 4
+            }
         },
         presets: [
-            {"name":"ver #000","values":{"gridX":10,"gridY":10,"angle":0,"length":27}},
-            {"name":"ver #001 - more lines","values":{"gridX":40,"gridY":40,"angle":0,"length":7}},
-            {"name":"ver #002 - many lines","values":{"gridX":40,"gridY":40,"angle":0,"length":25,"asymmetry":0.94}},
-            {"name":"ver #003","values":{"gridX":40,"gridY":40,"angle":0,"length":50,"asymmetry":1.1201,"brush":2.762}},
+            {"name":"ver #004","values":{"gridX":20,"gridY":20,"angle":2.33375,"length":50,"asymmetry":0.7901,"brush":1.357,"poly":4}}
         ]
 
     }
