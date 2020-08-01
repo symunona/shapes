@@ -1,12 +1,17 @@
 const LS_COLOR_KEY = 'ls_color_key'
-const KNOBS = [1, 1, 1, 11, 18, 19, 34, 42, 44, 69];
-const SIZE = 640;
+const KNOBS = [1, 1, 1, 11, 18, 19, 34, 42, 44, 69]
+const SIZE = 640
+const PAGE_SIZE = 9
 
 const TEXTURES = 20
 
 let colors = window.generateDefaultColorGradient()
 let colorDefs
 let siteColorStyles
+
+let currentPage = 0
+let allShapes
+let pages
 
 $(function () {
     'use strict'
@@ -25,10 +30,20 @@ $(function () {
         $('#images').html('')
         // If we have a hash set, load only that one.
         if (location.hash && location.hash.length > 1) {
-            loadShape(Number.parseInt(location.hash.substr(1)))
+            if (!isNaN(Number.parseInt(location.hash.substr(1)))){
+                loadShape(Number.parseInt(location.hash.substr(1)))
+            } else {
+                let paramObject = {}
+                let params = location.hash.substr(1).split('&').map((v)=>paramObject[v.split('=')[0]] = v.split('=')[1])
+                if (!isNaN(Number.parseInt(paramObject.p))){
+                    // Let's page
+                    currentPage = parseInt(paramObject.p)
+                    loadPage(currentPage)
+                }
+            }
         } else {
             // Load all the shapes from the JSON
-            loadAll().then(() => {
+            loadPage(0).then(() => {
                 var scrollTop = localStorage.getItem('scrll')
                 if (scrollTop) {
                     $('body').scrollTop(Number.parseInt(scrollTop));
@@ -134,10 +149,29 @@ function applyStyle (css) {
     $('body').append($('<style>', {'id': 'site-styles'}).text(css))
 }
 
-function loadAll () {
-    return $.ajax('shapes.json?v=' + Math.random()).then((shapes) => {
-        return $.when.apply(this, Object.keys(shapes).map(loadShape))
-    })
+// function loadAll () {
+//     return $.ajax('shapes.json?v=' + Math.random()).then((shapes) => {
+//         allShapes = shapes
+//         // return $.when.apply(this, Object.keys(shapes).map(loadShape))
+//     })
+// }
+
+function loadPage (n) {
+    if (!allShapes){
+        return $.ajax('shapes.json?v=' + Math.random()).then((shapes) => {
+            allShapes = shapes
+            pages = Math.ceil(Object.keys(shapes).length / PAGE_SIZE)
+            for(let p = 0; p < pages; p++){
+                $('.pager').append($('<a>', {href:`#p=${p}`, onclick: `showPage(${p})`}).html(p));
+            }
+            return showPage(n)
+        })
+    }
+    return showPage(n)
+}
+function showPage (n){
+    $('#images').html('');
+    return $.when.apply(this, Object.keys(allShapes).slice(n * PAGE_SIZE, (n+1)*PAGE_SIZE).map(loadShape))
 }
 
 function loadShape (i) {

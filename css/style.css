@@ -70,3 +70,5 @@ input[type=range]{
     background: #777; cursor: pointer;
  }
  .presets a{ display: block; line-height: 25px;}
+
+ .pager{ position: absolute; width: 20px; left: 0px; top: 50px; }
