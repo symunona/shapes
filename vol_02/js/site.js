@@ -51,7 +51,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
         })
     }
 
-    $('toggler').click(toggleControls)
+    $('#toggler').click(toggleControls)
 
     function toggleControls(){
         $('body').toggleClass('clean')
