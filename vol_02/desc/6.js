@@ -3,9 +3,9 @@
  */
 define(['frame', 'underscore'], (c, _)=>{
     'use strict'
-    let PolyMovements = function (p) {
+    let Stripes = function (p) {
         // Defaults
-        p.properties = _.extend({}, PolyMovements.prototype.properties)
+        p.properties = _.extend({}, Stripes.prototype.properties)
 
         // Setup may be somewhere else... Also do not use c.
         p.setup = function () {
@@ -21,14 +21,15 @@ define(['frame', 'underscore'], (c, _)=>{
                 length = p.properties.inputs.length.value,
                 angle = p.properties.inputs.angle.value,
                 asymmetry = p.properties.inputs.asymmetry.value,
-                brush = p.properties.inputs.brush.value
+                brush = p.properties.inputs.brush.value,
+                fore = p.properties.inputs.fore.value,
+                back = p.properties.inputs.back.value
 
             // Computeds
             let sizeX = c.w / (gridX + 2), sizeY = c.h / (gridY + 2)
-            let BACK = p.color(c.c.b)
 
-            p.background(BACK)
-            p.stroke(c.c.f)
+            p.background(c.c.p[back])
+            p.stroke(c.c.p[fore])
             p.strokeWeight(1)
             for (let xs = 0; xs < gridX; xs++) {
                 for (let ys = 0; ys < gridY; ys++) {
@@ -49,7 +50,7 @@ define(['frame', 'underscore'], (c, _)=>{
     };
 
 
-    PolyMovements.prototype.properties = {
+    Stripes.prototype.properties = {
         id: 'b3',
         name: 'panels',
         inputs: {
@@ -99,15 +100,31 @@ define(['frame', 'underscore'], (c, _)=>{
                 max: 10,
                 value: 2.7
             },
+            fore: {
+                desc: 'foreground color',
+                type: 'integer',
+                min: 0,
+                max: 15,
+                value: 15
+            },
+            back: {
+                desc: 'background color',
+                type: 'integer',
+                min: 0,
+                max: 15,
+                value: 1
+            }
         },
         presets: [
             {"name":"ver #000","values":{"gridX":10,"gridY":10,"angle":0,"length":27}},
             {"name":"ver #001 - more lines","values":{"gridX":40,"gridY":40,"angle":0,"length":7}},
             {"name":"ver #002 - many lines","values":{"gridX":40,"gridY":40,"angle":0,"length":25,"asymmetry":0.94}},
             {"name":"ver #003","values":{"gridX":40,"gridY":40,"angle":0,"length":50,"asymmetry":1.1201,"brush":2.762}},
+            {"name":"ver #004 - invert","values":{"gridX":40,"gridY":40,"angle":0,"length":50,"asymmetry":1.2,"brush":2.7,"fore":0,"back":15}},
+            {"name":"ver #005 - dark back","values":{"gridX":40,"gridY":40,"angle":0,"length":50,"asymmetry":1.2,"brush":2.7,"fore":15,"back":0}}
         ]
 
     }
 
-    return PolyMovements;
+    return Stripes;
 });

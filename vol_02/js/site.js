@@ -13,8 +13,8 @@ requirejs.config({
 requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
     'use strict'
     const FROM = 1
-    const TO = 8
-    const STARTUP = 8
+    const TO = 9
+    const STARTUP = 6
 
     if (location.hash) {
         var startup = parseInt(location.hash.substr(1));
@@ -86,6 +86,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
             $p.on('click', loadPreset.bind(this, drawing, p))
             return $p;
         }))
+        $('#shape-wrapper').click(savePreset.bind(this, drawing))
         return $el;
     }
 
