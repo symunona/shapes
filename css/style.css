@@ -3,6 +3,14 @@ body {
     font-family: Freemono, Sans, Arial;
 }
 
+#toggler{position: fixed; left: 0; bottom: 0}
+
+body.clean .menu,
+body.clean #ctrl,
+body.clean .sidebar,
+body.clean #shape-info
+{ display: none !important; }
+
 /* NAV */
 nav.main{ display: block; height: 40px; position: fixed; background: rgba(1,1,1,0.01) }
 

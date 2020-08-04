@@ -18,6 +18,9 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
 
     if (location.hash) {
         var startup = parseInt(location.hash.substr(1));
+        if (location.hash.substr(1, 1) === 's'){
+            toggleControls()
+        }
         if (startup >= FROM && startup <= TO) {
             loadShape(startup);
         } else {
@@ -46,6 +49,13 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
             renderControls(currentDrawing)
             // Add the default to the presets.
         })
+    }
+
+    $('toggler').click(toggleControls)
+
+    function toggleControls(){
+        $('body').toggleClass('clean')
+        $('#toggler').text($('#toggler').text() === 'H'?'S':'H')
     }
 
     function unload () {
