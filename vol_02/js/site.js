@@ -13,8 +13,8 @@ requirejs.config({
 requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
     'use strict'
     const FROM = 1
-    const TO = 9
-    const STARTUP = 6
+    const TO = 10
+    const STARTUP = 10
 
     if (location.hash) {
         var startup = parseInt(location.hash.substr(1));
