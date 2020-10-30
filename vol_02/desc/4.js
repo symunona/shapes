@@ -73,8 +73,8 @@ define(['frame', 'underscore'], (c, _)=>{
     };
 
     PolyMovements.prototype.properties = {
-        id: 'b3',
-        name: 'panels',
+        id: 'b4',
+        name: 'circles',
         inputs: {
             gridX: {
                 desc: 'horizontal items',
@@ -160,8 +160,9 @@ define(['frame', 'underscore'], (c, _)=>{
             {'name': 'ver #002', 'values': {'gridX': 1, 'gridY': 1, 'sizeMultiplier': 19.5, 'angle': 1.34, 'm': 10, 'n': 9, 'positionRadius': 81.2, 'scaleSizeDrop': 1.1, 'scalePlace': 16.7, 'spiral': 0}},
             {'name': 'ver #003', 'values': {'gridX': 1, 'gridY': 1, 'sizeMultiplier': 36.8, 'm': 5, 'n': 16, 'positionRadius': 67.2, 'scaleSizeDrop': 0.8, 'scalePlace': 8.5, 'spiral': 0.475}},
             {"name":"ver #003 b","values":{"gridX":3,"gridY":3,"sizeMultiplier":15.7125,"m":16,"n":10,"positionRadius":50,"scaleSizeDrop":0.8,"scalePlace":15,"spiral":0}},
-            {"name":"ver #004","values":{"gridX":4,"gridY":5,"sizeMultiplier":13.8125,"m":10,"n":9,"positionRadius":-75.2,"scaleSizeDrop":1,"scalePlace":16.7,"spiral":0}}
-
+            {"name":"ver #004","values":{"gridX":4,"gridY":5,"sizeMultiplier":13.8125,"m":10,"n":9,"positionRadius":-75.2,"scaleSizeDrop":1,"scalePlace":16.7,"spiral":0}},
+            {"name":"ver #006","values":{"gridX":1,"gridY":1,"sizeMultiplier":30,"m":5,"n":10,"positionRadius":52.4,"scaleSizeDrop":0.8,"scalePlace":21.9,"spiral":2}},
+            {"name":"ver #006","values":{"gridX":3,"gridY":3,"sizeMultiplier":39.9,"m":3,"n":10,"positionRadius":50,"scaleSizeDrop":0.8,"scalePlace":7.3,"spiral":1.714}}
         ]
 
     }

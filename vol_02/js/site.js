@@ -77,7 +77,12 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
 
 
             let $ctrl = $('<li>', {title: desc})
-            $ctrl.append(createInput(props))
+            if (['float', 'number', 'integer'].indexOf(props.type)>-1){
+                $ctrl.append(createInput(props))
+            } else {
+                $ctrl.append(createButton(props, drawing))
+            }
+
             $ctrlList.append($ctrl)
         })
         // Presets
@@ -126,6 +131,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
                 drawing.properties.inputs[key].value = p.values[key]
             }
         })
+        if (drawing.properties?.reset){ drawing.properties?.reset() }
     }
 
 
@@ -160,8 +166,18 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
             }
             $numeric.val(val)
             $slider.val(val)
+            if (prop.onChange){ prop.onChange(val) }
             prop.value = val;
         }
+    }
+
+
+    function createButton (prop) {
+        let $el = $('<div>', {title: prop.desc || ''})
+        let $button = $('<button>').html(prop.text)
+        $button.on('click', ()=>prop.action())
+        $el.append($button)
+        return $el
     }
 
     function setProperty (key, value) {

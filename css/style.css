@@ -80,3 +80,5 @@ input[type=range]{
  .presets a{ display: block; line-height: 25px;}
 
  .pager{ position: absolute; width: 20px; left: 0px; top: 50px; }
+
+ button { border: 1px solid #555; background: transparent; color: #555 }
