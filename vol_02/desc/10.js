@@ -263,30 +263,30 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
                 value: 1,
                 onChange: ()=>DFS.redraw()
             },
-            bgOpacity: {
-                desc: 'bg opacity',
-                type: 'float',
-                step: 0.01,
-                min: 0,
-                max: 1,
-                value: 0.1,
-                onChange: ()=>DFS.redraw()
-            },
-            turnOrStraight: {
-                desc: 'turn likelyness',
-                type: 'float',
-                step: 0.0125,
-                min: 0,
-                max: 1,
-                value: 0.3
-            },
-            leftOrRight: {
-                desc: 'left or right?',
-                type: 'float',
-                min: 0,
-                max: 1,
-                value: 0.5
-            },
+            // bgOpacity: {
+            //     desc: 'bg opacity',
+            //     type: 'float',
+            //     step: 0.01,
+            //     min: 0,
+            //     max: 1,
+            //     value: 0.1,
+            //     onChange: ()=>DFS.redraw()
+            // },
+            // turnOrStraight: {
+            //     desc: 'turn likelyness',
+            //     type: 'float',
+            //     step: 0.0125,
+            //     min: 0,
+            //     max: 1,
+            //     value: 0.3
+            // },
+            // leftOrRight: {
+            //     desc: 'left or right?',
+            //     type: 'float',
+            //     min: 0,
+            //     max: 1,
+            //     value: 0.5
+            // },
             speed: {
                 desc: 'frame reder time',
                 type: 'float',

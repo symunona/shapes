@@ -14,7 +14,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
     'use strict'
     const FROM = 1
     const TO = 11
-    const STARTUP = 10
+    const STARTUP = 11
 
     if (location.hash) {
         var startup = parseInt(location.hash.substr(1));
@@ -55,7 +55,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
             renderControls(currentDrawing)
 
             // Now load the last preset
-            if (lastPreset) loadPreset(currentDrawing, lastPreset)
+            // if (lastPreset) loadPreset(currentDrawing, lastPreset)
         })
     }
 
@@ -113,7 +113,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
         if (!drawing.properties.presets) { return; }
         $el.append(drawing.properties.presets.map((p)=>{
             let $p = $('<a>').text(p.name)
-            $p.on('click', loadPreset.bind(this, drawing, p))
+            $p.on('click', loadPreset.bind(this, drawing, p, true))
             return $p;
         }))
         $('#shape-wrapper').click(savePreset.bind(this, drawing))
@@ -138,11 +138,11 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
             navigator.clipboard.writeText(JSON.stringify(data, null, 2))
         } catch (me) { /* if you can */ }
         localStorage.setItem('shape-' + drawing.properties.id, JSON.stringify(data))
-        localStorage.setItem('shape-list-' + drawing.properties.id, JSON.stringify(drawing.properties.presets))
+        // localStorage.setItem('shape-list-' + drawing.properties.id, JSON.stringify(drawing.properties.presets))
         return data;
     }
 
-    function loadPreset (drawing, p) {
+    function loadPreset (drawing, p, saveIt) {
         Object.keys(p.values).map((key)=>{
             if (drawing.properties.inputs[key]) {
                 drawing.properties.inputs[key].value = p.values[key]
@@ -150,7 +150,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
         })
 
         // When loading a preset, change the default to this.
-        localStorage.setItem('shape-' + drawing.properties.id, JSON.stringify(p))
+        if (saveIt) { localStorage.setItem('shape-' + drawing.properties.id, JSON.stringify(p)) }
         if (drawing.properties?.reset){ drawing.properties?.reset() }
     }
 

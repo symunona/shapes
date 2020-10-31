@@ -1,5 +1,5 @@
 /**
- * DFS anim 2
+ * DFS anim
  */
 define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
     'use strict'
@@ -16,7 +16,7 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
         // Setup may be somewhere else... Also do not use c.
         p.setup = async function () {
             DFS.initDrawing();
-            c.info('algo', 'dfs panel 1')
+            c.info('algo', 'dfs tri 1')
             DFS.reset()
         }
 
@@ -30,25 +30,21 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
             })
         }
         DFS.start = function() {
-            console.log('start')
             isPlaying = true;
             if (continuePromise) continuePromise()
         }
         DFS.stop = function() {
-            console.log('stop')
             isPlaying = false;
         }
         DFS.reset = function() {
-            console.log('reset')
             DFS.stop()
             if (reset) reset()
             p.clear()
             isPlaying = true;
-            let gridX = p.properties.inputs.gridX.value,
-                gridY = p.properties.inputs.gridY.value
+            let n = p.properties.inputs.n.value
 
-            p.baseGraph = initRectGraph(gridX, gridY)
-            p.staringPoint = Math.floor( gridX / 2 )
+            p.baseGraph = initTriGraph(n)
+            p.staringPoint = Math.floor( n / 2 )
             p.path = []
             p.endPoints = []
             p.weirdPathElements = []
@@ -106,8 +102,6 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
                 // Depending on the angle and the distribution, we go left or right.
                 // Todo: add 180, order from left to right, then decide.
 
-                // console.log(angle)
-
                 p.path.push([startingPoint, notVisitedNeighbors[nextNode]])
                 drawEdge(baseGraph, [startingPoint, notVisitedNeighbors[nextNode]], p, DFS_COLOR)
                 // drawDot(baseGraph.points[startingPoint], p.color(128, 128, 0))
@@ -142,32 +136,34 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
         }
 
         /**
-         * @param {Integer} gridX
-         * @param {Integer} gridY
+         * @param {Integer} n
          */
-        function initRectGraph(gridX, gridY){
-            let map = [], i = 0,
-                graph = new Graph(),
-                xU = c.w / gridX,
-                yU = c.h / gridY
+        function initTriGraph(n){
+            let graph = new Graph(),
+                xU = c.w / n,
+                sqrt3per2 = Math.sqrt(3) / 2,
+                baseY = n * (1-sqrt3per2) * xU / 2
 
-            for(let y=0; y<gridY; y++) {
-                map[y] = []
-                for(let x=0; x<gridX; x++){
-                    graph.addPoint(map[y][x] = {x: (x + 0.5) * xU, y: (y + 0.5) * yU})
+            let pts = 0
+
+            for(let y = 0; y < n; y++) {
+                console.log(pts, n - y)
+                for(let x = 0; x < n - y; x++){
+                    graph.addPoint({x: (x + 0.5) * xU + (y * xU / 2), y: baseY + ((y + 0.5) * xU * sqrt3per2)})
+                    pts++
                 }
             }
-            // Create the net!
-            for(let y=0; y<gridY; y++) {
-                for(let x=0; x<gridX-1; x++){
-                    graph.addEdge(y * gridX + x, y*gridX + x + 1) // x axis
+
+            let lineIndexStaringPoint = 0
+            for(let y = 0; y < n - 1; y++) {
+                for(let x = 0; x < n - y - 1; x++){
+                    graph.addEdge(lineIndexStaringPoint + x, lineIndexStaringPoint + x + 1) // x axis
+                    graph.addEdge(lineIndexStaringPoint + x, lineIndexStaringPoint + n - y + x) // x axis
+                    graph.addEdge(lineIndexStaringPoint + x + 1, lineIndexStaringPoint + n - y + x) // x axis
                 }
+                lineIndexStaringPoint += n - y
             }
-            for(let y=0; y<gridY-1; y++) {
-                for(let x=0; x<gridX; x++){
-                    graph.addEdge(y * gridX + x, ((y + 1) * gridX) + x) // y axis
-                }
-            }
+
             return graph
         }
 
@@ -185,8 +181,9 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
                 grid.push()
                 grid.translate(g.points[i].x, g.points[i].y)
                 let color = p.color(c.c.p[3])
-                color.setAlpha(128)
+                // color.setAlpha(128)
                 grid.fill(color)
+                grid.circle(0, 0, 10)
                 grid.pop()
             }
 
@@ -216,7 +213,7 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
         function drawEdge(graph, edge, p, color){
             p.algoLayer.strokeWeight(p.properties.inputs.strokeWidth.value)
             p.algoLayer.stroke(color || c.c.p[12])
-            p.algoLayer.strokeCap(p.PROJECT)
+            // p.algoLayer.strokeCap(p.PROJECT)
             p.algoLayer.line(
                 graph.points[edge[0]].x, graph.points[edge[0]].y,
                 graph.points[edge[1]].x, graph.points[edge[1]].y
@@ -226,30 +223,24 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
     };
 
     DFS.prototype.properties = {
-        id: 'algo1',
+        id: 'algo1-tri',
         name: 'dfs',
         reset: ()=>DFS.reset(),
         inputs: {
-            gridX: {
-                desc: 'horizontal items',
+            n: {
+                desc: 'n',
                 type: 'integer',
                 min: 1,
                 max: 100,
-                value: 12
-            },
-            gridY: {
-                desc: 'vertical items',
-                type: 'integer',
-                min: 1,
-                max: 100,
-                value: 12
+                value: 25,
+                onChange: ()=>DFS.reset()
             },
             strokeWidth: {
                 desc: 'stroke width',
                 type: 'integer',
                 min: 1,
                 max: 50,
-                value: 25,
+                value: 8,
                 onChange: ()=>DFS.redraw()
             },
             dotSize: {
@@ -258,33 +249,33 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
                 min: 0,
                 max: 3,
                 step: 0.01,
-                value: 1,
+                value: 2,
                 onChange: ()=>DFS.redraw()
             },
-            bgOpacity: {
-                desc: 'bg opacity',
-                type: 'float',
-                step: 0.01,
-                min: 0,
-                max: 1,
-                value: 0.1,
-                onChange: ()=>DFS.redraw()
-            },
-            turnOrStraight: {
-                desc: 'turn likelyness',
-                type: 'float',
-                step: 0.0125,
-                min: 0,
-                max: 1,
-                value: 0.3
-            },
-            leftOrRight: {
-                desc: 'left or right?',
-                type: 'float',
-                min: 0,
-                max: 1,
-                value: 0.5
-            },
+            // bgOpacity: {
+            //     desc: 'bg opacity',
+            //     type: 'float',
+            //     step: 0.01,
+            //     min: 0,
+            //     max: 1,
+            //     value: 0.1,
+            //     onChange: ()=>DFS.redraw()
+            // },
+            // turnOrStraight: {
+            //     desc: 'turn likelyness',
+            //     type: 'float',
+            //     step: 0.0125,
+            //     min: 0,
+            //     max: 1,
+            //     value: 0.3
+            // },
+            // leftOrRight: {
+            //     desc: 'left or right?',
+            //     type: 'float',
+            //     min: 0,
+            //     max: 1,
+            //     value: 0.5
+            // },
             speed: {
                 desc: 'frame reder time',
                 type: 'float',
@@ -309,7 +300,7 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
             }
         },
         presets: [
-            {"name":"ver #000","values":{"gridX":12,"gridY":19,"strokeWidth":12,"dotSize":3,"bgOpacity":0.1,"turnOrStraight":0.3,"leftOrRight":0.5,"speed":2000}}
+            {"name":"ver #014","values":{"n":22,"strokeWidth":10,"dotSize":2.14,"bgOpacity":0.1,"turnOrStraight":0.3,"leftOrRight":0.5,"speed":2000}}
         ]
     }
 
