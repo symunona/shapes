@@ -13,7 +13,7 @@ requirejs.config({
 requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
     'use strict'
     const FROM = 1
-    const TO = 10
+    const TO = 11
     const STARTUP = 10
 
     if (location.hash) {
@@ -43,11 +43,19 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
     function loadShape (n) {
         require(['../desc/' + n], (drawing)=>{
             unload()
-            $('[data-no=' + n + ']').addClass('.active')
+            $('#list a').removeClass('active')
+            $('[data-no=' + n + ']').addClass('active')
             $('#shape-wrapper').show()
             currentDrawing = new P5(drawing, 'shape-main')
+
+            // User can store their presets in their localStorage
+            let lastPreset = restorePresets(currentDrawing)
+
+            // These are the sliders and buttons on the side.
             renderControls(currentDrawing)
-            // Add the default to the presets.
+
+            // Now load the last preset
+            if (lastPreset) loadPreset(currentDrawing, lastPreset)
         })
     }
 
@@ -62,7 +70,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
         if (currentDrawing) {
             currentDrawing.remove()
         }
-        $('#list a.active').removeClass('.active')
+        $('#list a.active').removeClass('active')
     }
 
     function renderControls (drawing) {
@@ -87,6 +95,13 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
         })
         // Presets
         $('#ctrl').append(renderPresets(drawing))
+    }
+
+    function restorePresets(drawing){
+        let lastListOfPresets = localStorage.getItem('shape-list-' + drawing.properties.id)
+        drawing.properties.presets = lastListOfPresets?JSON.parse(lastListOfPresets):drawing.properties.presets
+        let lastPresetValue = localStorage.getItem('shape-' + drawing.properties.id)
+        return lastPresetValue ? JSON.parse(lastPresetValue) : false
     }
 
     function renderPresets (drawing) {
@@ -122,6 +137,8 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
         try {
             navigator.clipboard.writeText(JSON.stringify(data, null, 2))
         } catch (me) { /* if you can */ }
+        localStorage.setItem('shape-' + drawing.properties.id, JSON.stringify(data))
+        localStorage.setItem('shape-list-' + drawing.properties.id, JSON.stringify(drawing.properties.presets))
         return data;
     }
 
@@ -131,6 +148,9 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
                 drawing.properties.inputs[key].value = p.values[key]
             }
         })
+
+        // When loading a preset, change the default to this.
+        localStorage.setItem('shape-' + drawing.properties.id, JSON.stringify(p))
         if (drawing.properties?.reset){ drawing.properties?.reset() }
     }
 
@@ -173,7 +193,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
 
 
     function createButton (prop) {
-        let $el = $('<div>', {title: prop.desc || ''})
+        let $el = $('<div>', {title: prop.desc || '', 'class': 'ctrl-button'})
         let $button = $('<button>').html(prop.text)
         $button.on('click', ()=>prop.action())
         $el.append($button)

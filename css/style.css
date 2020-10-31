@@ -77,8 +77,11 @@ input[type=range]{
     width: 10px; height: 10px;
     background: #777; cursor: pointer;
  }
+ .presets { display: block;}
  .presets a{ display: block; line-height: 25px;}
 
  .pager{ position: absolute; width: 20px; left: 0px; top: 50px; }
+
+.ctrl-button{ float: left; margin-right: 10px }
 
  button { border: 1px solid #555; background: transparent; color: #555 }

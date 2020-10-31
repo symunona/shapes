@@ -16,7 +16,7 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
         // Setup may be somewhere else... Also do not use c.
         p.setup = async function () {
             DFS.initDrawing();
-            c.info('algo', 'dfs rect')
+            c.info('algo', 'dfs panel 1')
             DFS.reset()
         }
 
@@ -235,14 +235,16 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
                 type: 'integer',
                 min: 1,
                 max: 100,
-                value: 12
+                value: 12,
+                onChange: ()=>DFS.reset()
             },
             gridY: {
                 desc: 'vertical items',
                 type: 'integer',
                 min: 1,
                 max: 100,
-                value: 12
+                value: 12,
+                onChange: ()=>DFS.reset()
             },
             strokeWidth: {
                 desc: 'stroke width',
