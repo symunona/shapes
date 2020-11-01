@@ -18,7 +18,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
 
     if (location.hash) {
         var startup = parseInt(location.hash.substr(1));
-        if (location.hash.substr(1, 1) === 's'){
+        if (location.hash.indexOf('s') > -1){
             toggleControls()
         }
         if (startup >= FROM && startup <= TO) {
