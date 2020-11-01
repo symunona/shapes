@@ -147,7 +147,6 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
             let pts = 0
 
             for(let y = 0; y < n; y++) {
-                console.log(pts, n - y)
                 for(let x = 0; x < n - y; x++){
                     graph.addPoint({x: (x + 0.5) * xU + (y * xU / 2), y: baseY + ((y + 0.5) * xU * sqrt3per2)})
                     pts++
@@ -172,25 +171,28 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
          * @param {Graph} g
          */
         function drawGraphGrid(g, p){
-
+            // do not draw if invisible.
+            if (!p.properties.inputs.bgOpacity.value) return;
             // Create a new layer
             let grid = p.bg
+
+            let dotColor = p.color(c.c.p[p.properties.inputs.bgOpacity.value])
+            let edgeColor = p.color(c.c.p[p.properties.inputs.bgOpacity.value + 1])
+            edgeColor.setAlpha(10)
 
             // Nodes
             for(let i = 0; i < g.points.length; i++){
                 grid.push()
                 grid.translate(g.points[i].x, g.points[i].y)
-                let color = p.color(c.c.p[3])
+
                 // color.setAlpha(128)
-                grid.fill(color)
+                grid.fill(dotColor)
                 grid.circle(0, 0, 10)
                 grid.pop()
             }
 
             // Edges
-            let strokeColor = p.color(c.c.p[4])
-            strokeColor.setAlpha(10)
-            grid.stroke(strokeColor)
+            grid.stroke(edgeColor)
             grid.strokeWeight(3)
             let drawnEdges = {}
             for(let i = 0; i < g.points.length; i++){
@@ -202,7 +204,6 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
                     }
                 }
             }
-            p.bg.tint(1, 1)
             p.image(p.bg, 0, 0)
         }
 
@@ -252,15 +253,14 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
                 value: 2,
                 onChange: ()=>DFS.redraw()
             },
-            // bgOpacity: {
-            //     desc: 'bg opacity',
-            //     type: 'float',
-            //     step: 0.01,
-            //     min: 0,
-            //     max: 1,
-            //     value: 0.1,
-            //     onChange: ()=>DFS.redraw()
-            // },
+            bgOpacity: {
+                desc: 'bg opacity',
+                type: 'integer',
+                min: 0,
+                max: 14,
+                value: 2,
+                onChange: ()=>DFS.redraw()
+            },
             // turnOrStraight: {
             //     desc: 'turn likelyness',
             //     type: 'float',
@@ -300,7 +300,7 @@ define(['frame', 'underscore', '../graph'], (c, _, Graph)=>{
             }
         },
         presets: [
-            {"name":"ver #014","values":{"n":22,"strokeWidth":10,"dotSize":2.14,"bgOpacity":0.1,"turnOrStraight":0.3,"leftOrRight":0.5,"speed":2000}}
+            {"name":"ver #014","values":{"n":22,"strokeWidth":10,"dotSize":2.14,"bgOpacity":0,"turnOrStraight":0.3,"leftOrRight":0.5,"speed":2000}}
         ]
     }
 

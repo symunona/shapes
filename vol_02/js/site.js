@@ -61,6 +61,11 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
 
     $('#toggler').click(toggleControls)
 
+    // Space toggles the controls.
+    $('body').on('keydown', (evt)=>{
+        if (evt.keyCode === 32) {toggleControls()}
+    })
+
     function toggleControls(){
         $('body').toggleClass('clean')
         $('#toggler').text($('#toggler').text() === 'H'?'S':'H')
@@ -186,8 +191,8 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
             }
             $numeric.val(val)
             $slider.val(val)
-            if (prop.onChange){ prop.onChange(val) }
             prop.value = val;
+            if (prop.onChange){ prop.onChange(val) }
         }
     }
 
