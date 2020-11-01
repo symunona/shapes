@@ -85,3 +85,6 @@ input[type=range]{
 .ctrl-button{ float: left; margin-right: 10px }
 
  button { border: 1px solid #555; background: transparent; color: #555 }
+
+ #image-gallery img{ width: 33%; transition: transform .2s }
+ #image-gallery img:hover{ transform: scale(1.2); }

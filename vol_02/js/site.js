@@ -47,6 +47,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
             $('[data-no=' + n + ']').addClass('active')
             $('#shape-wrapper').show()
             currentDrawing = new P5(drawing, 'shape-main')
+            currentDrawing.no = n
 
             // User can store their presets in their localStorage
             let lastPreset = restorePresets(currentDrawing)
@@ -63,7 +64,15 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
 
     // Space toggles the controls.
     $('body').on('keydown', (evt)=>{
+        console.log(evt.keyCode)
         if (evt.keyCode === 32) {toggleControls()}
+        if (evt.keyCode === 13) {
+            // Can not really save an SVG,
+            if (currentDrawing.algoLayer){
+                currentDrawing.save(currentDrawing.no + '.svg')
+            }
+            currentDrawing.save(currentDrawing.no + '.png')
+        }
     })
 
     function toggleControls(){

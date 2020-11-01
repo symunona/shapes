@@ -162,7 +162,11 @@ function loadPage (n) {
             allShapes = shapes
             pages = Math.ceil(Object.keys(shapes).length / PAGE_SIZE)
             for(let p = 0; p < pages; p++){
-                $('.pager').append($('<a>', {href:`#p=${p}`, onclick: `showPage(${p})`}).html(p));
+                $('.pager').append($('<a>', {
+                    href:`#p=${p}`, 
+                    id: `page-${p}`,
+                    class: 'pager-link',
+                    onclick: `showPage(${p})`}).html(p));
             }
             return showPage(n)
         })
@@ -170,6 +174,8 @@ function loadPage (n) {
     return showPage(n)
 }
 function showPage (n){
+    $('.pager-link').removeClass('active')
+    $(`#page-${n}`).addClass('active')
     $('#images').html('');
     return $.when.apply(this, Object.keys(allShapes).slice(n * PAGE_SIZE, (n+1)*PAGE_SIZE).map(loadShape))
 }
