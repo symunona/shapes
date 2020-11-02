@@ -38,7 +38,15 @@ $(function () {
                 if (!isNaN(Number.parseInt(paramObject.p))){
                     // Let's page
                     currentPage = parseInt(paramObject.p)
-                    loadPage(currentPage)
+                    loadPage(currentPage).then(function(){
+                        // When everything is loaded, scroll to the hash.
+                        location.hash?.split('&').map((pair)=>{
+                            if (pair.split('=')[0]==='s'){
+                                let id = pair.split('=')[1]
+                                document.getElementById(`shape-${id}`).scrollIntoView()
+                            }
+                        })
+                    })
                 }
             }
         } else {
@@ -181,7 +189,7 @@ function showPage (n){
 }
 
 function loadShape (i) {
-    let el = $('<a>', {href: `out/${i}.svg`, 'class': 'shape'});
+    let el = $('<a>', {href: `out/${i}.svg`, 'class': 'shape', id: `shape-${i}`});
     $('#images').append(el);
     return $.ajax({
         url: `out/${i}.svg?v=` + Math.random(),

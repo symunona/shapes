@@ -12,12 +12,13 @@ body.clean #shape-info
 { display: none !important; }
 
 /* NAV */
-nav.main{ display: block; height: 40px; position: fixed; background: rgba(1,1,1,0.01) }
+nav.main{ display: block; height: 40px; position: fixed; background: rgba(1,1,1,0.01); width: 100%}
 
 nav.main .logo > svg, nav.main .logo img{ height: 30px; width: 30px; transition-duration: 0.3s; transition-property: transform; cursor: pointer;}
 nav.main:hover .wrapper{ width: 800px }
 nav.main:hover .logo > svg{ transform: rotateZ(180deg); }
-nav.main a {color: #777; cursor: pointer; display: inline-block; padding-left: 15px}
+nav.main a {color: #777; cursor: pointer; display: inline-block;}
+nav.main .pager-link {display: block; padding-bottom: 5px; padding-top: 5px}
 nav.main a:hover { text-decoration: underline;}
 nav.main .wrapper, nav.main .wrapper-no-hide {
     display: flex;
@@ -36,11 +37,6 @@ nav.textures{
 }
 .texture{ height: 64px; width: 64px; display: block; margin-bottom: 5px; cursor: pointer }
 
-/* Image wrapper */
-.shape { margin-bottom: 40px; display: block; border: 0 !important;}
-.svg-wrapper { border: 1px solid #333; margin: 0 auto; padding: 48px;
-    /* box-sizing: border-box */
-}
 
 .label{ font-family: Freemono, Sans, Arial; }
 
@@ -88,3 +84,13 @@ input[type=range]{
 
  #image-gallery img{ width: 33%; transition: transform .2s }
  #image-gallery img:hover{ transform: scale(1.2); }
+
+ /* Image wrapper */
+.shape { margin-bottom: 0px; display: inline-block; border: 0 !important; min-width: 300px; }
+.svg-wrapper { border: 1px solid #333; margin: 0 auto; padding: 48px;
+    /* box-sizing: border-box */
+}
+
+@media (max-width: 1830px) {
+    .shape { margin-bottom: 40px; display: block; }
+}
