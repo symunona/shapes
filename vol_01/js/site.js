@@ -192,8 +192,8 @@ function showPage (n){
     return $.when.apply(this, Object.keys(allShapes).slice(n * PAGE_SIZE, (n+1)*PAGE_SIZE).map(loadShape))
 }
 
-function nextPage(){ showPage(currentPage + 1) }
-function prevPage(){ showPage(currentPage - 1) }
+function nextPage(){ location.hash = `p=${currentPage + 1}` }
+function prevPage(){ location.hash = `p=${currentPage - 1}` }
 
 function loadShape (i) {
     let el = $('<a>', {href: `out/${i}.svg`, 'class': 'shape', id: `shape-${i}`});
