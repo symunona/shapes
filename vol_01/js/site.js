@@ -165,7 +165,6 @@ function applyStyle (css) {
 // }
 
 function loadPage (n) {
-    currentPage = n
     if (!allShapes){
         return $.ajax('shapes.json?v=' + Math.random()).then((shapes) => {
             allShapes = shapes
@@ -184,6 +183,7 @@ function loadPage (n) {
 }
 
 function showPage (n){
+    currentPage = n
     $('.pager-link').removeClass('active')
     $(`#page-${n}`).addClass('active')
     $('#images').html('')
