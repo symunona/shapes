@@ -15,10 +15,12 @@ body.clean #shape-info
 nav.main{ display: block; height: 40px; position: fixed; background: rgba(1,1,1,0.01); width: 100%}
 
 nav.main .logo > svg, nav.main .logo img{ height: 30px; width: 30px; transition-duration: 0.3s; transition-property: transform; cursor: pointer;}
-nav.main:hover .wrapper{ width: 800px }
+nav.main:hover .wrapper{ width: 100% }
 nav.main:hover .logo > svg{ transform: rotateZ(180deg); }
 nav.main a {color: #777; cursor: pointer; display: inline-block;}
-nav.main .pager-link {display: block; padding-bottom: 5px; padding-top: 5px}
+.pager{ position: absolute; left: 0px; top: 3em; width: 1em; }
+nav.main .pager-link {display: block; padding-bottom: 5px; padding-top: 5px; text-align: right; margin-bottom: 5px}
+nav.main .pager-link.active {color: #111}
 nav.main a:hover { text-decoration: underline;}
 nav.main .wrapper, nav.main .wrapper-no-hide {
     display: flex;
@@ -29,7 +31,7 @@ nav.main .wrapper, nav.main .wrapper-no-hide {
 
 nav.main .wrapper-no-hide{ width: 500px }
 
-nav.main .menu{ height: 30px; line-height: 30px; vertical-align: top}
+nav.main .menu{ height: 2em; line-height: 2em; vertical-align: top}
 
 nav.textures{
     position: fixed; height: 64px; height: 80%;
@@ -40,7 +42,8 @@ nav.textures{
 
 .label{ font-family: Freemono, Sans, Arial; }
 
-#images{ text-align: center}
+/* for not breaking more than 3 * 3 on very large screens. */
+#images{ text-align: center; max-width: 2380px; margin: 0 auto;}
 
 a { color: #777; text-decoration: none; cursor: pointer;}
 a:hover { color: #999; text-decoration: underline}
@@ -76,21 +79,40 @@ input[type=range]{
  .presets { display: block;}
  .presets a{ display: block; line-height: 25px;}
 
- .pager{ position: absolute; width: 20px; left: 0px; top: 50px; }
-
 .ctrl-button{ float: left; margin-right: 10px }
 
- button { border: 1px solid #555; background: transparent; color: #555 }
+ button { border: 1px solid #333; background: transparent; color: #555 }
+ button:active, button:focus{ outline: 1px solid #666 }
 
  #image-gallery img{ width: 33%; transition: transform .2s }
  #image-gallery img:hover{ transform: scale(1.2); }
 
  /* Image wrapper */
-.shape { margin-bottom: 0px; display: inline-block; border: 0 !important; min-width: 300px; }
+.shape { margin-bottom: 40px; display: inline-block; border: 0 !important; min-width: 300px; }
 .svg-wrapper { border: 1px solid #333; margin: 0 auto; padding: 48px;
     /* box-sizing: border-box */
+    height: 640px; width: 640px;
 }
 
-@media (max-width: 1830px) {
-    .shape { margin-bottom: 40px; display: block; }
+.nav-buttons{ text-align: center; margin-top: 30px; }
+.nav-buttons button{ padding: 20px }
+
+@media (min-width: 1280px) {
+    .shape { margin-left: 20px; margin-right: 20px; }
 }
+@media (max-width: 1830px) {
+    .shape { display: block; }
+}
+@media (min-width: 1830px){
+    nav { font-size: 2em; }
+    nav.main .logo > svg, nav.main .logo img{ height: 50px; width: 50px; }
+    nav.main .wrapper, nav.main .wrapper-no-hide { height: 50px; width: 50px; }
+}
+@media (max-width: 680px) {
+    .shape { max-width: 100% }
+    .svg-wrapper { width: auto; height: auto; }
+}
+/* scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; border-radius: 0px;}
+::-webkit-scrollbar-thumb { background: #333; border-radius: 0px; }

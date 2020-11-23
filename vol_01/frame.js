@@ -5,10 +5,15 @@
  * This file reads the contents of the desc dir, interates and requires each file in the folder
  * runs them, feeding with a bunch of helper functions in it's first property, including
  * the save method, that has to be called to generate & save the svg to the default output.
+ *
+ * cwd: vol_01
+ * generate svg: node frame.js
+ * geneate png too: node
  */
 const D3Node = require('d3-node'),
     fs = require('fs'),
-    _ = require('underscore')
+    _ = require('underscore'),
+    { convert } = require('convert-svg-to-png');
 require('d3-selection-multi')
 
 // We use this to generate default styles.
@@ -17,10 +22,15 @@ const colorUtil = require('./variants/colors.js')
 // Default height and width of the generated SVG.
 const w = 640, h = 640
 
+// This is how big of a PNG we want to generate
+const PNG_W = 640, PNG_H = 640
+
+
 // This tag will be used in every shape. By default we save it in the svg root's `label` property.
 let labelRoot = "_shape #"
 
-let dr
+
+let PNG
 
 // Default color gradient object.
 let colors = colorUtil.generateDefaultColorGradient()
@@ -30,11 +40,18 @@ let colorFillClasses = colorUtil.generateDefaultSvgStyle(colors)
 
 let output = {}
 
+let generatePng = false;
+
 // If an argument is present, only compile that file.
 // Note: in that case, we do not update `shapes.json`
 if (process.argv.length > 2) {
     let numberToCompile = process.argv[2]
-    require('./desc/' + numberToCompile)(init(numberToCompile))
+    if (isNaN(parseInt(process.argv[2]))){
+        if (process.argv[2] === 'png'){ generatePng = true }
+    } else {
+        generatePng = true;
+        require('./desc/' + numberToCompile)(init(numberToCompile))
+    }
 } else {
     // Let's find all the .js files in desc dir.
     let files = fs.readdirSync('./desc/')
@@ -73,10 +90,11 @@ if (process.argv.length > 2) {
  */
 function init(no) {
     d = new D3Node()
-    dr = d.createSVG(w, h)
+    dr = d.createSVG()
     dr.save = save.bind(this, no, d)
     dr.w = dr.width = w
     dr.h = dr.height = h
+    dr.attr('viewBox', `0 0 ${w} ${h}`)
     dr.cx = dr.centerx = w / 2
     dr.cy = dr.centery = h / 2
     dr.center = { x: dr.cx, y: dr.cy }
@@ -193,20 +211,36 @@ function mark(d, p, color) {
 }
 
 /**
- * Saves the actual SVG.
+ * Saves the actual SVG and or png
  * Should be called from every drawing function.
  * @param {Number} imageIndex the image's number to be saved
  * @param {Object} d consts and helper functions.
  * @param {String} [_label] if there is a special modification to it.
  */
-function save(imageIndex, d, _label) {
+async function save(imageIndex, d, _label) {
 
     label = dr.label = _label ? labelRoot + imageIndex + ' ' + _label : labelRoot + imageIndex
 
     dr.attr('label', label)
 
     let filename = 'out/' + imageIndex + '.svg'
-    fs.writeFileSync(filename, d.svgString())
+    let filenamePng = '../gallery/v1/' + imageIndex + '.png'
+
+    // Always generate svg.
+    let svgString = d.svgString()
+    fs.writeFileSync(filename, svgString)
+
+    // In order to generate responsive svgs, we set viewBox property instead
+    // of it's height and width. However that breaks saving a PNG.
+    // We set here what we want to export.
+    dr.attr('height', PNG_H);
+    dr.attr('width', PNG_W);
+    let svgStringForPng = d.svgString()
+
+    if (generatePng){
+        let png = await convert(svgStringForPng);
+        fs.writeFileSync(filenamePng, png)
+    }
 }
 
 /**

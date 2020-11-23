@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewport-fill="#000" label="_shape #7 anim #3"><defs><style type="text/css">.tri-rotate-7{ 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" viewport-fill="#000" label="_shape #7 anim #3"><defs><style type="text/css">.tri-rotate-7{ 
     animation: spin7 2s cubic-bezier(0.05, 1.23, 0.99, 0.04) infinite
 }
 

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewport-fill="#000" label="_shape #76 cifra"><defs><style type="text/css">.rott{
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" viewport-fill="#000" label="_shape #76 cifra"><defs><style type="text/css">.rott{
     animation-name: rot;
     animation-duration: 15s;
     animation-iteration-count: infinite;

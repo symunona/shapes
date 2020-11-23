@@ -165,6 +165,7 @@ function applyStyle (css) {
 // }
 
 function loadPage (n) {
+    currentPage = n
     if (!allShapes){
         return $.ajax('shapes.json?v=' + Math.random()).then((shapes) => {
             allShapes = shapes
@@ -181,12 +182,18 @@ function loadPage (n) {
     }
     return showPage(n)
 }
+
 function showPage (n){
     $('.pager-link').removeClass('active')
     $(`#page-${n}`).addClass('active')
-    $('#images').html('');
+    $('#images').html('')
+    if (n === 0){ $('.prev-page').hide() } else { $('.prev-page').show() }
+    if (n >= pages - 1){ $('.next-page').hide() } else { $('.next-page').show() }
     return $.when.apply(this, Object.keys(allShapes).slice(n * PAGE_SIZE, (n+1)*PAGE_SIZE).map(loadShape))
 }
+
+function nextPage(){ showPage(currentPage + 1) }
+function prevPage(){ showPage(currentPage - 1) }
 
 function loadShape (i) {
     let el = $('<a>', {href: `out/${i}.svg`, 'class': 'shape', id: `shape-${i}`});
@@ -212,6 +219,7 @@ function loadShape (i) {
             wrapper.append($('<div>', {'class': 'label'}).text(
                 svgElement.attr('label')
             ))
+            $(svgElement).attr('viewBox', '0 0 640 640')
             el.append(wrapper)
         })
 }

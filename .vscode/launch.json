@@ -8,7 +8,8 @@
             "type": "node",
             "request": "launch",
             "name": "ALL",
-            "program": "${workspaceFolder}/frame.js"
+            "program": "${workspaceFolder}/vol_01/frame.js",
+            "cwd": "${workspaceFolder}/vol_01/"
 
         },
         {
@@ -43,7 +44,8 @@
             "type": "node",
             "request": "launch",
             "name": "65",
-            "program": "${workspaceFolder}/frame.js",
+            "program": "${workspaceFolder}/vol_01/frame.js",
+            "cwd": "${workspaceFolder}/vol_01/",
             "args": ["65"]
         },
         {

@@ -16,17 +16,16 @@
 (function (root, factory) {
     'use strict'
     if (typeof define === 'function' && define.amd) {
-        define(['jquery'], factory);
+        define([], factory);
     } else if (typeof module === 'object' && module.exports) {
-        module.exports = factory(require());
+        module.exports = factory(module);
     } else {
         // Browser globals (root is window)
-        root.returnExports = factory(root.$);
+        root.returnExports = factory(root);
     }
-}(typeof self !== 'undefined' ? self : this, function ($) {
+}(typeof self !== 'undefined' ? self : this, function (object) {
     'use strict'
     // Support module loading.
-    if (!$) { $ = window.$ }
     let exp = {
         generateDefaultColorGradient: generateDefaultColorGradient,
         generateColors1: generateColors1,
@@ -36,7 +35,7 @@
         generateDefaultSvgStyle: generateDefaultSvgStyle,
         generateDefaultSiteColors: generateDefaultSiteColors
     }
-    $.extend(window, exp)
+    Object.keys(exp).map((key)=>object[key] = exp[key]);
     return exp
 
     /**
