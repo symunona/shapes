@@ -25,6 +25,7 @@
     }
 }(typeof self !== 'undefined' ? self : this, function (object) {
     'use strict'
+    if (!object) { object = window; }
     // Support module loading.
     let exp = {
         generateDefaultColorGradient: generateDefaultColorGradient,
