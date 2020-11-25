@@ -139,6 +139,37 @@
             "name": "81",
             "program": "${workspaceFolder}/frame.js",
             "args": ["81"]
-        }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "82",
+            "program": "${workspaceFolder}/vol_01/frame.js",
+            "cwd": "${workspaceFolder}/vol_01/",
+            "args": ["82"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "83",
+            "program": "${workspaceFolder}/vol_01/frame.js",
+            "cwd": "${workspaceFolder}/vol_01/",
+            "args": ["83"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "84",
+            "program": "${workspaceFolder}/vol_01/frame.js",
+            "cwd": "${workspaceFolder}/vol_01/",
+            "args": ["84"]
+        }, {
+            "type": "node",
+            "request": "launch",
+            "name": "85",
+            "program": "${workspaceFolder}/vol_01/frame.js",
+            "cwd": "${workspaceFolder}/vol_01/",
+            "args": ["85"]
+        },
     ]
 }
