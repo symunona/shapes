@@ -4,7 +4,7 @@
 define(['frame', 'underscore','../js/gridder'], (c, _, Gridder)=>{
     'use strict'
     let FirstGrid = function (p) {
-
+        p.properties = _.extend({}, FirstGrid.prototype.properties)
         // Setup may be somewhere else... Also do not use c.
         p.setup = function () {
             p.createCanvas(c.x, c.y)
@@ -30,6 +30,11 @@ define(['frame', 'underscore','../js/gridder'], (c, _, Gridder)=>{
         }
     };
 
+    FirstGrid.prototype.properties = {
+        id: 'grid-01',
+        name: 'grid-01',
+        inputs: []
+    }
 
     return FirstGrid;
 });

@@ -13,7 +13,7 @@ requirejs.config({
 requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
     'use strict'
     const FROM = 1
-    const TO = 11
+    const TO = 13
     const STARTUP = 11
 
     if (location.hash) {
@@ -50,7 +50,12 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
             currentDrawing.no = n
 
             // User can store their presets in their localStorage
-            let lastPreset = restorePresets(currentDrawing)
+            try{
+                let lastPreset = restorePresets(currentDrawing)
+            }
+            catch(e){
+                // naaah.
+            }
 
             // These are the sliders and buttons on the side.
             renderControls(currentDrawing)
