@@ -40,7 +40,7 @@ $(function () {
                     currentPage = parseInt(paramObject.p)
                     loadPage(currentPage).then(function(){
                         // When everything is loaded, scroll to the hash.
-                        location.hash?.split('&').map((pair)=>{
+                        location.hash && location.hash.split('&').map((pair)=>{
                             if (pair.split('=')[0]==='s'){
                                 let id = pair.split('=')[1]
                                 document.getElementById(`shape-${id}`).scrollIntoView()
