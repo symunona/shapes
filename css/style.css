@@ -12,7 +12,7 @@ body.clean #shape-info
 { display: none !important; }
 
 /* NAV */
-nav.main{ display: block; height: 40px; position: fixed; background: rgba(1,1,1,0.01); width: 100%}
+nav.main{ display: block; height: 40px; position: fixed; background: rgba(1,1,1,0.01); width: 100%; top: 5px; }
 
 nav.main .logo > svg, nav.main .logo img{ height: 30px; width: 30px; transition-duration: 0.3s; transition-property: transform; cursor: pointer;}
 nav.main:hover .wrapper{ width: 100% }
@@ -84,6 +84,7 @@ input[type=range]{
  button { border: 1px solid #333; background: transparent; color: #555 }
  button:active, button:focus{ outline: 1px solid #666 }
 
+ #image-gallery{ padding-top: 55px }
  #image-gallery img{ width: 33%; transition: transform .2s }
  #image-gallery img:hover{ transform: scale(1.2); }
 
