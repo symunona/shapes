@@ -13,7 +13,7 @@ requirejs.config({
 requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
     'use strict'
     const FROM = 1
-    const TO = 13
+    const TO = 14
     const STARTUP = 11
 
     if (location.hash) {
@@ -69,7 +69,6 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
 
     // Space toggles the controls.
     $('body').on('keydown', (evt)=>{
-        console.log(evt.keyCode)
         if (evt.keyCode === 32) {toggleControls()}
         if (evt.keyCode === 13) {
             // Can not really save an SVG,
