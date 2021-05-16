@@ -24,6 +24,7 @@ define(['frame', 'underscore'], (c, _)=>{
             let ratio = p.properties.inputs.ratio.value
             let thickness = p.properties.inputs.thickness.value
             let dist = p.properties.inputs.dist.value
+            let color = p.properties.inputs.color.value
             let rc0 = c.x / 6 * p.properties.inputs.rc.value
             let deltaAngle = Math.PI * 2 / spawn
 
@@ -41,7 +42,7 @@ define(['frame', 'underscore'], (c, _)=>{
             p.pop()
 
             function drawUnit (level, cx, cy, r) {
-                p.stroke(c.c.p[10 - level])
+                p.stroke(c.c.p[(color - level + 16) % 16])
                 p.circle(cx, cy, 2 * r)
                 let rChild = r * ratio
                 let childCenterDist = (r + rChild) * dist
@@ -71,6 +72,13 @@ define(['frame', 'underscore'], (c, _)=>{
                 min: 0,
                 max: 8,
                 value: 2
+            },
+            color: {
+                desc: 'color',
+                type: 'integer',
+                min: 0,
+                max: 15,
+                value: 10
             },
             spawn: {
                 desc: 'spawns',
@@ -115,9 +123,9 @@ define(['frame', 'underscore'], (c, _)=>{
 
         },
         presets: [
-            {'name': 'ver #000 trin', 'values': {'levels': 4, 'spawn': 3, 'ratio': -0.5, 'thickness': 1, 'rc': 2.75}},
-            {'name': 'ver #004', 'values': {'levels': 4, 'spawn': 3, 'ratio': -0.5, 'thickness': 1, 'rc': 0.94, 'dist': 3}},
-            {'name': 'ver #001 penta kale', 'values': {'levels': 5, 'spawn': 5, 'ratio': 0.5, 'thickness': 1, 'rc': 0.9}},
+            {'name': 'ver #000 trin', 'values': {'levels': 4, 'spawn': 3, 'ratio': -0.5, 'thickness': 1, 'rc': 2.75, 'dist': 1}},
+            {'name': 'ver #004 trout', 'values': {'levels': 4, 'spawn': 3, 'ratio': -0.5, 'thickness': 1, 'rc': 0.94, 'dist': 3}},
+            {'name': 'ver #001 penta kale', 'values': {'levels': 5, 'spawn': 5, 'ratio': 0.5, 'thickness': 1, 'rc': 0.9, 'dist': 1}},
             {'name': 'ver #002 stargate', 'values': {'levels': 3, 'spawn': 3, 'ratio': -2.66, 'thickness': 0.79, 'rc': 0.9, 'dist': -0.9}}
         ]
     }
