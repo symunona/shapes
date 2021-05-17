@@ -1,17 +1,17 @@
 /**
- * On a way to a tree
+ * Still not a real tree.
  */
 define(['frame', 'underscore'], (c, _)=>{
     'use strict'
-    let AlmosTree = function (p) {
-        p.properties = _.extend({}, AlmosTree.prototype.properties)
+    let AlmosTree2 = function (p) {
+        p.properties = _.extend({}, AlmosTree2.prototype.properties)
 
         let BACK = p.color(c.c.b)
 
         p.setup = function () {
             p.createCanvas(c.x, c.y)
             p.frameRate(10)
-            c.info('tf0', 'trees')
+            c.info('tf1', 'trees')
         }
 
         p.draw = function draw () {
@@ -49,8 +49,8 @@ define(['frame', 'underscore'], (c, _)=>{
                     for (let s = 0; s < spawn; s++) {
                         let angleOffset2 = angleOffset + angleOffsetDyn;
                         p.push()
+                        p.translate(0, -r)
                         p.rotate(((deltaAngle) * s) + angleOffset2)
-                        p.translate(0, r)
 
                         drawUnit(
                             level + 1,
@@ -64,7 +64,7 @@ define(['frame', 'underscore'], (c, _)=>{
     };
 
 
-    AlmosTree.prototype.properties = {
+    AlmosTree2.prototype.properties = {
         id: 'cf0',
         name: 'circle fractal 1',
         inputs: {
@@ -73,7 +73,7 @@ define(['frame', 'underscore'], (c, _)=>{
                 type: 'integer',
                 min: 0,
                 max: 8,
-                value: 1
+                value: 5
             },
             color: {
                 desc: 'color',
@@ -111,13 +111,12 @@ define(['frame', 'underscore'], (c, _)=>{
                 step: 0.1,
                 min: 0.1,
                 max: 5,
-                value: 1
+                value: 1.5
             }
         },
         presets: [
-            {'name': 'ver #001', 'values': {'levels': 5, 'color': 10, 'spawn': 3, 'ratio': 0.5, 'thickness': 1, 'rc': 1, 'dist': 1}}
         ]
     }
 
-    return AlmosTree;
+    return AlmosTree2;
 });

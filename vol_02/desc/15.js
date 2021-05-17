@@ -22,7 +22,6 @@ define(['frame', 'underscore'], (c, _)=>{
 
             let bodyRatioX = p.properties.inputs.fatx.value
             let bodyRatioY = p.properties.inputs.faty.value
-            let rows = p.properties.inputs.rows.value
             let cols = p.properties.inputs.cols.value
             let thikness = p.properties.inputs.thikness.value
             let quadmult = p.properties.inputs.quadmult.value
@@ -30,7 +29,7 @@ define(['frame', 'underscore'], (c, _)=>{
             p.strokeWeight(thikness)
 
             const w = Number(c.w) / 3, h = Number(c.h) / 3
-            let dx = w / cols, dy = h / rows
+            let dx = w / cols
 
             // vertical lines
             // standard bezier
@@ -81,7 +80,8 @@ define(['frame', 'underscore'], (c, _)=>{
                 min: 0,
                 max: 10,
                 value: 1.1
-            }, faty: {
+            },
+            faty: {
                 desc: 'fatY',
                 type: 'float',
                 step: 0.1,
