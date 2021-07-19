@@ -1,0 +1,46 @@
+body{
+    background: white;
+    color: #021432;
+    padding: 0; margin: 0;
+}
+
+.sidebar{ width: 250px; position: relative; top: 0; left: 0; margin-top: 60px; }
+
+#forest { position: absolute; height: 400px; bottom: 0; width: 100vw; }
+
+
+#distribution { position: absolute; height: 400px; top: 0; width: 80vw; right: 0 }
+#distribution .tree-wrapper:hover .type-selector{ display: block; }
+.type-selector{ position: absolute;  height: 200px; border: 1px solid #ccc; overflow: hidden; display: none; 
+    width: 700px;
+    margin-left: -350px}
+.type-selector .tree{ display: inline-block; position: relative; left: 0 !important; 
+    width: 100px; height: 200px;
+}
+.type-selector .tree .bg{ width: 100px; }
+.type-selector .tree.active .bg{ width: 100px; }
+
+.tree-wrapper{ position: absolute; height: 400px; text-align: center;}
+.tree-wrapper .tree{ position: relative;}
+
+
+.tree{ position: absolute; bottom: 0; width: 200px; height: 100%; text-align: center; height: 400px;}
+.tree .bg{
+    width: 200px; height: 100%;
+    -webkit-mask-size: 100%;
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+}
+input.likely{ border: 0; text-align: center; line-height: 30px; width: 50px;}
+
+ul li { height: 20px; display: block;}
+#settings input{ display: block; width: 70px; float: right; text-align: center;}
+
+input { border: 1px solid #eee; }
+input:focus-visible{ outline: 0 }
+
+@media (min-width: 1830px){
+    nav {
+        font-size: 1em;
+    }
+}

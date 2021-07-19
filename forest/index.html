@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>_ forest</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="../vol_01/shapes.png" />
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/forest.css">
+</head>
+
+<body class="bgc">
+    <nav class="main">
+        <div class="wrapper-no-hide">
+            <a class="logo" href='/' style="padding-left: 0">
+                <img src="../vol_01/out/51.svg" id="site-id">
+            </a>
+            <div class="menu">
+                <a href="../vol_01">_root</a>
+            </div>
+        </div>
+    </nav>
+
+    <nav class="sidebar">
+        <ul id="list">
+            <!-- <li><a onclick="unload()">_null</a></li> -->
+
+
+        </ul>
+        <ul id="settings"></ul>
+        <ul id="actions">
+            <li>
+                <strong><a onclick="gen()">_generate!</a></strong>
+                <span id="cnt"></span>
+            </li>
+            <li><a onclick="resetGen()">_reset seed</a></li>
+            <!-- <li><a onclick="resetAll()">_reset all</a></li> -->
+            <li><a onclick="save()">_save this</a></li>
+        </ul>
+        <ul id="saved"></ul>
+    </nav>
+
+    <nav id="stats">
+        current:
+        <pre></pre>
+    </nav>
+
+    <div id="distribution">
+    </div>
+
+    <div id="forest">
+    </div>
+
+
+    <a id="toggler">H</a>
+
+
+    <!-- DEBUG -->
+    <script src="../vol_01/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../vol_01/node_modules/snapsvg/dist/snap.svg.js"></script>
+    <!-- PROD -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script> -->
+    <!-- <script src="variants/colors.js"></script> -->
+    <script module src="js/vendor/seedrandom.js"></script>
+    <script module src="js/forest.js"></script>
+    <!-- <script src="//t.tmpx.space?shapes_gallery_vol_01"></script> -->
+</body>
+
+</html>

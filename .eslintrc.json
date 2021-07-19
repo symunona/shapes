@@ -21,7 +21,8 @@
     "sinon": true,
     "expect": true,
     "isNaN": true,
-    "JSON": true
+    "JSON": true,
+    "$": true
   },
   // Define the rules that want to use different way than the "exlint:recommended"
   "rules": {
@@ -51,13 +52,13 @@
     "no-useless-return": "error",
     "no-with": "error",
     "yoda": "error",
-    "strict": ["error", "function"],
+    // "strict": ["error", "function"],
 
     // Move to error if ticket UX-1086 is fixed
 //    "no-alert": "warn",
 
     // Variables
-    "no-unused-vars": "error",
+    // "no-unused-vars": "error",
 
     // Style
     "brace-style": [
