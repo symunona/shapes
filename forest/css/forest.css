@@ -11,10 +11,10 @@ body{
 
 #distribution { position: absolute; height: 400px; top: 0; width: 80vw; right: 0 }
 #distribution .tree-wrapper:hover .type-selector{ display: block; }
-.type-selector{ position: absolute;  height: 200px; border: 1px solid #ccc; overflow: hidden; display: none; 
+.type-selector{ position: absolute;  height: 200px; border: 1px solid #ccc; overflow: hidden; display: none;
     width: 700px;
     margin-left: -350px}
-.type-selector .tree{ display: inline-block; position: relative; left: 0 !important; 
+.type-selector .tree{ display: inline-block; position: relative; left: 0 !important;
     width: 100px; height: 200px;
 }
 .type-selector .tree .bg{ width: 100px; }

@@ -100,6 +100,7 @@ function gen () {
 
     // Show random generation.
     $('#cnt').text(o.seed)
+    Math.seedrandom(o.seed)
 
     var stats = {all: 0, perSpecie: {}}
     Object.keys(treeMap).map((specie)=>stats.perSpecie[specie] = 0)
@@ -281,6 +282,7 @@ function deleteSaved (name) {
 
 function loadStoredForest (storedForest) {
     o = storedForest
+    o.seed--
     generateSettings()
     gen()
 }
