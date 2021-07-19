@@ -90,6 +90,16 @@ generateSettings()
 
 resetGen()
 
+let clean = false
+
+$('#toggler').on('click', ()=>{
+    if (clean) {
+        $('.main, .sidebar, #stats, #distribution').show()
+    } else {
+        $('.main, .sidebar, #stats, #distribution').hide()
+    }
+    clean = !clean
+})
 
 /**
  * Generate the current setting!
