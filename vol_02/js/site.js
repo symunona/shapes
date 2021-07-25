@@ -13,7 +13,7 @@ requirejs.config({
 requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
     'use strict'
     const FROM = 1
-    const TO = 19
+    const TO = 20
     const STARTUP = 11
 
     if (location.hash) {
@@ -97,20 +97,22 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
 
         $('#ctrl').show()
         $('#ctrl > span.head').text('ctrl - ' + drawing.properties.id)
-        Object.keys(drawing.properties.inputs).map((key)=>{
-            let props = drawing.properties.inputs[key]
-            let desc = `${props.desc} (${props.min} - (${props.default}) - ${props.max})`
+        if (drawing && drawing.properties) {
+            Object.keys(drawing.properties.inputs).map((key)=>{
+                let props = drawing.properties.inputs[key]
+                let desc = `${props.desc} (${props.min} - (${props.default}) - ${props.max})`
 
 
-            let $ctrl = $('<li>', {title: desc})
-            if (['float', 'number', 'integer'].indexOf(props.type)>-1){
-                $ctrl.append(createInput(props))
-            } else {
-                $ctrl.append(createButton(props, drawing))
-            }
+                let $ctrl = $('<li>', {title: desc})
+                if (['float', 'number', 'integer'].indexOf(props.type)>-1){
+                    $ctrl.append(createInput(props))
+                } else {
+                    $ctrl.append(createButton(props, drawing))
+                }
 
-            $ctrlList.append($ctrl)
-        })
+                $ctrlList.append($ctrl)
+            })
+        }
         // Presets
         $('#ctrl').append(renderPresets(drawing))
     }

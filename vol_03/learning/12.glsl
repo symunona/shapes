@@ -1,6 +1,9 @@
 // I am trying hard to get a triangle, but it's really not there yet.
 // phew.
 
+// Calculate the current angle, move the intemitten point's vector to the corner's angle
+// then see how far it is, 
+
 #define PI 3.14159265359
 #define TWO_PI 6.28318530718
 

@@ -1,7 +1,7 @@
 /**
  * Still not a real tree.
  */
-define(['frame', 'underscore'], (c, _)=>{
+ define(['frame', 'underscore'], (c, _)=>{
     'use strict'
     let Tree = function (p) {
         p.properties = _.extend({}, Tree.prototype.properties)
@@ -24,6 +24,8 @@ define(['frame', 'underscore'], (c, _)=>{
             let ratio = p.properties.inputs.ratio.value
             let thickness = p.properties.inputs.thickness.value
             let color = p.properties.inputs.color.value
+            let alternateFreq = p.properties.inputs.alternateFreq.value
+            let alternateAmp = p.properties.inputs.alternateAmp.value
             let rc0 = c.x / 6 * p.properties.inputs.rc.value
             let deltaAngle = Math.PI / spawn
 
@@ -41,7 +43,8 @@ define(['frame', 'underscore'], (c, _)=>{
             function drawUnit (level, r) {
                 p.stroke(c.c.p[(color - level + 16) % 16])
 
-                let rChild = r * ratio
+                // The sizing ratio can alternate.
+                let rChild = r * (level % alternateFreq ? 1 : ratio)
 
                 p.line(0, 0, 0, -r)
 
@@ -97,6 +100,22 @@ define(['frame', 'underscore'], (c, _)=>{
                 max: 3,
                 value: 0.5
             },
+            alternateFreq: {
+                desc: 'alternate freq',
+                type: 'float',
+                step: 0.01,
+                min: 0,
+                max: 10,
+                value: 1
+            },
+            alternateAmp: {
+                desc: 'alternate amp',
+                type: 'float',
+                step: 0.01,
+                min: 0,
+                max: 5,
+                value: 1
+            },
             thickness: {
                 desc: 'thickness',
                 type: 'float',
@@ -125,7 +144,9 @@ define(['frame', 'underscore'], (c, _)=>{
 
         },
         presets: [
-            {'name': 'ver #000', 'values': {'levels': 7, 'color': 9, 'spawn': 3, 'ratio': 1.1, 'thickness': 0.68, 'rc': 0.3, 'dist': 0.4}}
+            {'name': 'ver #000', 'values': {'levels': 7, 'color': 9, 'spawn': 3, 'ratio': 1.1, 'thickness': 0.68, 'rc': 0.3, 'dist': 0.4}},
+            {"name":"ver #001 - 3","values":{"levels":5,"color":10,"spawn":3,"ratio":0.5,"alternateFreq":1,"alternateAmp":0,"thickness":1,"rc":1.8,"dist":-2.6}},
+            {"name":"ver #002 - hex","values":{"levels":7,"color":10,"spawn":2,"ratio":0.5,"alternateFreq":2,"alternateAmp":2.12,"thickness":1,"rc":1.3,"dist":1}}
         ]
     }
 
