@@ -24,9 +24,10 @@ define(['colors'], (colors) => {
             f: palette[DEFAULT_COLOR_INDEX],
             b: palette[DEFAULT_BACKGROUND_COLOR_INDEX]
         },
-        info: info,
         poly: polygon,
-        radPos: radPos
+        info,
+        radPos,
+        pickRandom
     }
 
     function radPos (angle, r) {
@@ -34,6 +35,10 @@ define(['colors'], (colors) => {
             x: Math.cos(angle) * r,
             y: Math.sin(angle) * r
         }
+    }
+
+    function pickRandom (array) {
+        return array[Math.floor(Math.random() * array.length)]
     }
 
     function info (n, title) {

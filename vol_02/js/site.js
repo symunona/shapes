@@ -13,7 +13,7 @@ requirejs.config({
 requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
     'use strict'
     const FROM = 1
-    const TO = 20
+    const TO = 21
     const STARTUP = 11
 
     if (location.hash) {
@@ -112,6 +112,25 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
 
                 $ctrlList.append($ctrl)
             })
+            if (drawing.properties.playPause){
+                let playPause = createButton({
+                        type: 'button',
+                        text: '■',
+                        class: 'play-pause',
+                        action: ()=>{
+                            if (drawing.isPlaying !== false){
+                                drawing.noLoop()
+                                playPause.find('button').html('►')
+                            } else {
+                                drawing.loop()
+                                drawing.draw()
+                                playPause.find('button').text('■')
+                            }
+                            drawing.isPlaying = !drawing.isPlaying
+                        }
+                }, drawing)
+                $('#ctrl > span.head').append(playPause)
+            }
         }
         // Presets
         $('#ctrl').append(renderPresets(drawing))
@@ -213,7 +232,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
 
 
     function createButton (prop) {
-        let $el = $('<div>', {title: prop.desc || '', 'class': 'ctrl-button'})
+        let $el = $('<div>', {title: prop.desc || '', 'class': 'ctrl-button ' + (prop.class || '')})
         let $button = $('<button>').html(prop.text)
         $button.on('click', ()=>prop.action())
         $el.append($button)
