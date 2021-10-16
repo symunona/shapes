@@ -10,7 +10,7 @@ requirejs.config({
         p5: 'vendor/p5'
     }
 });
-requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
+requirejs(['require', 'jquery', 'p5', './midi'], (require, $, P5, midi)=>{
     'use strict'
     const FROM = 1
     const TO = 21
@@ -59,10 +59,45 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
 
             // These are the sliders and buttons on the side.
             renderControls(currentDrawing)
+            midi(midiUpdate.bind(this, currentDrawing))
 
             // Now load the last preset
             // if (lastPreset) loadPreset(currentDrawing, lastPreset)
         })
+    }
+
+
+    const midiRange = 128
+
+    function midiUpdate(drawing, channel, value){
+        if (drawing && 
+            drawing.properties && 
+            drawing.properties.inputs && 
+            Object.keys(drawing.properties.inputs).length) {
+            
+            if(channel < Object.keys(drawing.properties.inputs).length) {
+                // See max and min values of the prop
+                const key = Object.keys(drawing.properties.inputs)[channel]
+                const prop = drawing.properties.inputs[key]
+                const range = prop.max - prop.min
+                const delta = range / midiRange
+
+                prop.value = prop.min + (delta * value)
+                if (prop.type === 'integer') prop.value = Math.round(prop.value)
+
+                $(`#${key} input`).val(prop.value)
+                if (prop.onChange){ prop.onChange(prop.value) }
+            }
+            if(channel >= Object.keys(drawing.properties.inputs).length) {
+                if (channel === Object.keys(drawing.properties.inputs).length){
+                    const deltaX = window._c.w / midiRange
+                    drawing.mouseX = value * deltaX
+                } else {
+                    const deltaY = window._c.h / midiRange
+                    drawing.mouseY = value * deltaY
+                }
+            }
+        }
     }
 
     $('#toggler').click(toggleControls)
@@ -91,7 +126,7 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
         $('#list a.active').removeClass('active')
     }
 
-    function renderControls (drawing) {
+    function renderControls (drawing) {        
         let $ctrlList = $('#ctrl ul').html('')
         if (!drawing.properties) { $('#ctrl').hide(); return }
 
@@ -102,12 +137,11 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
                 let props = drawing.properties.inputs[key]
                 let desc = `${props.desc} (${props.min} - (${props.default}) - ${props.max})`
 
-
                 let $ctrl = $('<li>', {title: desc})
                 if (['float', 'number', 'integer'].indexOf(props.type)>-1){
-                    $ctrl.append(createInput(props))
+                    $ctrl.append(createInput(props, key))
                 } else {
-                    $ctrl.append(createButton(props, drawing))
+                    $ctrl.append(createButton(props, drawing, key))
                 }
 
                 $ctrlList.append($ctrl)
@@ -194,15 +228,15 @@ requirejs(['require', 'jquery', 'p5'], (require, $, P5)=>{
     }
 
 
-    function createInput (prop) {
-        let $el = $('<div>', {title: `${prop.min} - (${prop.type}) - ${prop.max}`});
+    function createInput (prop, id) {
+        let $el = $('<div>', {title: `${prop.min} - (${prop.type}) - ${prop.max}`, id});
         $el.append($('<div>').text(prop.desc))
         let $numeric = $('<input>', {
             class: 'num',
             type: 'number',
             value: prop.value,
             min: prop.min,
-            max: prop.max
+            max: prop.max,
         })
         let $slider = $('<input>', {
             type: 'range',

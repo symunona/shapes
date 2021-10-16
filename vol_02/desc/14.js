@@ -85,14 +85,14 @@ define(['frame', 'underscore'], (c, _)=>{
         self.step100 = ()=>{
             let n = 0
             while (n++ < 100){
-                console.log(n, 'b:', countAllBlack(self.map))
+                // console.log(n, 'b:', countAllBlack(self.map))
                 self.neighborGraph = generateNewNeighbors(self.map)
                 self.neighborMap = countTheFlops(self.neighborGraph)
                 self.map = flipDay(generateNewNeighbors(self.map), self.neighborMap)
             }
             self.initDrawing()
             self.drawGraph(self.map)
-            console.log('Final Blacks', countAllBlack(self.map))
+            // console.log('Final Blacks', countAllBlack(self.map))
         }
         self.isPlaying = false
 
@@ -126,7 +126,7 @@ define(['frame', 'underscore'], (c, _)=>{
                 let blacks = countAllBlack(self.map)
                 let blacksPadded = (''+blacks).padStart(4, '0')
                 let genPadded = (''+self.gen).padStart(3, '0')
-                console.log('blacks', blacks)
+                // console.log('blacks', blacks)
                 self.neighborGraph = false
                 $('#shape-info').text(`_shape #AoC 24 gen#${genPadded} cnt: ${blacksPadded}`)
                 self.gen++

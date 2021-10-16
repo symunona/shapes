@@ -22,8 +22,10 @@ define(['frame', 'underscore', 'p5'], (c, _, p5)=>{
                 sizeMultiplier = p.properties.inputs.sizeMultiplier.value,
                 poly = p.properties.inputs.poly.value,
                 limits = {min: 0, max: p.PI / 4},
+                mouseX = PolyMovements.mouseX || p.mouseX,
+                mouseY = PolyMovements.mouseY || p.mouseY,
                 // TODO: Eval!
-                r1 = p.map(p.mouseX + p.mouseY, 0, c.w, limits.min, limits.max)
+                r1 = p.map(mouseX + mouseY, 0, c.w, limits.min, limits.max)
 
             // Computeds
             const sizeMagic = 0.5
@@ -82,7 +84,7 @@ define(['frame', 'underscore', 'p5'], (c, _, p5)=>{
                 min: 0,
                 max: p5.PI / 4,
                 value: 1.34,
-                input: 'p.mouseX + p.mouseY'
+                input: 'mouseX + mouseY'
             },
             poly: {
                 desc: 'polygons',

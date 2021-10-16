@@ -120,7 +120,8 @@ define(['frame', 'underscore'], (c, _)=>{
         presets: [
             {"name":"ver #001 - cloth","values":{"gridX":88,"gridY":64,"dr":0.0001,"angle":0,"length":50,"asymmetry":1.2,"brush":2.7,"poly":3}},
             {"name":"ver #004","values":{"gridX":20,"gridY":20,"sizeMultiplier":2,"angle":2.33375,"length":50,"asymmetry":0.7901,"brush":1.357,"poly":4}},
-            {"name":"ver #002","values":{"gridX":88,"gridY":64,"dr":0.0001,"angle":0,"length":9,"asymmetry":1.0901,"brush":0.381,"poly":4}}
+            {"name":"ver #002","values":{"gridX":88,"gridY":64,"dr":0.0001,"angle":0,"length":9,"asymmetry":1.0901,"brush":0.381,"poly":4}},
+            {"name":"ver #003 - DNA","values":{"gridX":27,"gridY":83,"dr":0.4453125,"angle":2.110757564130642,"length":50,"asymmetry":1.2,"brush":0.390625,"poly":2}}
         ]
 
     }
