@@ -1,9 +1,11 @@
 const LS_COLOR_KEY = 'ls_color_key'
+const LS_TEX_KEY = 'ls_tex_key'
 const KNOBS = [1, 1, 1, 11, 18, 19, 34, 42, 44, 69]
 const SIZE = 640
 const PAGE_SIZE = 9
 
 const TEXTURES = 20
+const TEX_COLOR_KEY = 15
 
 let colors = window.generateDefaultColorGradient()
 let colorDefs
@@ -12,13 +14,18 @@ let siteColorStyles
 let currentPage = 0
 let allShapes
 let pages
+let vaporBg
+
+$.ajax({
+    url: 'out/86.svg?' + Math.random(),
+    dataType: 'text'
+}).then((vaporBgRaw)=>{
+    var part = $('<div>').html(vaporBgRaw)
+    vaporBg = part.find('g')[0]
+})
 
 $(function () {
     'use strict'
-    var presetColors = localStorage.getItem(LS_COLOR_KEY);
-    if (presetColors) {
-
-    }
 
     window.generateDefaultStylesheets()
 
@@ -60,6 +67,18 @@ $(function () {
         }
     }
 
+    randomizeLogo()
+
+    // Restore position, since we are lazy loading.
+    $(window).on('scroll', () => {
+        localStorage.setItem('scrll', $(window).scrollTop())
+    });
+})
+
+/**
+ * Top left logo knobs vary.
+ */
+function randomizeLogo(){
     let knob = KNOBS[Math.floor(Math.random() * KNOBS.length)]
     $('#site-id').attr('src')
     $.ajax({url: 'out/' + knob + '.svg', dataType: 'text'}).then(function (data) {
@@ -67,12 +86,7 @@ $(function () {
         $('.logo').append(data)
         $('.logo svg').attr('viewBox', '0 0 640 640')
     })
-
-    // Restore position, since we are lazy loading.
-    $(window).on('scroll', () => {
-        localStorage.setItem('scrll', $(window).scrollTop())
-    });
-})
+}
 
 function showTextures () {
     // Load if has not loaded yet
@@ -96,13 +110,26 @@ function addTex1 () {
     addTexture('img/5.jpg')
 }
 
+/**
+ * If provided url, it removes all the custom SVG definitions
+ * from the SVGs (#tex1) - then adds one def to
+ * @param {String} [url]
+ */
 function addTexture (url) {
     $('.textures').hide()
+
+    if (!url){
+        url = localStorage.getItem(LS_TEX_KEY)
+    } else {
+        localStorage.setItem(LS_TEX_KEY, url)
+        localStorage.setItem(LS_COLOR_KEY, TEX_COLOR_KEY)
+    }
 
     let css = cssFromObject(generateDefaultSiteColors(colors))
     let svgCssObject = generateDefaultSvgStyle(colors);
     svgCssObject['.fore'] = {fill: 'url(#tex1)'}
     let svgCss = cssFromObject(svgCssObject)
+
     $('#site-styles').remove()
     $('#tex1').remove()
 
@@ -113,56 +140,90 @@ function addTexture (url) {
     $('body').append($('<style>', {'id': 'site-styles'}).text(css + '\n' + svgCss))
 }
 
+
+function applySvgPatternToOneSvg (node, pattern) {
+    let s = Snap(node);
+    let ptrn = s.ptrn(0, 0, SIZE, SIZE, 0, 0, SIZE, SIZE).attr({
+        'id': 'tex1',
+        'patternContentUnits': 'objectBoundingBox'
+    })
+    ptrn.append(pattern).toDefs()
+}
+
+
 function applyTextureToOneSvg (node, url) {
     let s = Snap(node);
     let imgtex = s.image(url, 0, 0, SIZE, SIZE)
     let ptrn = s.ptrn(0, 0, SIZE, SIZE, 0, 0, SIZE, SIZE).attr({
         'id': 'tex1',
         'patternContentUnits': 'objectBoundingBox'
-    }
-    )
+    })
     ptrn.append(imgtex).toDefs()
 }
 
 function setColors (n) {
-    // localStorage.setItem(LS_COLOR_KEY, n)
-    if (n === 0) {
-        colors = generateDefaultColorGradient()
-    } else if (n === 1) {
-        colors = generateColorsInv()
-    } else if (n === 2) {
-        colors = generateColors1()
-    } else if (n === 3) {
-        colors = generateDefaultColorGradient()
+    n = getSetCurrentColorPalette(n)
+    colors = getColors(n)
 
-        let css = cssFromObject(generateDefaultSiteColors(colors))
-        let svgCssObject = generateDefaultSvgStyle(colors);
-        for (let selector in svgCssObject) {
-            svgCssObject[selector]['fill-opacity'] = 0.3;
-            svgCssObject[selector].stroke = 'green';
-        }
-        let svgCss = cssFromObject(svgCssObject)
-        applyStyle(css + '\n' + svgCss)
-        return
+    // Specials!
+    switch(n){
+        case 4:
+            colors = generateColorsVapor()
+            let cssx = cssFromObject(generateDefaultSiteColors(colors))
+            let svgCssObjectx = generateDefaultSvgStyle(colors);
+
+            for (let selector in svgCssObjectx) {
+                svgCssObjectx[selector]['fill-opacity'] = 0.6;
+                svgCssObjectx[selector].stroke = '#aaa7';
+            }
+            applyStyle(cssx + '\n' + cssFromObject(svgCssObjectx))
+            return
+
+        // #WaporWaveBgTex
+        case 5:
+                colors = generateColorsVapor()
+                let cssv = cssFromObject(generateDefaultSiteColors(colors))
+                let svgCssObjectv = generateDefaultSvgStyle(colors);
+                svgCssObjectv['.fore'] = {fill: 'url(#tex1)'}
+
+                $('#site-styles').remove()
+                $('#tex1').remove()
+                applySvgPatternToOneSvg($('svg')[0], vaporBg)
+
+                $('body').append($('<style>', {'id': 'site-styles'}).text(
+                    cssv + '\n' + cssFromObject(svgCssObjectv)))
+                return
+
+
+        case 10:
+            colors = generateDefaultColorGradient()
+
+            let css = cssFromObject(generateDefaultSiteColors(colors))
+            let svgCssObject = generateDefaultSvgStyle(colors);
+            for (let selector in svgCssObject) {
+                svgCssObject[selector]['fill-opacity'] = 0.3;
+                svgCssObject[selector].stroke = 'green';
+            }
+            let svgCss = cssFromObject(svgCssObject)
+            applyStyle(css + '\n' + svgCss)
+            return
+        case TEX_COLOR_KEY:
+            addTexture()
+            return
     }
+
 
     let css = cssFromObject(generateDefaultSiteColors(colors))
     let svgCssObject = generateDefaultSvgStyle(colors);
     let svgCss = cssFromObject(svgCssObject)
     applyStyle(css + '\n' + svgCss)
+
 }
 
 function applyStyle (css) {
     $('#site-styles').remove()
     $('body').append($('<style>', {'id': 'site-styles'}).text(css))
 }
-
-// function loadAll () {
-//     return $.ajax('shapes.json?v=' + Math.random()).then((shapes) => {
-//         allShapes = shapes
-//         // return $.when.apply(this, Object.keys(shapes).map(loadShape))
-//     })
-// }
 
 function loadPage (n) {
     if (!allShapes){
@@ -171,7 +232,7 @@ function loadPage (n) {
             pages = Math.ceil(Object.keys(shapes).length / PAGE_SIZE)
             for(let p = 0; p < pages; p++){
                 $('.pager').append($('<a>', {
-                    href:`#p=${p}`, 
+                    href:`#p=${p}`,
                     id: `page-${p}`,
                     class: 'pager-link',
                     onclick: `showPage(${p})`}).html(p));
@@ -189,7 +250,13 @@ function showPage (n){
     $('#images').html('')
     if (n === 0){ $('.prev-page').hide() } else { $('.prev-page').show() }
     if (n >= pages - 1){ $('.next-page').hide() } else { $('.next-page').show() }
-    return $.when.apply(this, Object.keys(allShapes).slice(n * PAGE_SIZE, (n+1)*PAGE_SIZE).map(loadShape))
+    return $.when.apply(this,
+        // Load all the shapes on the page
+        Object.keys(allShapes).slice(n * PAGE_SIZE, (n+1)*PAGE_SIZE).map(loadShape))
+        // ... and when all is loaded, apply the current color theme!
+    .then(()=>{
+        setColors()
+    })
 }
 
 function nextPage(){ location.hash = `p=${currentPage + 1}` }

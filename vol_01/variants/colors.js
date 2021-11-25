@@ -30,11 +30,14 @@
     let exp = {
         generateDefaultColorGradient: generateDefaultColorGradient,
         generateColors1: generateColors1,
+        generateColorsVapor: generateColorsVapor,
         generateColorsInv: generateColorsInv,
         cssFromObject: cssFromObject,
         createStylePropertyObjectFromColors: createStylePropertyObjectFromColors,
         generateDefaultSvgStyle: generateDefaultSvgStyle,
-        generateDefaultSiteColors: generateDefaultSiteColors
+        generateDefaultSiteColors: generateDefaultSiteColors,
+        getColors: getColors,
+        getSetCurrentColorPalette: getSetCurrentColorPalette
     }
     Object.keys(exp).map((key)=>object[key] = exp[key]);
     return exp
@@ -114,6 +117,25 @@
 
 
     /**
+     * Waves.
+     * @returns {Array} of colors.
+     */
+     function generateColorsVapor () {
+        let steps = 16;
+        let step = 256 / steps;
+        let colors = Array.apply(null, {length: steps}).map(Number.call, Number)
+        colors = colors.map((c) => {
+            let c8b = Math.floor(step * (16 - (c/2) -1)).toString(16)
+            let c8g = '00'
+            let c8r = Math.floor((step * ((c / 3 * 2) + 3))).toString(16)
+            return '#' + c8r + c8g + c8b
+        })
+        colors[1] = '#202'
+        return colors;
+    }
+
+
+    /**
      * Creates the default style object extending it with .fore and .bgc selectors.
      * svg uses the fill attribute to give the paths color.
      * @param {Array} colors
@@ -151,5 +173,39 @@
             return `${selector} { ${propertiesString} }`
         }).join('\n')
     }
+
+    function getSetCurrentColorPalette(n){
+        if (n === undefined){
+            var storedColor = localStorage.getItem(LS_COLOR_KEY)
+            if (storedColor !== undefined){
+                n = parseInt(storedColor)
+            }
+        } else {
+            localStorage.setItem(LS_COLOR_KEY, n)
+        }
+        return n
+    }
+
+    function getColors(n){
+        switch(n){
+            case 1:
+                colors = generateColorsInv()
+                break;
+            case 2:
+                colors = generateColors1();
+                break;
+            case 3:
+            case 4:
+                colors = generateColorsVapor()
+                break
+                default:
+                    colors = generateDefaultColorGradient()
+                break;
+        }
+        return colors
+    }
+
+
+
 }));
 

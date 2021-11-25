@@ -170,6 +170,13 @@
             "program": "${workspaceFolder}/vol_01/frame.js",
             "cwd": "${workspaceFolder}/vol_01/",
             "args": ["85"]
+        }, {
+            "type": "node",
+            "request": "launch",
+            "name": "86",
+            "program": "${workspaceFolder}/vol_01/frame.js",
+            "cwd": "${workspaceFolder}/vol_01/",
+            "args": ["86"]
         },
     ]
 }

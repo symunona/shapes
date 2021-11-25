@@ -8,7 +8,8 @@ define(['colors'], (colors) => {
         w: 640
     }
 
-    const palette = colors.generateDefaultColorGradient()
+    const palette = colors.getColors()
+
     const DEFAULT_COLOR_INDEX = 4
     const DEFAULT_BACKGROUND_COLOR_INDEX = 1
 

@@ -13,7 +13,7 @@ requirejs.config({
 requirejs(['require', 'jquery', 'p5', './midi'], (require, $, P5, midi)=>{
     'use strict'
     const FROM = 1
-    const TO = 21
+    const TO = 22
     const STARTUP = 11
 
     if (location.hash) {
@@ -70,11 +70,11 @@ requirejs(['require', 'jquery', 'p5', './midi'], (require, $, P5, midi)=>{
     const midiRange = 128
 
     function midiUpdate(drawing, channel, value){
-        if (drawing && 
-            drawing.properties && 
-            drawing.properties.inputs && 
+        if (drawing &&
+            drawing.properties &&
+            drawing.properties.inputs &&
             Object.keys(drawing.properties.inputs).length) {
-            
+
             if(channel < Object.keys(drawing.properties.inputs).length) {
                 // See max and min values of the prop
                 const key = Object.keys(drawing.properties.inputs)[channel]
@@ -126,7 +126,7 @@ requirejs(['require', 'jquery', 'p5', './midi'], (require, $, P5, midi)=>{
         $('#list a.active').removeClass('active')
     }
 
-    function renderControls (drawing) {        
+    function renderControls (drawing) {
         let $ctrlList = $('#ctrl ul').html('')
         if (!drawing.properties) { $('#ctrl').hide(); return }
 
