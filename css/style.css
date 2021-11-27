@@ -109,7 +109,7 @@ input[type=range]{
 @media (min-width: 1830px){
     nav { font-size: 2em; }
     nav.main .logo > svg, nav.main .logo img{ height: 65px; width: 65px; }
-    nav.main .wrapper, nav.main .wrapper-no-hide { height: 70px; width: 500px; }
+    nav.main .wrapper, nav.main .wrapper-no-hide { height: 70px; width: 1200px; }
 }
 @media (max-width: 680px) {
     .shape { max-width: 100% }
