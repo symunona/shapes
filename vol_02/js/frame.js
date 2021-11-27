@@ -8,7 +8,7 @@ define(['colors'], (colors) => {
         w: 640
     }
 
-    const palette = colors.getColors()
+    let palette = colors.getColors(getSetCurrentColorPalette())
 
     const DEFAULT_COLOR_INDEX = 4
     const DEFAULT_BACKGROUND_COLOR_INDEX = 1
@@ -28,7 +28,10 @@ define(['colors'], (colors) => {
         poly: polygon,
         info,
         radPos,
-        pickRandom
+        pickRandom,
+        colorUtils: colors,
+        DEFAULT_COLOR_INDEX,
+        DEFAULT_BACKGROUND_COLOR_INDEX
     }
 
     function radPos (angle, r) {

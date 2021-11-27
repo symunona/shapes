@@ -5,7 +5,7 @@
 module.exports = function (d) {
 
     let gridX = 8; gridY = 8;
-    let sizeX = d.w / (gridX + 2), sizeY = d.h / (gridY + 2)
+    let sizeX = d.w / (gridX), sizeY = d.h / (gridY)
 
     let g = d.append('g')
         .attr('fill-rule', 'evenodd')
@@ -17,7 +17,7 @@ module.exports = function (d) {
             g
                 .append('path')
                 .attr('d', unit({ x: sizeX / 2 + margin, y: sizeY / 2 + margin }, d))
-                .attr('transform', d.m({ x: sizeX * (xs + 1.5), y: sizeY * (ys + 1.5) }))
+                .attr('transform', d.m({ x: sizeX * (xs + 0.5), y: sizeY * (ys + 0.5) }))
                 .attr('class', 'f-'+ (Math.min((xs + ys + 2), 15) ))
         }
     }

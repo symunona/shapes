@@ -52,7 +52,7 @@ a.active { color: #111; background: #999}
 #shape-wrapper{
     margin-top: 50px;
     border: 1px solid #333;
-    background: #111; display: inline-block;
+    display: inline-block;
     padding: 25px;
     padding-bottom: 0px;
 }

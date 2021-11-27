@@ -1,5 +1,4 @@
-const LS_COLOR_KEY = 'ls_color_key'
-const LS_TEX_KEY = 'ls_tex_key'
+
 const KNOBS = [1, 1, 1, 11, 18, 19, 34, 42, 44, 69]
 const SIZE = 640
 const PAGE_SIZE = 9
@@ -167,6 +166,7 @@ function setColors (n) {
 
     // Specials!
     switch(n){
+        // VaporWireFrame
         case 4:
             colors = generateColorsVapor()
             let cssx = cssFromObject(generateDefaultSiteColors(colors))
@@ -179,7 +179,7 @@ function setColors (n) {
             applyStyle(cssx + '\n' + cssFromObject(svgCssObjectx))
             return
 
-        // #WaporWaveBgTex
+        // VaporWaveBgTex
         case 5:
                 colors = generateColorsVapor()
                 let cssv = cssFromObject(generateDefaultSiteColors(colors))
@@ -194,7 +194,7 @@ function setColors (n) {
                     cssv + '\n' + cssFromObject(svgCssObjectv)))
                 return
 
-
+        // Wireframe
         case 10:
             colors = generateDefaultColorGradient()
 

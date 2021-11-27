@@ -92,14 +92,14 @@ define(['frame', 'underscore', '../../js/vendor/seedrandom'], (c, _)=>{
             let newNodePosition = getNodeCoordinates(node, a, r)
             let allNonCollidingCirclesSoFar = getAllFlatCircles(tree)
 
-            console.log('-------< finding new place for', depth + '-' + index)
+            // console.log('-------< finding new place for', depth + '-' + index)
 
             newNodePosition = getNewCirclePosition(node, allNonCollidingCirclesSoFar, newNodePosition, r, a, index, depth);
             if (!newNodePosition) {
-                console.log('----- > Max collisions reached, skipping')
+                // console.log('----- > Max collisions reached, skipping')
                 return
             }
-            console.log('----- > inserting', depth + '-' + index, r, a)
+            // console.log('----- > inserting', depth + '-' + index, r, a)
             return newNodePosition
         }
 

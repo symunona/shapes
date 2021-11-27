@@ -31,6 +31,7 @@ define(['frame', 'underscore'], (c, _)=>{
             p.background(BACK)
             p.stroke(c.c.f)
             p.strokeWeight(1)
+
             for (let xs = 0; xs < gridX; xs++) {
                 for (let ys = 0; ys < gridY; ys++) {
                     p.push()
@@ -41,6 +42,8 @@ define(['frame', 'underscore'], (c, _)=>{
                     p.translate(x, y)
                     p.rotate(angle)
 
+                    var color = 2 + Math.floor((xs + ys) / (gridX + gridY) * 14)
+                    p.fill(c.c.p[color])
                     // p.line(-length * n, -length * n, length * n , length* n)
                     c.p = c.poly(p, 0, 0, length * n, poly)
 
@@ -59,14 +62,14 @@ define(['frame', 'underscore'], (c, _)=>{
                 desc: 'horizontal items',
                 type: 'integer',
                 min: 1,
-                max: 1000,
+                max: 100,
                 value: 40
             },
             gridY: {
                 desc: 'vertical items',
                 type: 'integer',
                 min: 1,
-                max: 1000,
+                max: 100,
                 value: 40
             },
             angle: {

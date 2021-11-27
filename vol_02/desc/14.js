@@ -85,14 +85,12 @@ define(['frame', 'underscore'], (c, _)=>{
         self.step100 = ()=>{
             let n = 0
             while (n++ < 100){
-                // console.log(n, 'b:', countAllBlack(self.map))
                 self.neighborGraph = generateNewNeighbors(self.map)
                 self.neighborMap = countTheFlops(self.neighborGraph)
                 self.map = flipDay(generateNewNeighbors(self.map), self.neighborMap)
             }
             self.initDrawing()
             self.drawGraph(self.map)
-            // console.log('Final Blacks', countAllBlack(self.map))
         }
         self.isPlaying = false
 
@@ -100,7 +98,7 @@ define(['frame', 'underscore'], (c, _)=>{
             self.isPlaying = true
             self.playStep()
         }
-        self.stop = ()=>{
+        p.stop = self.stop = ()=>{
             self.isPlaying = false
         }
 

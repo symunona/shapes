@@ -7,14 +7,21 @@ requirejs.config({
         jquery: 'vendor/jquery.min',
         colors: '../../vol_01/variants/colors',
         underscore: 'vendor/underscore-min',
-        p5: 'vendor/p5'
+        p5: 'vendor/p5',
+        'p5-sound': '../../js/vendor/p5.sound'
+    },
+    shim: {
+        'p5-sound': { deps: ['p5'] }
     }
 });
-requirejs(['require', 'jquery', 'p5', './midi'], (require, $, P5, midi)=>{
+requirejs(['require', 'jquery', 'p5', './midi', 'frame'], (require, $, P5, midi, c)=>{
     'use strict'
     const FROM = 1
-    const TO = 22
+    const TO = 23
     const STARTUP = 11
+
+    // Hach!
+    window.p5 = P5
 
     if (location.hash) {
         var startup = parseInt(location.hash.substr(1));
@@ -121,6 +128,7 @@ requirejs(['require', 'jquery', 'p5', './midi'], (require, $, P5, midi)=>{
 
     function unload () {
         if (currentDrawing) {
+            if (currentDrawing.stop) { currentDrawing.stop() }
             currentDrawing.remove()
         }
         $('#list a.active').removeClass('active')
@@ -132,7 +140,7 @@ requirejs(['require', 'jquery', 'p5', './midi'], (require, $, P5, midi)=>{
 
         $('#ctrl').show()
         $('#ctrl > span.head').text('ctrl - ' + drawing.properties.id)
-        if (drawing && drawing.properties) {
+        if (drawing && drawing.properties && drawing.properties.inputs) {
             Object.keys(drawing.properties.inputs).map((key)=>{
                 let props = drawing.properties.inputs[key]
                 let desc = `${props.desc} (${props.min} - (${props.default}) - ${props.max})`
@@ -276,4 +284,27 @@ requirejs(['require', 'jquery', 'p5', './midi'], (require, $, P5, midi)=>{
     function setProperty (key, value) {
         currentDrawing.properties.inputs[key] = value
     }
+
+    window.setColors = function setColors(n){
+        c.colorUtils.getSetCurrentColorPalette(n)
+        let palette = c.colorUtils.getColors(c.colorUtils.getSetCurrentColorPalette())
+        // colors
+        c.c = {
+            p: palette,
+            f: palette[c.DEFAULT_COLOR_INDEX],
+            b: palette[c.DEFAULT_BACKGROUND_COLOR_INDEX]
+        }
+        let css = cssFromObject(generateDefaultSiteColors(palette))
+        let svgCssObject = generateDefaultSvgStyle(palette);
+        let svgCss = cssFromObject(svgCssObject)
+        applyStyle(css + '\n' + svgCss)
+    }
+
+    function applyStyle (css) {
+        $('#site-styles').remove()
+        $('body').append($('<style>', {'id': 'site-styles'}).text(css))
+    }
+
+    window.setColors()
+
 })

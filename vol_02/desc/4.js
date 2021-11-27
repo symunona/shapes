@@ -162,7 +162,9 @@ define(['frame', 'underscore'], (c, _)=>{
             {"name":"ver #003 b","values":{"gridX":3,"gridY":3,"sizeMultiplier":15.7125,"m":16,"n":10,"positionRadius":50,"scaleSizeDrop":0.8,"scalePlace":15,"spiral":0}},
             {"name":"ver #004","values":{"gridX":4,"gridY":5,"sizeMultiplier":13.8125,"m":10,"n":9,"positionRadius":-75.2,"scaleSizeDrop":1,"scalePlace":16.7,"spiral":0}},
             {"name":"ver #006","values":{"gridX":1,"gridY":1,"sizeMultiplier":30,"m":5,"n":10,"positionRadius":52.4,"scaleSizeDrop":0.8,"scalePlace":21.9,"spiral":2}},
-            {"name":"ver #006","values":{"gridX":3,"gridY":3,"sizeMultiplier":39.9,"m":3,"n":10,"positionRadius":50,"scaleSizeDrop":0.8,"scalePlace":7.3,"spiral":1.714}}
+            {"name":"ver #006","values":{"gridX":3,"gridY":3,"sizeMultiplier":39.9,"m":3,"n":10,"positionRadius":50,"scaleSizeDrop":0.8,"scalePlace":7.3,"spiral":1.714}},
+            {"name":"ver #007 psy","values":{"gridX":1,"gridY":1,"sizeMultiplier":13.28125,"m":16,"n":16,"positionRadius":59.375,"scaleSizeDrop":0.859375,"scalePlace":4.6875,"spiral":2}},
+            {"name":"ver #008","values":{"gridX":3,"gridY":3,"sizeMultiplier":18.925,"m":6,"n":16,"positionRadius":59.375,"scaleSizeDrop":0.9,"scalePlace":4.6875,"spiral":2}}
         ]
 
     }

@@ -42,6 +42,8 @@ define(['frame', 'underscore'], (c, _)=>{
                     p.translate(x, y)
                     p.rotate(angle + dy * dx * dr)
 
+                    var color = 2 + Math.floor((xs + ys) / (gridX + gridY) * 14)
+                    p.fill(c.c.p[color])
                     c.p = c.poly(p, 0, 0, length * d, poly)
 
                     p.pop()
@@ -59,14 +61,14 @@ define(['frame', 'underscore'], (c, _)=>{
                 desc: 'horizontal items',
                 type: 'integer',
                 min: 1,
-                max: 200,
+                max: 150,
                 value: 20
             },
             gridY: {
                 desc: 'vertical items',
                 type: 'integer',
                 min: 1,
-                max: 200,
+                max: 150,
                 value: 20
             },
             dr: {

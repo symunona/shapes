@@ -26,6 +26,7 @@
 }(typeof self !== 'undefined' ? self : this, function (object) {
     'use strict'
     if (!object) { object = window; }
+
     // Support module loading.
     let exp = {
         generateDefaultColorGradient: generateDefaultColorGradient,
@@ -37,7 +38,10 @@
         generateDefaultSvgStyle: generateDefaultSvgStyle,
         generateDefaultSiteColors: generateDefaultSiteColors,
         getColors: getColors,
-        getSetCurrentColorPalette: getSetCurrentColorPalette
+        getSetCurrentColorPalette: getSetCurrentColorPalette,
+        LS_COLOR_KEY: 'ls_color_key',
+        LS_TEX_KEY: 'ls_tex_key'
+
     }
     Object.keys(exp).map((key)=>object[key] = exp[key]);
     return exp
@@ -58,12 +62,12 @@
     }
 
     /**
- * Creates a style object from a color array.
- * @param {Array} colors
- * @param {String} property
- * @param {String} selector
- * @returns {Object} style object
- */
+     * Creates a style object from a color array.
+     * @param {Array} colors
+     * @param {String} property
+     * @param {String} selector
+     * @returns {Object} style object
+     */
     function createStylePropertyObjectFromColors (colors, property, selector) {
         let style = {}
         for (let i = 0; i < colors.length; i++) {
@@ -176,17 +180,18 @@
 
     function getSetCurrentColorPalette(n){
         if (n === undefined){
-            var storedColor = localStorage.getItem(LS_COLOR_KEY)
+            var storedColor = localStorage.getItem(exp.LS_COLOR_KEY)
             if (storedColor !== undefined){
                 n = parseInt(storedColor)
             }
         } else {
-            localStorage.setItem(LS_COLOR_KEY, n)
+            localStorage.setItem(exp.LS_COLOR_KEY, n)
         }
         return n
     }
 
     function getColors(n){
+        let colors
         switch(n){
             case 1:
                 colors = generateColorsInv()
