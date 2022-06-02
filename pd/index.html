@@ -1,0 +1,18 @@
+<!doctype HTML>
+<html>
+  <head>
+    <script src="../js/vendor/jquery.min.js"></script>
+    <script src="../js/vendor/webpd-latest.min.js"></script>
+    <script>
+        // $('body').on('click', ()=>{
+            var patch
+            $.get('patches/PONG.pd', function(patchStr) {
+                patch = Pd.loadPatch(patchStr)
+                Pd.start()
+            })
+        // })
+    </script>
+  </head>
+
+  <body></body>
+</html>

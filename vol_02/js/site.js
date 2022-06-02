@@ -17,7 +17,7 @@ requirejs.config({
 requirejs(['require', 'jquery', 'p5', './midi', 'frame'], (require, $, P5, midi, c)=>{
     'use strict'
     const FROM = 1
-    const TO = 23
+    const TO = 26
     const STARTUP = 11
 
     // Hach!
@@ -108,6 +108,9 @@ requirejs(['require', 'jquery', 'p5', './midi', 'frame'], (require, $, P5, midi,
                 }
             }
         }
+        if (drawing && drawing.properties && drawing.properties.onChange){
+            drawing.properties.onChange();
+        }
     }
 
     $('#toggler').click(toggleControls)
@@ -150,7 +153,7 @@ requirejs(['require', 'jquery', 'p5', './midi', 'frame'], (require, $, P5, midi,
 
                 let $ctrl = $('<li>', {title: desc})
                 if (['float', 'number', 'integer'].indexOf(props.type)>-1){
-                    $ctrl.append(createInput(props, key))
+                    $ctrl.append(createInput(props, drawing, key))
                 } else {
                     $ctrl.append(createButton(props, drawing, key))
                 }
@@ -236,10 +239,13 @@ requirejs(['require', 'jquery', 'p5', './midi', 'frame'], (require, $, P5, midi,
         // When loading a preset, change the default to this.
         if (saveIt) { localStorage.setItem('shape-' + drawing.properties.id, JSON.stringify(p)) }
         if (drawing.properties?.reset){ drawing.properties?.reset() }
+        if (drawing && drawing.properties && drawing.properties.onChange){
+            drawing.properties.onChange();
+        }
     }
 
 
-    function createInput (prop, id) {
+    function createInput (prop, drawing, id) {
         let $el = $('<div>', {title: `${prop.min} - (${prop.type}) - ${prop.max}`, id});
         $el.append($('<div>').text(prop.desc))
         let $numeric = $('<input>', {
@@ -272,6 +278,9 @@ requirejs(['require', 'jquery', 'p5', './midi', 'frame'], (require, $, P5, midi,
             $slider.val(val)
             prop.value = val;
             if (prop.onChange){ prop.onChange(val) }
+            if (drawing && drawing.properties && drawing.properties.onChange){
+                drawing.properties.onChange();
+            }
         }
     }
 

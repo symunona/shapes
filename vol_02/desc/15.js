@@ -107,9 +107,10 @@ define(['frame', 'underscore'], (c, _)=>{
             }
         },
         presets: [
-            {'name': 'ver #000', 'values': {'rows': 5, 'cols': 17, 'fatx': 2.3, 'faty': 3.4, 'thikness': 1}},
-            {'name': 'ver #001', 'values': {'rows': 5, 'cols': 10, 'fatx': 3.8, 'faty': 0, 'thikness': 1, 'quadmult': 200}},
-            {'name': 'ver #002', 'values': {'rows': 41, 'cols': 75, 'fatx': 3.3, 'faty': 7.4, 'thikness': 0.9, 'quadmult': 200}}
+            {'name': 'ver #000 - moustache', 'values': {'rows': 5, 'cols': 17, 'fatx': 2.3, 'faty': 3.4, 'thikness': 1}},
+            {'name': 'ver #001 - planet', 'values': {'rows': 5, 'cols': 10, 'fatx': 3.8, 'faty': 0, 'thikness': 1, 'quadmult': 200}},
+            {'name': 'ver #002 - hyperspace', 'values': {'rows': 41, 'cols': 75, 'fatx': 3.3, 'faty': 7.4, 'thikness': 0.9, 'quadmult': 200}},
+            {"name":"ver #003 - apple","values":{"rows":24,"cols":30,"fatx":0,"faty":0.2,"thikness":1,"quadmult":50}}
         ]
     }
 
