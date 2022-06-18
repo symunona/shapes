@@ -15,38 +15,42 @@
             c.genFrame();
         }
         let m
-
-        c.genFrame = _.debounce(() => {
-            // Variables
-            const pad = 20;
+        c.genFrame = () => {
             let sizeX = p.properties.inputs.gridX.value,
                 sizeY = p.properties.inputs.gridY.value,
-                dx = (c.w - pad) / sizeX,
-                dy = (c.h - pad) / sizeY,
                 length = p.properties.inputs.length.value,
                 angle = p.properties.inputs.angle.value,
                 asymmetry = p.properties.inputs.asymmetry.value,
+                fore = p.properties.inputs.fore.value
+
+            m = gen(sizeX, sizeY, length, angle, asymmetry, fore)
+        }
+
+        p.draw = () => {
+            // Variables
+            const pad = p.properties.inputs.pad.value * c.w / 200;
+            let sizeX = p.properties.inputs.gridX.value,
+                sizeY = p.properties.inputs.gridY.value,
+                dx = (c.w - (2 * pad)) / sizeX,
+                dy = (c.h - (2 * pad)) / sizeY,
                 brush = p.properties.inputs.brush.value,
                 fore = p.properties.inputs.fore.value,
                 back = p.properties.inputs.back.value
-
-            m = gen(sizeX, sizeY, length, angle, asymmetry, 16)
 
             p.background(c.c.p[back])
             p.stroke(c.c.p[fore])
             p.strokeWeight(brush)
 
-            p.line(0, 0, 100, 100)
-
             for(let y = 0; y < sizeY; y++){
                 for(let x = 0; x < sizeX; x++){
                     const q = m[y][x]
                     p.stroke(c.c.p[q.color])
-                    const px = dx * x, py = dy * y
-                    p.line(px, py, px + (Math.sin(q.angle) * q.len), py + (Math.cos(q.angle) * q.len))
+                    const px = pad + (dx * x), py = pad + (dy * y)
+                    const distortion = p.dist(px, py, p.mouseX, p.mouseY) * 0.001
+                    p.line(px, py, px + (Math.sin(q.angle + distortion) * q.len), py + (Math.cos(q.angle + distortion) * q.len))
                 }
             }
-        }, 500)
+        }
     };
 
     function gen(sizeX, sizeY, len, narrow, angleOffset, colors){
@@ -75,14 +79,14 @@
                 type: 'integer',
                 min: 1,
                 max: 100,
-                value: 60
+                value: 50
             },
             gridY: {
                 desc: 'vertical items',
                 type: 'integer',
                 min: 1,
                 max: 100,
-                value: 60
+                value: 50
             },
             angle: {
                 desc: 'angle',
@@ -97,7 +101,7 @@
                 type: 'float',
                 step: 1,
                 min: 0,
-                max: 50,
+                max: 500,
                 value: 100
             },
             asymmetry: {
@@ -114,7 +118,7 @@
                 step: 0.001,
                 min: 0,
                 max: 10,
-                value: 4
+                value: 1
             },
             fore: {
                 desc: 'foreground color',
@@ -122,6 +126,13 @@
                 min: 0,
                 max: 15,
                 value: 15
+            },
+            pad: {
+                desc: 'pad',
+                type: 'integer',
+                min: 0,
+                max: 100,
+                value: 60
             },
             back: {
                 desc: 'background color',
@@ -132,6 +143,9 @@
             }
         },
         presets: [
+            {"name":"ver #000 - hair","values":{"gridX":100,"gridY":100,"angle":1,"length":100,"asymmetry":1.2,"brush":0.469,"fore":15,"pad":64,"back":1}},
+            {"name":"ver #001 - eww","values":{"gridX":47,"gridY":37,"angle":1,"length":100,"asymmetry":1.2,"brush":1.694,"fore":15,"pad":63,"back":1}},
+            {"name":"ver #002 - short","values":{"gridX":100,"gridY":99,"angle":0.1795,"length":40,"asymmetry":1.1701,"brush":0.184,"fore":15,"pad":60,"back":1}}
         ]
 
     }
