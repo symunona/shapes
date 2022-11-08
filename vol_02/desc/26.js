@@ -146,7 +146,8 @@
             {"name":"ver #000 - hair","values":{"gridX":100,"gridY":100,"angle":1,"length":100,"asymmetry":1.2,"brush":0.469,"fore":15,"pad":64,"back":1}},
             {"name":"ver #001 - eww","values":{"gridX":47,"gridY":37,"angle":1,"length":100,"asymmetry":1.2,"brush":1.694,"fore":15,"pad":63,"back":1}},
             {"name":"ver #002 - short","values":{"gridX":100,"gridY":99,"angle":0.1795,"length":40,"asymmetry":1.1701,"brush":0.184,"fore":15,"pad":60,"back":1}},
-            {"name":"ver #003","values":{"gridX":74,"gridY":57,"angle":0,"length":100,"asymmetry":1.5312734375,"brush":0.15625,"fore":13,"pad":13,"back":1}}
+            {"name":"ver #003","values":{"gridX":74,"gridY":57,"angle":0,"length":100,"asymmetry":1.5312734375,"brush":0.15625,"fore":13,"pad":13,"back":1}},
+            {"name":"ver #004","values":{"gridX":57,"gridY":50,"angle":0.1645,"length":332,"asymmetry":1.3901,"brush":0.476,"fore":15,"pad":23,"back":1}}
         ]
 
     }
