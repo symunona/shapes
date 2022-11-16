@@ -11,7 +11,7 @@
         p.setup = function () {
             p.createCanvas(c.x, c.y)
             p.frameRate(30)
-            c.info(29, 'poly')
+            c.info(29, 'pecs')
         }
 
         function drawPoly(r, n){
