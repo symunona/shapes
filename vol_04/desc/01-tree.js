@@ -1,17 +1,13 @@
 import * as THREE from 'three';
-import { Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import Stats from 'three/examples/jsm/libs/stats.module';
+// import Stats from 'three/examples/jsm/libs/stats.module';
 import register from '../midi.js'
 import _ from 'underscore'
 
+// console.log('initing my first three tree')
 
-
-
-console.log('initing my first three tree')
-
-const stats = Stats();
-document.body.appendChild(stats.dom);
+// const stats = Stats();
+// document.body.appendChild(stats.dom);
 
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
@@ -39,15 +35,6 @@ function marker(position, color, size){
     scene.add(marker)
     return marker
 }
-
-
-// const material = new THREE.LineDashedMaterial( {
-// 	color: 0x770000,
-// 	linewidth: 0.01,
-// 	scale: 100,
-// 	dashSize: 0.03,
-// 	gapSize: 0.01,
-// } );
 
 
 const light = new THREE.AmbientLight(0x404040) // soft white light
@@ -202,17 +189,7 @@ function rebuildTree(){
     scene.add(line)
 }
 
-buildTree(
-    depth,
-    branches,
-    formerBase,
-    startPoint,
-    direction,
-    branchAngle,
-    treePoints,
-    reduceBranchLength
-    )
-
+rebuildTree()
 
 base(startPoint, 0.1)
 
@@ -225,63 +202,16 @@ function base(position, size){
 }
 
 
-
-
 animate()
 
-
-// let cameraDist = 3
-// let cameraY = 1 // RAD
-// let cameraZ = 1 // RAD
-
-// const center = new THREE.Vector3(0,1,0)
-
-// addEventListener("wheel", (event) => {
-//     const delta = event.deltaY / 240 / 10
-//     cameraDist += delta;
-//     animate()
-// });
-
-// const deltaMouse = 0.01
-
-// addEventListener("mousemove",(event) => {
-//     const dx = event.movementX * deltaMouse, dy = event.movementY * deltaMouse
-//     // console.log(dx, dy)
-//     cameraY += dx
-//     cameraZ += dy
-//     camera.position.x = Math.cos(cameraY) * cameraDist
-//     camera.position.z = Math.sin(cameraY) * cameraDist
-//     camera.position.y = Math.sin(cameraZ) * cameraDist
-//     camera.lookAt(center)
-//     animate()
-// })
 
 function animate() {
 
     requestAnimationFrame( animate );
 
     controls.update();
-    stats.update();
+    // stats.update();
 
     renderer.render( scene, camera );
 
 }
-
-
-
-// renderer.setAnimationLoop(() => {
-
-//    translatemat.makeTranslation(num, -num, 0)
-//    mesh.position.applyMatrix4(translatemat)
-//    rotatemat.makeRotationY(num)
-//    camera.lookAt(new THREE.Vector3(0,0,0))
-// })
-
-// setInterval(() => {
-//     cube.rotation.x += 0.01;
-//     cube.rotation.y += 0.01;
-//     line.rotation.x += 0.01;
-//     line.rotation.y += 0.01;
-//     animate();
-
-// }, 100)
