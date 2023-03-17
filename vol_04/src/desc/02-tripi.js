@@ -33,14 +33,14 @@ export default class TriPi extends Fiddle{
     lineMaterial = new LineBasicMaterial({ color: 0x00aa00 })
     inputs = new Inputs({
         depth: new Param('depth', 4, 1, 0, 6),
-        type: new Param('type', 1, 1, 0, 1),
+        type: new Param('type', 0, 1, 0, 1),
 
     })
 
     build() {
         this.treePoints = []
 
-        switch(this.inputs.type){
+        switch(this.inputs.type.value){
             case 0:
                 this.buildPyramid(
                     this.inputs.depth.value,
