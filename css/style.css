@@ -12,7 +12,7 @@ body.clean #shape-info
 { display: none !important; }
 
 /* NAV */
-nav.main{ display: block; height: 40px; position: fixed; background: rgba(1,1,1,0.01); width: 100%; top: 5px; }
+nav.main{ display: block; height: 40px; position: fixed; background: rgba(1,1,1,0.01); width: 100%; top: 5px; z-index: 1000 }
 
 nav.main .logo > svg, nav.main .logo img{ height: 30px; width: 30px; transition-duration: 0.3s; transition-property: transform; cursor: pointer;}
 nav.main:hover .wrapper{ width: 100% }
@@ -31,7 +31,7 @@ nav.main .wrapper, nav.main .wrapper-no-hide {
 
 nav.main .wrapper-no-hide{ width: 500px }
 
-nav.main .menu{ height: 2em; line-height: 2em; vertical-align: top}
+nav.main .menu{ height: 2em; line-height: 2em; vertical-align: top; background: #111;}
 
 nav.textures{
     position: fixed; height: 64px; height: 80%;

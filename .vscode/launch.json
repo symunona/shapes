@@ -178,5 +178,13 @@
             "cwd": "${workspaceFolder}/vol_01/",
             "args": ["86"]
         },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "vol_04 build",
+            "program": "${workspaceFolder}/vol_04/build.js",
+            "cwd": "${workspaceFolder}/vol_04/",
+            "args": [""]
+        },
     ]
 }
