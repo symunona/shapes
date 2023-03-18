@@ -1,24 +1,29 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // import Stats from 'three/examples/jsm/libs/stats.module';
-import register from './midi.js'
 import _ from 'underscore'
 
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module';
 
 import listOfFiddles from '../list.json' assert {type: 'json'};
-import { Fiddle } from './fiddle.js';
-import { createElement, getFileName } from './utils.js';
+import { Fiddle } from './lib/fiddle.js';
+import { createElement, getFileName, midiNotHookedInThrottled } from './lib/utils.js';
+import { animateButtonChangedValue, arrayLightUp, MIDI_MAPS, reverseTranslateMidiKnobChannel, translateMidiKnobChannel } from './lib/shapes-midi-helper.js';
+import ShapesMIDIController from './lib/midi.js';
 
-const menu = createElement('div', {'class': 'menu'})
+const menu = createElement('div', { 'class': 'menu' })
 document.body.appendChild(menu)
 
-listOfFiddles.map((fileName)=>{
+listOfFiddles.map((fileName) => {
     menu.appendChild(createElement('a', {
         innerHTML: getFileName(fileName),
         onclick: load.bind(this, fileName)
     }))
 })
+
+// const log = createElement('div', { 'class': 'log' })
+// document.body.appendChild(log)
+
 
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
@@ -41,9 +46,54 @@ scene.add(light)
 
 window.addEventListener('resize', onWindowResize, false);
 
-animate()
+// animate()
 
-load(listOfFiddles[0])
+
+// let wheel = 5
+
+// window.addEventListener('wheel', (e) => {
+//     if (e.deltaY < 0)
+//         wheel++
+//     else
+//         wheel--
+//     console.warn(wheel)
+//     log.innerHTML =
+//         Math.round(e.offsetX/4).toString().padStart(3, '_') + ' - ' +
+//         Math.round(e.offsetY/4).toString().padStart(3, '_') + ' ch: ' + wheel
+// })
+
+// log.addEventListener('mousemove', (e)=>{
+//     const KEY = 36 + Math.round(e.offsetX/4 / 8)
+//     const ONOFF = Math.round(e.offsetY/256) * 127
+//     log.innerHTML =
+//         KEY + ' - ' +
+//         ONOFF
+// })
+
+
+
+// log.addEventListener('click', (e) => {
+//     // const data = [0x90, Math.round(e.offsetX/4), Math.round(e.offsetY/4)]
+//     const KEY = 36 + Math.round(e.offsetX/4 / 8)
+//     const KEY2 = 0 + Math.round(e.offsetX/4 / 8)
+//     const ONOFF = Math.round(e.offsetY/256) * 127
+//     const data = [0x90, KEY, ONOFF]
+//     log.innerHTML = data
+// })
+
+
+// window.addEventListener('keypress', (e) => {
+//     if (e.code.startsWith('Digit')) {
+//         if (e.shiftKey) {
+//             wheel = parseInt(' ' + wheel + e.code.substring(5))
+//         } else {
+//             wheel = parseInt(e.key)
+//         }
+//         console.warn('ch', wheel)
+//     }
+// })
+
+// load(listOfFiddles[0])
 
 /**
  * @type {Fiddle}
@@ -51,29 +101,53 @@ load(listOfFiddles[0])
 let currentFiddle
 let currentMesh
 const rebuildThrottled = _.throttle(rebuild, 500)
-const midiNotHookedInThrottled = _.throttle(midiNotHookedIn, 5000)
+
+
 
 console.log('Hooking up MIDI input')
-register((channel, value) => {
+
+let activeMidiName
+
+const shapesMidiController = new ShapesMIDIController(function (midiName, msgType, channel, value) {
+    // When a knob is turned, light up the corresponding value on the numpad
+    activeMidiName = midiName
+
     if (currentFiddle) {
-        const param = currentFiddle.inputs.getByIndex(channel)
+        const actualChannel = translateMidiKnobChannel(midiName, channel)
+
+        const param = currentFiddle.inputs.getByIndex(actualChannel)
         if (!param) {
-            midiNotHookedInThrottled(channel)
+            midiNotHookedInThrottled(actualChannel, currentFiddle)
             return;
         }
         param.changeNormal(value / 128)
+
+        animateButtonChangedValue(shapesMidiController, channel)
+
+        if (currentFiddle.throttle) {
+            return rebuildThrottled()
+        }
+        rebuild()
+    } else {
+        // console.log(arguments)
     }
-    if (currentFiddle.throttle) {
-        return rebuildThrottled()
-    }
-    rebuild()
 })
 
-
-
-function midiNotHookedIn(channel){
-    console.warn(`Midi channel ${channel} not hooked in, as there are only ${Object.keys(currentFiddle.inputs).length} parameters.`)
+function restoreMidiVariables(currentFiddle){
+    activeMidiName = shapesMidiController.lastMidiName
+    for (let i = 0; i < currentFiddle.inputs.length; i++){
+        const actualMidiChannelToRestore = reverseTranslateMidiKnobChannel(activeMidiName, i)
+        if (actualMidiChannelToRestore === false){
+            console.warn('Channel restore error.')
+            continue
+        }
+        const value = shapesMidiController.lastState[activeMidiName][actualMidiChannelToRestore]
+        currentFiddle.inputs.getByIndex(i).changeNormal(value / 128)
+    }
+    console.warn('restored from midi: ', currentFiddle.inputs.toString())
 }
+
+
 
 function rebuild() {
     console.log('Rebuilding', currentFiddle.name)
@@ -95,13 +169,25 @@ function load(fileName) {
         .then((FiddleInstance) => loadModel(FiddleInstance, getFileName(fileName)))
 }
 
+let loaded = false
+
 /**
  * @param {Fiddle}
  */
 function loadModel(FiddleInstance, fiddleName) {
     currentFiddle = new FiddleInstance.default();
     currentFiddle.name = fiddleName
+
+    // Show which are the inputs that can be manipulated
+    arrayLightUp(shapesMidiController, currentFiddle.inputs.length, 100, 500)
+
+    restoreMidiVariables(currentFiddle)
+
     console.log('Fiddle loaded:', fiddleName)
+    if (!loaded){
+        animate();
+        loaded = true
+    }
     return rebuild()
 }
 

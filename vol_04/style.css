@@ -1,4 +1,6 @@
-body { font-family: monospace; margin: 0}
+body { font-family: monospace; margin: 0; background: #111;}
 .menu {  position: absolute; top: 10px; left: 10px; color: #777}
 .menu a { display: inline-block; margin-left: 10px; cursor: pointer; }
 .menu a:hover { color: #999 }
+
+.log { position: absolute; bottom: 10px; left: 10px; color: #272; height: 512px; width: 512px; background-color: #4447; cursor: default}

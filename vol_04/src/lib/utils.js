@@ -6,6 +6,7 @@
  */
 
 import {BoxGeometry, Mesh, MeshNormalMaterial, MeshStandardMaterial, Vector3} from 'three';
+import _ from 'underscore';
 
 export const DEG1 = Math.PI / 180 // 1deg
 export const PI2 = Math.PI * 2 // 360deg
@@ -58,4 +59,17 @@ export function createElement(nodeName, params){
 
 export function getFileName(fileName){
     return fileName.substring(0, fileName.lastIndexOf('.'))
+}
+
+export const midiNotHookedInThrottled = _.throttle(midiNotHookedIn, 5000)
+
+function midiNotHookedIn(channel, currentFiddle) {
+    console.warn(`Midi channel ${channel} not hooked in, as there are only ${Object.keys(currentFiddle.inputs).length} parameters.`)
+}
+
+
+export const midiMapDoNotExistThrottled = _.throttle(midiMapDoNotExist, 5000)
+
+function midiMapDoNotExist(deviceName) {
+    console.warn(`No midi map for device  ${deviceName} yet. Maybe you want to make it?`)
 }

@@ -1,9 +1,8 @@
 import * as THREE from 'three';
 import { BufferGeometry, Line, LineBasicMaterial, Scene, Vector3 } from 'three';
 import _ from 'underscore'
-import { Fiddle, Inputs } from '../fiddle.js';
-import { Param } from '../param.js';
-import { DEG1, getNormalOfPlain, PI2 } from '../utils.js';
+import { Fiddle, Inputs } from '../lib/fiddle.js';
+import { Param } from '../lib/param.js';
 
 
 const deg60 = Math.PI / 3 * 2
@@ -30,11 +29,12 @@ const cornerPoints = [pBase1, pBase2, pBase3, pTop]
 
 export default class TriPi extends Fiddle{
 
+    throttle = 10
+
     lineMaterial = new LineBasicMaterial({ color: 0x00aa00 })
     inputs = new Inputs({
         depth: new Param('depth', 4, 1, 0, 6),
         type: new Param('type', 0, 1, 0, 1),
-
     })
 
     build() {

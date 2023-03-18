@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 import { LineBasicMaterial, Scene, Vector3 } from 'three';
 import _ from 'underscore'
-import { Fiddle, Inputs } from '../fiddle.js';
-import { Param } from '../param.js';
-import { DEG1, getNormalOfPlain } from '../utils.js';
+import { Fiddle, Inputs } from '../lib/fiddle.js';
+import { Param } from '../lib/param.js';
+import { DEG1, getNormalOfPlain } from '../lib/utils.js';
 
 export default class Tree1 extends Fiddle{
     inputs = new Inputs({

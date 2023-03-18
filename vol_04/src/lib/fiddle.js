@@ -29,6 +29,7 @@ export class Inputs{
         // So they are directly reachable from top level
         Object.assign(this, params)
         this.params = params
+        this.length = Object.keys(params).length
     }
     /**
      * @param {Number} i
