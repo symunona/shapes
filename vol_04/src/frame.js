@@ -153,7 +153,9 @@ function restoreMidiVariables(currentFiddle){
             continue
         }
         const value = shapesMidiController.lastState[activeMidiName][actualMidiChannelToRestore]
-        currentFiddle.inputs.getByIndex(i).changeNormal(value / 128)
+        if (value !== undefined){
+            currentFiddle.inputs.getByIndex(i).changeNormal(value / 128)
+        }
     }
     console.warn('restored from midi: ', currentFiddle.inputs.toString())
 }
