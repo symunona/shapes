@@ -4,24 +4,24 @@
 		<meta charset="utf-8">
 		<title>vol_04_three</title>
 		<link rel="stylesheet" href="style.css">
-		<style>
-			body { margin: 0; }
-		</style>
-		 <script type="importmap">
-        {
-          "imports": {
-            "three": "./node_modules/three/build/three.module.js",
-			"underscore": "./node_modules/underscore/underscore-esm.js",
-            "three/examples/jsm/controls/OrbitControls":"./node_modules/three/examples/jsm/controls/OrbitControls.js",
-			"three/examples/jsm/libs/stats.module":"./node_modules/three/examples/jsm/libs/stats.module.js",
-			"three/examples/jsm/libs/lil-gui.module":"./node_modules/three/examples/jsm/libs/lil-gui.module.min.js"
-          }
-        }
-    	</script>
+		<link rel="shortcut icon" type="image/png" href="../vol_01/shapes.png" />
+
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "./node_modules/three/build/three.module.js",
+					"underscore": "./node_modules/underscore/underscore-esm.js",
+					"three/examples/jsm/controls/OrbitControls":"./node_modules/three/examples/jsm/controls/OrbitControls.js",
+					"three/examples/jsm/libs/stats.module":"./node_modules/three/examples/jsm/libs/stats.module.js",
+					"three/examples/jsm/libs/lil-gui.module":"./node_modules/three/examples/jsm/libs/lil-gui.module.min.js"
+				}
+			}
+		</script>
 	</head>
 	<body>
-        <div>
-
+        <div id="load-error" style="position: absolute; top: 48%; width: 400px; left: calc( 50% - 200px ); padding: 2px; text-align: center; color: #999">
+			My script uses features in active development like import maps and dynamic module loading.
+			Seems like this browser is not supporting them. <a href="/">Back</a>
         </div>
 
         <script src="src/frame.js" type="module"></script>

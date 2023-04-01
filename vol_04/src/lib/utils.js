@@ -5,7 +5,7 @@
  * @returns {Mesh}
  */
 
-import {BoxGeometry, Mesh, MeshNormalMaterial, MeshStandardMaterial, Vector3} from 'three';
+import {BoxGeometry, Mesh, MeshNormalMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Vector3} from 'three';
 import _ from 'underscore';
 
 export const DEG1 = Math.PI / 180 // 1deg
@@ -30,7 +30,7 @@ export function marker(position, color, size) {
 export function base(position, size) {
     size = size || 0.1
     const geometry = new BoxGeometry(size, size * 0.1, size)
-    const material = new MeshNormalMaterial()
+    const material = new MeshPhysicalMaterial({color: 0x007700})
     const cube = new Mesh(geometry, material)
     cube.position.set(position.x, position.y, position.z4)
     return cube

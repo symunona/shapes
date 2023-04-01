@@ -1,3 +1,10 @@
+/**
+ * 2/3D fiddle editor, parametric visuals wrapper
+ *
+ */
+
+document.getElementById('load-error').remove()
+
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // import Stats from 'three/examples/jsm/libs/stats.module';
@@ -5,11 +12,13 @@ import _ from 'underscore'
 
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module';
 
-import listOfFiddles from '../list.json' assert {type: 'json'};
+import listOfFiddles from '../fiddles.json' assert {type: 'json'};
 import { Fiddle } from './lib/fiddle.js';
-import { createElement, getFileName, midiNotHookedInThrottled } from './lib/utils.js';
+import { base, createElement, getFileName, midiNotHookedInThrottled } from './lib/utils.js';
 import { animateButtonChangedValue, arrayLightUp, MIDI_MAPS, reverseTranslateMidiKnobChannel, translateMidiKnobChannel } from './lib/shapes-midi-helper.js';
 import ShapesMIDIController from './lib/midi.js';
+import { Vector3 } from 'three';
+
 
 const menu = createElement('div', { 'class': 'menu' })
 document.body.appendChild(menu)
@@ -39,10 +48,12 @@ camera.position.y = 2;
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.autoRotate = true;
 
-const light = new THREE.AmbientLight(0x404040) // soft white light
+const light = new THREE.PointLight({color: 0x404040}) // soft white light
 
+light.position.set(10, 10, 10)
 scene.add(light)
-// scene.add(base(new Vector3(0,-1,0)))
+
+// scene.add(base(new Vector3(0, 0, 0)))
 
 window.addEventListener('resize', onWindowResize, false);
 
@@ -93,7 +104,7 @@ window.addEventListener('resize', onWindowResize, false);
 //     }
 // })
 
-// load(listOfFiddles[0])
+load(listOfFiddles[0])
 
 /**
  * @type {Fiddle}
