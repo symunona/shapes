@@ -1,0 +1,10 @@
+{
+  "main": "build.js",
+  "type": "module",
+  "dependencies": {
+    "rete": "^1.5.0",
+    "theaterjs": "^3.2.0",
+    "three": "^0.150.1",
+    "underscore": "^1.13.6"
+  }
+}

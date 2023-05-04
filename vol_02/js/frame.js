@@ -31,7 +31,15 @@ define(['colors'], (colors) => {
         pickRandom,
         colorUtils: colors,
         DEFAULT_COLOR_INDEX,
-        DEFAULT_BACKGROUND_COLOR_INDEX
+        DEFAULT_BACKGROUND_COLOR_INDEX,
+        v: getValues
+    }
+
+    function getValues(p){
+        let ret = {}
+        Object.keys(p.properties.inputs).map(
+            (key)=>ret[key] = p.properties.inputs[key].value)
+        return ret
     }
 
     function radPos (angle, r) {
