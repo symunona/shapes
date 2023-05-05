@@ -17,7 +17,7 @@ requirejs.config({
 requirejs(['require', 'jquery', 'p5', './midi', 'frame'], (require, $, P5, midi, c)=>{
     'use strict'
     const FROM = 1
-    const TO = 29
+    const TO = 30
     const STARTUP = 11
 
     // Hach!
@@ -55,6 +55,7 @@ requirejs(['require', 'jquery', 'p5', './midi', 'frame'], (require, $, P5, midi,
             unload()
             $('#list a').removeClass('active')
             $('[data-no=' + n + ']').addClass('active')
+            $('#shape-main').html('')
             $('#shape-wrapper').show()
             currentDrawing = new P5(drawing, 'shape-main')
             currentDrawing.no = n
