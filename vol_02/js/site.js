@@ -28,7 +28,7 @@ requirejs(['require', 'jquery', 'p5', './midi', 'frame'], (require, $, P5, midi,
         if (location.hash.indexOf('s') > -1){
             toggleControls()
         }
-        if (location.hash.indexOf('vapor')){
+        if (location.hash.indexOf('vapor') > -1){
             c.colorUtils.getSetCurrentColorPalette(4)
         }
         if (startup >= FROM && startup <= TO) {

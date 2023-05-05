@@ -45,11 +45,6 @@ const consonants = [
 
 const cvmap = { c1: consonants, v: vowels, c2: consonants };
 
-let wordMap;
-let letterMap;
-let initMap;
-let containers;
-
 const selected = {
   c1: null,
   v: null,
@@ -59,15 +54,20 @@ const selected = {
 define(["frame", "underscore", "p5"], (c, _, p5) => {
   "use strict";
 
-  var css = `
+  let wordMap;
+  let letterMap;
+  let initMap;
+  let containers;
+
+  let css = `
     .letter { cursor: pointer; text-align: left }
     .letter .count { color: ${c.c.p[0]}; display: inline-block; width: 60px; text-align: right; }
     .letter-container { padding: 20px; width: calc( 28% - 40px ); display: inline-block; vertical-align: middle; }
     .letter:hover { color: ${c.c.p[8]}; }
-    .letter.selected { color: ${c.c.b}; background: ${c.c.p[6]}; }
-    .letter.active { color: ${c.c.p[10]}; }
+    .letter.selected .ltr{ color: ${c.c.b}; background: ${c.c.p[6]}; }
+    .letter.active .ltr{ color: ${c.c.p[10]}; background: ${c.c.p[2]}; }
   `;
-  var style = document.createElement("style");
+  let style = document.createElement("style");
 
   if (style.styleSheet) {
     style.styleSheet.cssText = css;
@@ -81,18 +81,25 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
     p.properties = _.extend({}, HunThree.prototype.properties);
 
     p.setup = async function () {
-      const words = generateAllWords();
+      const allWords = generateAllWords();
       console.log(
-        `all: ${words.length} - massal ${consonants.length} - magan ${vowels.length}`
+        `all: ${allWords.length} - massal ${consonants.length} - magan ${vowels.length}`
       );
 
-      console.log(words.join("\n"));
-
-      c.info(30, "hun3");
+      console.log(allWords.join("\n"));
 
       const hunExisting = await getJson("./desc/hun3x.json");
       const existingWordMap = {};
 
+      // Stats
+      const percent =
+        Math.round((hunExisting.length / allWords.length) * 10000) / 100;
+      c.info(
+        30,
+        `hun3 ex/all: ${hunExisting.length}/${allWords.length} = ${percent}%`
+      );
+
+      // Map
       hunExisting.forEach(({ word, is, comment }) => {
         existingWordMap[word] = { is, comment };
       });
@@ -129,7 +136,7 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
       container.classList.add("letter-container");
       cvmap[cKey].forEach((letter) => {
         const letterContainer = document.createElement("div");
-        letterContainer.innerHTML = `<span>${letter}${
+        letterContainer.innerHTML = `<span class="ltr">${letter}${
           letter.length === 1 ? "&nbsp" : ""
         }</span> <span class="count"></span>`;
         letterContainer.id = cKey + letter;
@@ -366,7 +373,6 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
       });
     });
   }
-
 
   /**
    * Does the actual highlighting of a key/set.
