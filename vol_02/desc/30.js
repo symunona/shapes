@@ -61,7 +61,7 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
 
   let css = `
     .letter { cursor: pointer; text-align: left }
-    .letter .count { color: ${c.c.p[0]}; display: inline-block; width: 60px; text-align: right; }
+    .letter .count { color: ${c.c.p[1]}; display: inline-block; width: 60px; text-align: right; }
     .letter-container { padding: 20px; width: calc( 28% - 40px ); display: inline-block; vertical-align: middle; }
     .letter:hover { color: ${c.c.p[8]}; }
     .letter.selected .ltr{ color: ${c.c.b}; background: ${c.c.p[6]}; }
