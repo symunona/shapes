@@ -123,9 +123,6 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
       letterMap = generateLetterMap();
       initMap = calculateInitMap();
       showInitMap();
-
-      p.fill('blue')
-      p.circle(40, 40, 50)
     };
   }
   HunThree.prototype.properties = {
