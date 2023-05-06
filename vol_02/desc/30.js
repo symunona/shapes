@@ -51,6 +51,8 @@ const selected = {
   c2: null,
 };
 
+const halfFont = 16
+
 define(["frame", "underscore", "p5"], (c, _, p5) => {
   "use strict";
 
@@ -58,8 +60,12 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
   let letterMap;
   let initMap;
   let containers;
+  let p;
 
   let css = `
+    #shape-main { width: ${c.w}px; font-size: ${2 * halfFont}px; position: relative; }
+    #shape-main canvas { width: ${c.w}px; position: absolute; top: 0; left: 0; z-index: 1 }
+    .all-letter-container { width: ${c.w}px; position: absolute; top: 0; left: 0; z-index: 2 }
     .letter { cursor: pointer; text-align: left }
     .letter .count { color: ${c.c.f}; display: inline-block; width: 60px; text-align: right; }
     .letter-container { padding: 20px; width: calc( 28% - 40px ); display: inline-block; vertical-align: middle; }
@@ -77,16 +83,17 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
 
   document.getElementsByTagName("head")[0].appendChild(style);
 
-  function HunThree(p) {
-    p.properties = _.extend({}, HunThree.prototype.properties);
+  function HunThree(processing) {
+    p = processing
+    processing.properties = _.extend({}, HunThree.prototype.properties);
 
-    p.setup = async function () {
+    processing.setup = async function () {
       const allWords = generateAllWords();
       console.log(
         `all: ${allWords.length} - massal ${consonants.length} - magan ${vowels.length}`
       );
 
-      console.log(allWords.join("\n"));
+      // console.log(allWords.join("\n"));
 
       const hunExisting = await getJson("./desc/hun3x.json");
       const existingWordMap = {};
@@ -116,10 +123,24 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
       letterMap = generateLetterMap();
       initMap = calculateInitMap();
       showInitMap();
+
+      p.fill('blue')
+      p.circle(40, 40, 50)
     };
   }
   HunThree.prototype.properties = {
     id: "30hun",
+    desc: `
+Three 'letter' words in Hungarian.
+Accidentally bumped into some that ended with an R
+Made me do this.
+Concepts like what a letter is melt trying to define it
+By English standards.
+${consonants.length} squared consonants
+${vowels.length} vowels
+Give us ${Math.pow(consonants.length, 2) * vowels.length} possible combinations.
+Explore!
+`,
     inputs: {},
   };
 
@@ -127,8 +148,11 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
 
   function renderDom(containers) {
     const w = document.getElementById("shape-main");
-    w.style.width = "640px";
-    w.style.fontSize = "32px";
+    // w.innerHTML = ''
+    const canvas = w.children[0]
+    const wrapper = document.createElement('div')
+    wrapper.classList.add('all-letter-container')
+    w.append(wrapper)
 
     // Render Letters DOM
     Object.keys(containers).forEach((cKey) => {
@@ -136,12 +160,12 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
       container.classList.add("letter-container");
       cvmap[cKey].forEach((letter) => {
         const letterContainer = document.createElement("div");
-        letterContainer.innerHTML = `<span class="ltr">${letter}${
-          letter.length === 1 ? "&nbsp" : ""
-        }</span> <span class="count"></span>`;
+        letterContainer.innerHTML = `<span class="ltr">${letter}${letter.length === 1 ? "&nbsp" : ""
+          }</span> <span class="count"></span>`;
         letterContainer.id = cKey + letter;
         letterContainer.classList.add("letter");
-        letterContainer.onclick = () => {
+        letterContainer.onclick = (e) => {
+          e.stopPropagation()
           if (!selected[cKey]) {
             letterContainer.classList.add("selected");
             selected[cKey] = letter;
@@ -150,9 +174,10 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
             if (selected[cKey] === letter) {
               letterContainer.classList.remove("selected");
               selected[cKey] = null;
+              p.clear(c.c.b)
             } else {
               const old = document.querySelector("#" + cKey + selected[cKey]);
-              console.log("." + cKey + selected[cKey]);
+              // console.log("." + cKey + selected[cKey]);
               old.classList.remove("selected");
               letterContainer.classList.add("selected");
               selected[cKey] = letter;
@@ -164,8 +189,12 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
         };
         container.appendChild(letterContainer);
       });
-      w.append(container);
+      wrapper.append(container);
     });
+    canvas.style.width = c.w + 'px'
+    canvas.style.height = wrapper.clientHeight + 'px'
+    w.style.height = wrapper.clientHeight + 'px';
+    p.createCanvas(c.w, wrapper.clientHeight)
   }
 
   /**
@@ -338,30 +367,31 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
     }
 
     if (selected.c1 && !selected.v && !selected.c2) {
-      highlightSet("v", letterMap.c1[selected.c1].v);
+      highlightSet("v", letterMap.c1[selected.c1].v, { key: 'c1', sound: selected.c1 });
       highlightSet("c2", letterMap.c1[selected.c1].c2);
     }
 
     if (selected.v && !selected.c1 && !selected.c2) {
-      highlightSet("c1", letterMap.v[selected.v].c1);
-      highlightSet("c2", letterMap.v[selected.v].c2);
+      highlightSet("c1", letterMap.v[selected.v].c1, { key: 'v', sound: selected.v, rev: true });
+      highlightSet("c2", letterMap.v[selected.v].c2, { key: 'v', sound: selected.v });
     }
 
     if (selected.c2 && !selected.v && !selected.c1) {
-      highlightSet("v", letterMap.c2[selected.c2].v);
+      highlightSet("v", letterMap.c2[selected.c2].v, { key: 'c2', sound: selected.c2, rev: true });
       highlightSet("c1", letterMap.c2[selected.c2].c1);
     }
 
     if (selected.c1 && selected.v && !selected.c2) {
-      highlightSet("c2", letterMap.c1[selected.c1].v[selected.v]);
+      highlightSet("c2", letterMap.c1[selected.c1].v[selected.v], { key: 'v', sound: selected.v });
     }
 
     if (selected.c1 && !selected.v && selected.c2) {
-      highlightSet("v", letterMap.c1[selected.c1].c2[selected.c2]);
+      highlightSet("v", letterMap.c1[selected.c1].c2[selected.c2], { key: 'c1', sound: selected.c1 });
+      highlightSet("v", letterMap.c1[selected.c1].c2[selected.c2], { key: 'c2', sound: selected.c2, rev: true });
     }
 
     if (!selected.c1 && selected.v && selected.c2) {
-      highlightSet("c1", letterMap.c2[selected.c2].v[selected.v]);
+      highlightSet("c1", letterMap.c2[selected.c2].v[selected.v], { key: 'v', sound: selected.v, rev: true });
     }
   }
 
@@ -380,16 +410,41 @@ define(["frame", "underscore", "p5"], (c, _, p5) => {
    * @param {Object<{Character: Object}>} set - which has the Characters as keys
    * @returns
    */
-  function highlightSet(key, set) {
+  function highlightSet(key, set, origin) {
     if (!set) {
       return;
     }
+    let originElement;
+
+    if (origin) {
+      originElement = document.querySelector(`#${origin.key}${origin.sound} .ltr`);
+    }
+
     Object.keys(set).forEach((sound) => {
       const letterContainer = document.querySelector(`#${key}${sound}`);
+      const letterWrapperC = letterContainer.children[0]
+      const counterC = letterContainer.children[1]
+
       if ((set[sound] && set[sound] === 1) || Object.keys(set[sound]).length) {
         letterContainer.classList.add("active");
-        letterContainer.children[1].innerText =
+        counterC.innerText =
           set[sound] === 1 ? "1" : Object.keys(set[sound]).length;
+
+        if (originElement) {
+          p.stroke(c.c.p[10])
+          p.fill(c.c.p[10])
+          if (origin.rev){
+            p.line(
+              originElement.offsetLeft, originElement.offsetTop + halfFont,
+              letterWrapperC.offsetLeft + letterWrapperC.offsetWidth, letterWrapperC.offsetTop + halfFont)
+            p.circle(letterWrapperC.offsetLeft + letterWrapperC.offsetWidth, letterWrapperC.offsetTop + halfFont, 5)
+          } else {
+            p.line(
+              originElement.offsetLeft + originElement.offsetWidth, originElement.offsetTop + halfFont,
+              letterWrapperC.offsetLeft, letterWrapperC.offsetTop + halfFont)
+            p.circle(letterWrapperC.offsetLeft, letterWrapperC.offsetTop + halfFont, 5)
+          }
+        }
       }
     });
   }

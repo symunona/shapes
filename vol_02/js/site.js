@@ -18,7 +18,7 @@ requirejs(['require', 'jquery', 'p5', './midi', 'frame'], (require, $, P5, midi,
     'use strict'
     const FROM = 1
     const TO = 30
-    const STARTUP = 11
+    const STARTUP = 25
 
     // Hach!
     window.p5 = P5
