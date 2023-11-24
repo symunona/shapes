@@ -28,7 +28,7 @@ pTop.sub(center)
 const cornerPoints = [pBase1, pBase2, pBase3, pTop]
 
 export default class TriPi extends Fiddle{
-
+    orbital = true
     throttle = 10
 
     lineMaterial = new LineBasicMaterial({ color: 0x00aa00 })

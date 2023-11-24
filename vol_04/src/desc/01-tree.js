@@ -6,6 +6,7 @@ import { Param } from '../lib/param.js';
 import { DEG1, getNormalOfPlain } from '../lib/utils.js';
 
 export default class Tree1 extends Fiddle{
+    orbital = true
     inputs = new Inputs({
         startPoint: new Param('startPoint', new THREE.Vector3(0, -1, 0)),
         direction: new Param('direction', new THREE.Vector3(0, 1, 0)),

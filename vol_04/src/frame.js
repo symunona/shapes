@@ -34,7 +34,7 @@ listOfFiddles.map((fileName) => {
 // document.body.appendChild(log)
 
 
-const scene = new THREE.Scene();
+let scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
 
 document.body.appendChild(renderer.domElement);
@@ -48,10 +48,9 @@ camera.position.y = 2;
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.autoRotate = true;
 
-const light = new THREE.PointLight({color: 0x404040}) // soft white light
+const light = new THREE.PointLight({ color: 0x404040 }) // soft white light
 
-light.position.set(10, 10, 10)
-scene.add(light)
+
 
 // scene.add(base(new Vector3(0, 0, 0)))
 
@@ -144,16 +143,16 @@ const shapesMidiController = new ShapesMIDIController(function (midiName, msgTyp
     }
 })
 
-function restoreMidiVariables(currentFiddle){
+function restoreMidiVariables(currentFiddle) {
     activeMidiName = shapesMidiController.lastMidiName
-    for (let i = 0; i < currentFiddle.inputs.length; i++){
+    for (let i = 0; i < currentFiddle.inputs.length; i++) {
         const actualMidiChannelToRestore = reverseTranslateMidiKnobChannel(activeMidiName, i)
-        if (actualMidiChannelToRestore === false){
+        if (actualMidiChannelToRestore === false) {
             console.warn('Channel restore error.')
             continue
         }
         const value = shapesMidiController.lastState[activeMidiName][actualMidiChannelToRestore]
-        if (value !== undefined){
+        if (value !== undefined) {
             currentFiddle.inputs.getByIndex(i).changeNormal(value / 128)
         }
     }
@@ -166,10 +165,14 @@ function rebuild() {
     console.log('Rebuilding', currentFiddle.name)
     console.warn(currentFiddle.inputs.toString())
 
+    scene.remove()
+
     if (currentMesh) {
-        scene.remove(currentMesh)
+        scene = new THREE.Scene();
+        light.position.set(10, 10, 10)
+        scene.add(light)
     }
-    currentMesh = currentFiddle.build()
+    currentMesh = currentFiddle.build(scene, camera)
     scene.add(currentMesh)
 }
 
@@ -197,18 +200,43 @@ function loadModel(FiddleInstance, fiddleName) {
     restoreMidiVariables(currentFiddle)
 
     console.log('Fiddle loaded:', fiddleName)
-    if (!loaded){
+    if (!loaded) {
         animate();
         loaded = true
     }
     return rebuild()
 }
 
+let lastPos, lastRot;
 
 function animate() {
     requestAnimationFrame(animate);
-    controls.update();
+
+    // controls.update();
     // stats.update();
+    if (currentFiddle && currentFiddle.orbital) {
+        controls.update();
+    } else {
+
+        if (lastPos && (
+            lastPos.x !== camera.position.x ||
+            lastPos.z !== camera.position.z ||
+            lastPos.y !== camera.position.y)
+        ) {
+            console.warn(camera.position)
+        }
+        lastPos = camera.position.clone()
+
+        if (lastRot && (
+            lastRot.x !== camera.rotation.x ||
+            lastRot.z !== camera.rotation.z ||
+            lastRot.y !== camera.rotation.y)
+        ) {
+            console.warn(camera.rotation)
+        }
+        lastRot = camera.rotation.clone()
+
+    }
     renderer.render(scene, camera);
 }
 
