@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "canvas": "^1.6.11",
+    "canvas": "^2.11.2",
+    "convert-svg-to-png": "^0.6.4",
     "d3": "^5.7.0",
     "d3-node": "^2.0.1",
     "d3-selection-multi": "^1.0.1",
