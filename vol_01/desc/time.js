@@ -13,7 +13,7 @@ module.exports.time = function(d, gridSizeX, gridSizeY, offset){
             const n = (y * gridSizeX) + x
             units[y][x] = n / all
             weights[y][x] = typeof(offset) === 'function' ? offset(n) :
-                Math.round(((Math.cos((2 * Math.PI / all) * n + offset) / 2) + 0.5) * 13) + 2
+                Math.round(((Math.cos((2 * Math.PI / all) * n + offset) / 2) + 0.5) * 11) + 4
         }
     }
 
@@ -42,12 +42,13 @@ module.exports.time = function(d, gridSizeX, gridSizeY, offset){
                     .attr('transform', `translate(${tx}, ${ty})`)
 
             c.append('circle')
-                .attr('r', r)
-                .attr('fill', d.c[0])
+                .attr('r', r * 0.6666)
+                .attr('class', `f-${color}`)
 
             c.append('path')
                 .attr('d', arc)
-                .attr('fill', d.c[color])
+                .attr('class', `f-${color-2}`)
+                .attr('style', 'opacity: 0.9')
         }
     }
 }
