@@ -17,7 +17,7 @@ requirejs.config({
 requirejs(['require', 'jquery', 'p5', './midi', 'frame'], (require, $, P5, midi, c)=>{
     'use strict'
     const FROM = 1
-    const TO = 30
+    const TO = 31
     const STARTUP = 25
 
     // Hach!
