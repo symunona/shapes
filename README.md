@@ -13,4 +13,4 @@ Getting rid of old habits.
 Free time.
 
 
-Here: https://symunona.github.io/shapes/
+Here: https://shapes.tmpx.space
